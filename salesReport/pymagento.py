@@ -10,7 +10,7 @@ class Magento(object):
     ''' Add default login details here if required '''
     passwd = 'aKiO2102'
     usr = 'akiokio'
-    URL = 'http://50.16.188.76//api/xmlrpc/'
+    URL = 'http://50.16.188.76/api/xmlrpc/'
     svr = ''
     token = ''
 
