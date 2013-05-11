@@ -3,7 +3,7 @@ from django.http import HttpRequest, HttpResponse, HttpResponseForbidden, HttpRe
 from salesReport.pymagento import Magento
 from salesReport.models import order, orderItem
 import csv
-
+import datetime
 def saveOrderInDatabase(o):
     print 'Saving Order: %s' % order
     #TODO
@@ -56,10 +56,18 @@ def generateCSV(orderArray):
 
 def importOrders(request):
     print('-- Start import')
+    today = datetime.datetime.now()
+    if (today.month < 10):
+        month = '0' + str(today.month)
+    else:
+        month = str(today.month)
+    today = str(today.year) + '-' + month + '-' + str(today.day)
+    print today
+
     salesReport = Magento()
     salesReport.connect()
-    orders = salesReport.listOrdersSinceStatusDate('holded', '2013-02-10') + \
-            salesReport.listOrdersSinceStatusDate('pending', '2013-02-10')
+    orders = salesReport.listOrdersSinceStatusDate('holded', today) + \
+            salesReport.listOrdersSinceStatusDate('pending', today)
     for order in orders:
         saveOrderInDatabase(order)
     csvFile = generateCSV(orders)
