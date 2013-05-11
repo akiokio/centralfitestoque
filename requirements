@@ -2,7 +2,6 @@ Django==1.5.1
 distribute==0.6.35
 magento==0.1.4
 modulegraph==0.9.1
-numpy==1.6.1
 oauthlib==0.4.0
 py2app==0.6.3
 pymagento==1.0
