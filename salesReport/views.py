@@ -44,7 +44,7 @@ def getVMD(dateStart, item, salesReport, dateRangeInit, dateEnd):
     dateRangeInDays = dateEnd - dateRangeInit
     if dateRangeInDays == 0:
         dateRangeInDays = 1
-    vmd = int(salesReport[item]['qty']) + int(salesReport[item]['qty_holded']) / dateRangeInDays.days
+    vmd = float(int(salesReport[item]['qty']) + int(salesReport[item]['qty_holded']) / dateRangeInDays.days)
     return vmd
 
 
