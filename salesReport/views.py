@@ -16,6 +16,7 @@ def saveOrderInDatabase(o):
         databaseOrder = order.objects.get(increment_id=o['increment_id'])
         print('Order in database: %s' % databaseOrder.increment_id)
     except:
+        print date(int(o['created_at'][0:4]), int(o['created_at'][6:7]), int(o['created_at'][9:10]))
         databaseOrder = order.objects.create(increment_id=o['increment_id'],
                      created_at=date(int(o['created_at'][0:4]), int(o['created_at'][6:7]), int(o['created_at'][9:10])),
                      updated_at=date(int(o['updated_at'][0:4]), int(o['updated_at'][6:7]), int(o['updated_at'][9:10])),
@@ -24,7 +25,7 @@ def saveOrderInDatabase(o):
             saveItemInDatabse(item, databaseOrder)
 
 
-def getVMD30(dateRangeInit, dateStart, item):
+def getVMD30(dateRangeInit, dateStart, item, dateEnd):
     #Generate VMD30
     totalInPeriod = 0
     dateMinus30 = dateRangeInit - timedelta(days=30)
@@ -37,24 +38,26 @@ def getVMD30(dateRangeInit, dateStart, item):
     return VMD30
 
 
-def getVMD(dateStart, item, salesReport, dateRangeInit):
+def getVMD(dateStart, item, salesReport, dateRangeInit, dateEnd):
     #Generate VMD
-    today = date.today()
-    dateRangeInDays = today - dateRangeInit
+    dateEnd = date(int(dateEnd[0:4]), int(dateEnd[6:7]), int(dateEnd[9:10]))
+    dateRangeInDays = dateEnd - dateRangeInit
+    if dateRangeInDays == 0:
+        dateRangeInDays = 1
     vmd = int(salesReport[item]['qty']) + int(salesReport[item]['qty_holded']) / dateRangeInDays.days
     return vmd
 
 
-def saveCSV(salesReport, dateStart):
+def saveCSV(salesReport, dateStart, dateEnd):
     dateRangeInit = date(int(dateStart[0:4]), int(dateStart[6:7]), int(dateStart[9:10]))
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="salesReport.csv"'
     writer = csv.writer(response)
     writer.writerow(['sku', 'name', 'brand', 'qty', 'qty_holded', 'price', 'VMD', 'VMD30'])
     for item in salesReport:
-        vmd = getVMD(dateStart, item, salesReport, dateRangeInit)
+        vmd = getVMD(dateStart, item, salesReport, dateRangeInit, dateEnd)
 
-        VMD30 = getVMD30(dateRangeInit, dateStart, item)
+        VMD30 = getVMD30(dateRangeInit, dateStart, item, dateEnd)
 
         writer.writerow([salesReport[item]['sku'], salesReport[item]['name'].encode('utf-8', 'replace')
                         , salesReport[item]['brand'].encode('utf-8', 'replace')
@@ -63,7 +66,7 @@ def saveCSV(salesReport, dateStart):
     return response
 
 
-def generateCSV(orderArray, dateStart):
+def generateCSV(orderArray, dateStart, dateEnd):
     BRANDS_ARRAY = ['Integralmédica', 'Probiótica', 'Nutrilatina', 'Neonutri', 'Midway', 'X-pharma',
                'Sundown Naturals', 'Musclemeds', 'Muscle Pharm', 'Optimum', 'Dymatize', 'Nutrex',
                'Bony Açaí', 'Pretorian', 'Nutricé', 'Rennovee', 'BNRG', 'Cytosport','MHP', 'MHP Nutrition',
@@ -120,9 +123,9 @@ def generateCSV(orderArray, dateStart):
                     salesReport[item['sku']]['qty_holded'] += 1
     print salesReport
 
-    return saveCSV(salesReport, dateStart)
+    return saveCSV(salesReport, dateStart, dateEnd)
 
-def importOrdersSinceDay(request, dateStart):
+def importOrdersSinceDay(request, dateStart, dateEnd):
     print('-- Start import')
     today = datetime.datetime.now()
     if (today.month < 10):
@@ -138,7 +141,7 @@ def importOrdersSinceDay(request, dateStart):
             salesReport.listOrdersSinceStatusDate('pending', dateStart)
     for order in orders:
         saveOrderInDatabase(order)
-    csvFile = generateCSV(orders, dateStart)
+    csvFile = generateCSV(orders, dateStart, dateEnd)
     print('-- End import')
     return csvFile
 
