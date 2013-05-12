@@ -16,8 +16,9 @@ def saveOrderInDatabase(o):
         databaseOrder = order.objects.get(increment_id=o['increment_id'])
         print('Order in database: %s' % databaseOrder.increment_id)
     except:
-        databaseOrder = order.objects.create(increment_id=o['increment_id'], created_at=o['created_at'], updated_at=o['updated_at'],
-                             grand_total=o['grand_total'], subtotal=o['subtotal'], status=o['status'])
+        databaseOrder = order.objects.create(increment_id=o['increment_id'], created_at=o['created_at'],
+                             updated_at=date(o['updated_at'][0:4], o['updated_at'][6:7], o['updated_at'][9:10]),
+                             grand_total=o['base_grand_total'], subtotal=o['base_subtotal'], status=o['status'])
         for item in o['items']:
             saveItemInDatabse(item, databaseOrder)
 
