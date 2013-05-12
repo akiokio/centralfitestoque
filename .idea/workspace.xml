@@ -14,6 +14,7 @@
     <file path="/integration.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368240972748" ignored="false" />
     <file path="/pymagento.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368381361653" ignored="false" />
     <file path="/changelog.txt" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368384598061" ignored="false" />
+    <file path="/.gitignore" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368388838305" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +57,7 @@
       <file leaf-file-name="views.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/salesReport/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="45" column="27" selection-start="2097" selection-end="2097" vertical-scroll-proportion="0.37650603">
+            <state line="43" column="45" selection-start="2040" selection-end="2040" vertical-scroll-proportion="0.28614458">
               <folding>
                 <element signature="e#24#118#0" expanded="true" />
               </folding>
@@ -93,6 +94,7 @@
         <option value="$PROJECT_DIR$/changelog.txt" />
         <option value="$PROJECT_DIR$/centralFitEstoque/urls.py" />
         <option value="$PROJECT_DIR$/salesReport/views.py" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -506,9 +508,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="17" selection-start="29" selection-end="29" vertical-scroll-proportion="0.04347826">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/salesReport/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="27" selection-start="2097" selection-end="2097" vertical-scroll-proportion="0.37650603">
+        <state line="43" column="45" selection-start="2040" selection-end="2040" vertical-scroll-proportion="0.28614458">
           <folding>
             <element signature="e#24#118#0" expanded="true" />
           </folding>
