@@ -10,9 +10,6 @@ def saveItemInDatabse(i, parentOrder):
     orderItem.objects.create(item_id=i['item_id'], product_id=i['product_id'], sku=i['sku'], name=i['name'],
                              price=i['price'], order=parentOrder)
 
-def getVMD(report):
-    pass
-
 def saveOrderInDatabase(o):
     print 'Saving Order: %s' % o['increment_id']
     try:
@@ -25,30 +22,38 @@ def saveOrderInDatabase(o):
             saveItemInDatabse(item, databaseOrder)
 
 
+def getVMD30(dateRangeInit, dateStart, item):
+    #Generate VMD30
+    totalInPeriod = 0
+    dateMinus30 = dateRangeInit - timedelta(days=30)
+    last30DaysOrders = order.objects.filter(created_at__lte=dateStart).filter(created_at__gte=dateMinus30)
+    for last30DaysOrder in last30DaysOrders:
+        for last30DaysItem in last30DaysOrder.orderItem.all():
+            if last30DaysItem.sku == item:
+                totalInPeriod += 1
+    VMD30 = totalInPeriod / 30
+    return VMD30
+
+
+def getVMD(dateStart, item, salesReport, dateRangeInit):
+    #Generate VMD
+    today = date.today()
+    dateRangeInDays = today - dateRangeInit
+    print 'Days in period: %s' % dateRangeInDays.days
+    vmd = int(salesReport[item]['qty']) + int(salesReport[item]['qty_holded']) / dateRangeInDays.days
+    return vmd
+
+
 def saveCSV(salesReport, dateStart):
+    dateRangeInit = date(int(dateStart[0:4]), int(dateStart[6:7]), int(dateStart[9:10]))
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="salesReport.csv"'
     writer = csv.writer(response)
     writer.writerow(['sku', 'name', 'brand', 'qty', 'qty_holded', 'price', 'VMD', 'VMD30'])
     for item in salesReport:
-        #Generate VMD
-        today = date.today()
-        dateRangeInit = date(int(dateStart[0:4]), int(dateStart[6:7]), int(dateStart[9:10]))
-        dateRangeInDays = today - dateRangeInit
-        print 'Days in period: %s' % dateRangeInDays.days
-        vmd = int(salesReport[item]['qty']) + int(salesReport[item]['qty_holded']) / dateRangeInDays.days
+        vmd = getVMD(dateStart, item, salesReport, dateRangeInit)
 
-        #Generate VMD30
-        totalInPeriod = 0
-        dateMinus30 = dateRangeInit - timedelta(days=30)
-        last30DaysOrders = order.objects.filter(created_at__lte=dateStart).filter(created_at__gte=dateMinus30)
-
-        for last30DaysOrder in last30DaysOrders:
-            for last30DaysItem in last30DaysOrder.orderItem.all():
-                if last30DaysItem.sku == item['sku']:
-                    totalInPeriod += 1
-
-        VMD30 = totalInPeriod / 30
+        VMD30 = getVMD30(dateRangeInit, dateStart, item)
 
         writer.writerow([salesReport[item]['sku'], salesReport[item]['name'].encode('utf-8', 'replace')
                         , salesReport[item]['brand'].encode('utf-8', 'replace')
