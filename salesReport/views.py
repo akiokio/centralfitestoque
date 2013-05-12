@@ -16,9 +16,10 @@ def saveOrderInDatabase(o):
         databaseOrder = order.objects.get(increment_id=o['increment_id'])
         print('Order in database: %s' % databaseOrder.increment_id)
     except:
-        databaseOrder = order.objects.create(increment_id=o['increment_id'], created_at=o['created_at'],
-                             updated_at=date(o['updated_at'][0:4], o['updated_at'][6:7], o['updated_at'][9:10]),
-                             grand_total=o['base_grand_total'], subtotal=o['base_subtotal'], status=o['status'])
+        databaseOrder = order.objects.create(increment_id=o['increment_id'],
+                     created_at=date(int(o['created_at'][0:4]), int(o['created_at'][6:7]), int(o['created_at'][9:10])),
+                     updated_at=date(int(o['updated_at'][0:4]), int(o['updated_at'][6:7]), int(o['updated_at'][9:10])),
+                     grand_total=o['base_grand_total'], subtotal=o['base_subtotal'], status=o['status'])
         for item in o['items']:
             saveItemInDatabse(item, databaseOrder)
 
@@ -27,7 +28,7 @@ def getVMD30(dateRangeInit, dateStart, item):
     #Generate VMD30
     totalInPeriod = 0
     dateMinus30 = dateRangeInit - timedelta(days=30)
-    last30DaysOrders = order.objects.filter(created_at__lte=dateStart).filter(created_at__gte=dateMinus30)
+    last30DaysOrders = order.objects.filter(created_at__gte=dateMinus30).filter(created_at__lte=dateRangeInit)
     for last30DaysOrder in last30DaysOrders:
         for last30DaysItem in last30DaysOrder.orderItem.all():
             if last30DaysItem.sku == item:
@@ -40,7 +41,6 @@ def getVMD(dateStart, item, salesReport, dateRangeInit):
     #Generate VMD
     today = date.today()
     dateRangeInDays = today - dateRangeInit
-    print 'Days in period: %s' % dateRangeInDays.days
     vmd = int(salesReport[item]['qty']) + int(salesReport[item]['qty_holded']) / dateRangeInDays.days
     return vmd
 
