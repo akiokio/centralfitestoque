@@ -30,6 +30,7 @@ class Magento(object):
             usr = self.usr
         if passwd == None:
             passwd = self.passwd
+        print('Connecting on: %s' % URL)
         self.svr = xmlrpclib.ServerProxy(URL)
         print passwd, usr
         self.token = self.svr.login(usr, passwd)
