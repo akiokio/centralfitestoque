@@ -128,3 +128,13 @@ class orderItem(models.Model):
 
     def __unicode__(self):
         return '%s - %s' % (self.sku , self.order.increment_id)
+
+class brands(models.Model):
+    name = models.CharField(max_length=100, primary_key=True, unique=True)
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'brands'
+        verbose_name_plural = 'brands'

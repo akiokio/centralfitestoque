@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.http import HttpRequest, HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from salesReport.pymagento import Magento
-from salesReport.models import order, orderItem
+from salesReport.models import order, orderItem, brands
 import csv
 import datetime
 from datetime import date, timedelta
@@ -67,11 +67,9 @@ def saveCSV(salesReport, dateStart, dateEnd):
 
 
 def generateCSV(orderArray, dateStart, dateEnd):
-    BRANDS_ARRAY = ['Integralmédica', 'Probiótica', 'Nutrilatina', 'Neonutri', 'Midway', 'X-pharma',
-               'Sundown Naturals', 'Musclemeds', 'Muscle Pharm', 'Optimum', 'Dymatize', 'Nutrex',
-               'Bony Açaí', 'Pretorian', 'Nutricé', 'Rennovee', 'BNRG', 'Cytosport','MHP', 'MHP Nutrition',
-               'Pretorian Hard Sports', 'Nutrilatina AGE', 'NeoNutri', 'Muscle Meds', 'Nutrilatina Rennovee',
-               'Universal Nutrition', 'Nutrilatina Mega Gym', 'Universal Nutrition']
+    BRANDS_ARRAY = []
+    for brand in brands.objects.all():
+        BRANDS_ARRAY.append(brand.name.encode('UTF-8'))
     salesReport = {}
     itemsHash = []
     for order in orderArray:
@@ -79,7 +77,7 @@ def generateCSV(orderArray, dateStart, dateEnd):
             for item in order['items']:
                 if item['sku'] not in itemsHash:
                     itemDetail = item['name'].split('-')
-                    if itemDetail[-1].strip().encode('UTF-8') not in BRANDS_ARRAY and len(itemDetail) >= 2:
+                    if itemDetail[-1].strip() not in BRANDS_ARRAY and len(itemDetail) >= 2:
                         salesReport[item['sku']] = {'sku': item['sku'],
                                                  'name': item['name'],
                                                  'brand': itemDetail[-2],
@@ -144,14 +142,3 @@ def importOrdersSinceDay(request, dateStart, dateEnd):
     csvFile = generateCSV(orders, dateStart, dateEnd)
     print('-- End import')
     return csvFile
-
-def some_view(request):
-    # Create the HttpResponse object with the appropriate CSV header.
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename="somefilename.csv"'
-
-    writer = csv.writer(response)
-    writer.writerow(['First row', 'Foo', 'Bar', 'Baz'])
-    writer.writerow(['Second row', 'A', 'B', 'C', '"Testing"', "Here's a quote"])
-
-    return response

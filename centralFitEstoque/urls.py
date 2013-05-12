@@ -16,5 +16,4 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^importOrdersSinceDay/(?P<dateStart>[\w|\W]+)/(?P<dateEnd>[\w|\W]+)', 'salesReport.views.importOrdersSinceDay', name='importOrders'),
-    url(r'^someview/(?P<dateStart>[\w|\W]+)/(?P<dateEnd>[\w|\W]+)', 'salesReport.views.some_view', name='some_view'),
 )

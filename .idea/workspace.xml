@@ -6,11 +6,11 @@
     <ignored path=".idea/workspace.xml" />
     <file path="$PROJECT_DIR$/estoque.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368237383694" ignored="false" />
     <file path="/estoque.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368237381039" ignored="false" />
-    <file path="/models.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368383754034" ignored="false" />
+    <file path="/models.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368389802484" ignored="false" />
     <file path="/settings.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368384461309" ignored="false" />
-    <file path="/views.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368388877483" ignored="false" />
+    <file path="/views.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368390115339" ignored="false" />
     <file path="/urls.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368388219074" ignored="false" />
-    <file path="/admin.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368238581347" ignored="false" />
+    <file path="/admin.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368389775449" ignored="false" />
     <file path="/integration.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368240972748" ignored="false" />
     <file path="/pymagento.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368381361653" ignored="false" />
     <file path="/changelog.txt" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368384598061" ignored="false" />
@@ -48,7 +48,7 @@
       <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/salesReport/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="33" selection-start="404" selection-end="404" vertical-scroll-proportion="0.0">
+            <state line="139" column="37" selection-start="9410" selection-end="9410" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -57,7 +57,7 @@
       <file leaf-file-name="views.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/salesReport/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="46" column="108" selection-start="2206" selection-end="2206" vertical-scroll-proportion="0.45180723">
+            <state line="71" column="54" selection-start="3318" selection-end="3318" vertical-scroll-proportion="0.35992578">
               <folding>
                 <element signature="e#24#118#0" expanded="true" />
               </folding>
@@ -68,8 +68,19 @@
       <file leaf-file-name="urls.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/centralFitEstoque/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="67" selection-start="640" selection-end="647" vertical-scroll-proportion="0.0">
+            <state line="17" column="143" selection-start="723" selection-end="723" vertical-scroll-proportion="0.0">
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="admin.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/salesReport/admin.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="7" column="26" selection-start="221" selection-end="221" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="e#47#79#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -84,16 +95,16 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/salesReport/admin.py" />
         <option value="$PROJECT_DIR$/salesReport/integration.py" />
         <option value="$PROJECT_DIR$/salesReport.csv" />
         <option value="$PROJECT_DIR$/gunicorn.conf.py" />
         <option value="$PROJECT_DIR$/salesReport/pymagento.py" />
-        <option value="$PROJECT_DIR$/salesReport/models.py" />
         <option value="$PROJECT_DIR$/centralFitEstoque/settings.py" />
         <option value="$PROJECT_DIR$/changelog.txt" />
-        <option value="$PROJECT_DIR$/centralFitEstoque/urls.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/centralFitEstoque/urls.py" />
+        <option value="$PROJECT_DIR$/salesReport/admin.py" />
+        <option value="$PROJECT_DIR$/salesReport/models.py" />
         <option value="$PROJECT_DIR$/salesReport/views.py" />
       </list>
     </option>
@@ -357,7 +368,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26721993" sideWeight="0.6431034" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35689655" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35689655" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32993197" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32413793" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -471,13 +482,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/salesReport/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="33" selection-start="404" selection-end="404" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/changelog.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="37" selection-start="37" selection-end="37" vertical-scroll-proportion="0.0">
@@ -492,6 +496,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="17" selection-start="29" selection-end="29" vertical-scroll-proportion="0.04347826">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/centralFitEstoque/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="143" selection-start="723" selection-end="723" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/salesReport/admin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="26" selection-start="221" selection-end="221" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#47#79#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/salesReport/pymagento.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="32" column="39" selection-start="812" selection-end="812" vertical-scroll-proportion="0.0">
@@ -501,23 +528,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/centralFitEstoque/urls.py">
+    <entry file="file://$PROJECT_DIR$/salesReport/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="67" selection-start="640" selection-end="647" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="17" selection-start="29" selection-end="29" vertical-scroll-proportion="0.04347826">
+        <state line="139" column="37" selection-start="9410" selection-end="9410" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/salesReport/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="108" selection-start="2206" selection-end="2206" vertical-scroll-proportion="0.45180723">
+        <state line="71" column="54" selection-start="3318" selection-end="3318" vertical-scroll-proportion="0.35992578">
           <folding>
             <element signature="e#24#118#0" expanded="true" />
           </folding>
