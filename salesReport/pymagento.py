@@ -4,13 +4,13 @@ __author__ = 'akiokio'
 import xmlrpclib
 import random
 import csv
-
+from centralFitEstoque.settings import magentoURL
 
 class Magento(object):
     ''' Add default login details here if required '''
     passwd = 'aKiO2102'
     usr = 'akiokio'
-    URL = 'http://50.16.188.76/api/xmlrpc/'
+    URL = magentoURL
     svr = ''
     token = ''
 

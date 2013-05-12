@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 
 class order(models.Model):
-    increment_id = models.CharField(max_length=500, null=True, blank=True)
+    increment_id = models.CharField(max_length=500, primary_key=True)
     parent_id = models.CharField(max_length=500, null=True, blank=True)
     store_id = models.CharField(max_length=500, null=True, blank=True)
     created_at = models.CharField(max_length=500, null=True, blank=True)
@@ -77,6 +77,9 @@ class order(models.Model):
     payment = models.CharField(max_length=500, null=True, blank=True)
     status_history = models.CharField(max_length=500, null=True, blank=True)
 
+    def __unicode__(self):
+        return '%s' % self.increment_id
+
 class orderItem(models.Model):
     item_id = models.CharField(max_length=500, null=True, blank=True)
     quote_item_id = models.CharField(max_length=500, null=True, blank=True)
@@ -122,3 +125,6 @@ class orderItem(models.Model):
     row_weight = models.CharField(max_length=500, null=True, blank=True)
 
     order = models.ForeignKey(order, related_name='orderItem')
+
+    def __unicode__(self):
+        return '%s - %s' % (self.sku , self.order.increment_id)

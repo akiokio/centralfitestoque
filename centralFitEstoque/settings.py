@@ -152,3 +152,10 @@ LOGGING = {
         },
     }
 }
+
+magentoURL = 'http://127.0.0.1/api/xmlrpc/'
+
+try:
+    from local_settings import *
+except :
+    pass
