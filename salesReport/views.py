@@ -16,10 +16,11 @@ def saveOrderInDatabase(o):
         databaseOrder = order.objects.get(increment_id=o['increment_id'])
         print('Order in database: %s' % databaseOrder.increment_id)
     except:
-        print '%s - %s - %s' % int(o['created_at'][0:4]), int(o['created_at'][6:7]), int(o['created_at'][9:10])
+        print '%s - %s - %s' % (int(o['created_at'][0:4]), int(o['created_at'][6:7]), int(o['created_at'][9:10]))
+        created_at = datetime.datetime.strptime(o['created_at'], '%Y-%m-%d')
+        updated_at = datetime.datetime.strptime(o['updated_at'], '%Y-%m-%d')
         databaseOrder = order.objects.create(increment_id=o['increment_id'],
-                     created_at=date(int(o['created_at'][0:4]), int(o['created_at'][6:7]), int(o['created_at'][9:10])),
-                     updated_at=date(int(o['updated_at'][0:4]), int(o['updated_at'][6:7]), int(o['updated_at'][9:10])),
+                     created_at=created_at,updated_at=updated_at,
                      grand_total=o['base_grand_total'], subtotal=o['base_subtotal'], status=o['status'])
         for item in o['items']:
             saveItemInDatabse(item, databaseOrder)
