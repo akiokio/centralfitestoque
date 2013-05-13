@@ -29,7 +29,6 @@ def saveOrderInDatabase(o):
 def getVMD30(dateRangeInit, dateStart, item, dateEnd, last30DaysOrders):
     print('Generate VMD30 for : %s' % item)
     totalInPeriod = 0
-    dateMinus30 = dateRangeInit - timedelta(days=30)
     for last30DaysOrder in last30DaysOrders:
         for last30DaysItem in last30DaysOrder.orderItem.all():
             if last30DaysItem.sku == item:
@@ -56,6 +55,7 @@ def saveCSV(salesReport, dateStart, dateEnd):
     response['Content-Disposition'] = 'attachment; filename="salesReport.csv"'
     writer = csv.writer(response)
     writer.writerow(['sku', 'name', 'brand', 'qty', 'qty_holded', 'price', 'VMD', 'VMD30'])
+    dateMinus30 = dateRangeInit - timedelta(days=30)
     last30DaysOrders = order.objects.filter(created_at__gte=dateMinus30).filter(created_at__lte=dateRangeInit)
     for item in salesReport:
         vmd = getVMD(dateStart, item, salesReport, dateRangeInit, dateEnd)
