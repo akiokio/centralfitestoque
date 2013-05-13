@@ -60,12 +60,12 @@ def saveCSV(salesReport, dateStart, dateEnd):
     for item in salesReport:
         vmd = getVMD(dateStart, item, salesReport, dateRangeInit, dateEnd)
 
-        VMD30 = getVMD30(dateRangeInit, dateStart, item, dateEnd, last30DaysOrders)
+        # VMD30 = getVMD30(dateRangeInit, dateStart, item, dateEnd, last30DaysOrders)
 
         writer.writerow([salesReport[item]['sku'], salesReport[item]['name'].encode('utf-8', 'replace')
                         , salesReport[item]['brand'].encode('utf-8', 'replace')
                         , salesReport[item]['qty'], salesReport[item]['qty_holded']
-                        , salesReport[item]['price'], vmd, VMD30])
+                        , salesReport[item]['price'], vmd])
     return response
 
 
