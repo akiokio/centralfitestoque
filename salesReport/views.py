@@ -16,7 +16,7 @@ def saveOrderInDatabase(o):
         databaseOrder = order.objects.get(increment_id=o['increment_id'])
         print('Order in database: %s' % databaseOrder.increment_id)
     except:
-        print '%s - %s - %s' % (int(o['created_at'][0:4]), int(o['created_at'][6:7]), int(o['created_at'][9:10]))
+        print '%s - %s - %s' % (int(o['created_at'][0:4]), int(o['created_at'][5:7]), int(o['created_at'][8:10]))
         created_at = datetime.datetime.strptime(o['created_at'].split(' ')[0], '%Y-%m-%d')
         updated_at = datetime.datetime.strptime(o['updated_at'].split(' ')[0], '%Y-%m-%d')
         databaseOrder = order.objects.create(increment_id=o['increment_id'],
@@ -41,7 +41,7 @@ def getVMD30(dateRangeInit, dateStart, item, dateEnd):
 
 def getVMD(dateStart, item, salesReport, dateRangeInit, dateEnd):
     #Generate VMD
-    dateEnd = date(int(dateEnd[0:4]), int(dateEnd[6:7]), int(dateEnd[9:10]))
+    dateEnd = date(int(dateEnd[0:4]), int(dateEnd[5:7]), int(dateEnd[8:10]))
     dateRangeInDays = dateEnd - dateRangeInit
     if dateRangeInDays.days == 0:
         vmd = float(int(salesReport[item]['qty']) + int(salesReport[item]['qty_holded']) / 1)
@@ -51,7 +51,7 @@ def getVMD(dateStart, item, salesReport, dateRangeInit, dateEnd):
 
 
 def saveCSV(salesReport, dateStart, dateEnd):
-    dateRangeInit = date(int(dateStart[0:4]), int(dateStart[6:7]), int(dateStart[9:10]))
+    dateRangeInit = date(int(dateStart[0:4]), int(dateStart[5:7]), int(dateStart[8:10]))
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="salesReport.csv"'
     writer = csv.writer(response)
@@ -127,18 +127,10 @@ def generateCSV(orderArray, dateStart, dateEnd):
 
 def importOrdersSinceDay(request, dateStart, dateEnd):
     print('-- Start import')
-    today = datetime.datetime.now()
-    if (today.month < 10):
-        month = '0' + str(today.month)
-    else:
-        month = str(today.month)
-    today = str(today.year) + '-' + month + '-' + str(today.day)
-    print today
-
     salesReport = Magento()
     salesReport.connect()
-    orders = salesReport.listOrdersSinceStatusDate('holded', dateStart) + \
-            salesReport.listOrdersSinceStatusDate('pending', dateStart)
+    orders = salesReport.listOrdersSinceStatusDate('holded', dateStart, dateEnd) + \
+            salesReport.listOrdersSinceStatusDate('pending', dateStart, dateEnd)
     for order in orders:
         saveOrderInDatabase(order)
     csvFile = generateCSV(orders, dateStart, dateEnd)

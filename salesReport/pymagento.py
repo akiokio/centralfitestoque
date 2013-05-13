@@ -60,12 +60,15 @@ class Magento(object):
             info = self.svr.call(self.token, 'sales_order.info', [order['increment_id']])
             print info
 
-    def listOrdersSinceStatusDate(self, status, orderdate):
+    def listOrdersSinceStatusDate(self, status, orderdate, orderdateend):
         print('Starting get orders...')
         orderList = []
-        filter = [{"created_at": {"gt": orderdate}, "status": {"eq": status}}]
-        orders = self.svr.call(self.token, 'sales_order.list', filter)
+        filter = [{"created_at": {"from": orderdate}, "status": {"eq": status}}]
+        complex_filter = [{"created_at": {"from": orderdate, 'to': orderdateend + ' 23:59:59'}, "status": {"eq": status}}]
+        orders = self.svr.call(self.token, 'sales_order.list', complex_filter)
+        print '%s orders recovered' % len(orders)
         for order in orders:
+            print('Getting order info: %s - created at: %s' % (order['increment_id'], order['created_at']))
             info = self.svr.call(self.token, 'sales_order.info', [order['increment_id']])
             orderList.append(info)
         print('End get orders...')
