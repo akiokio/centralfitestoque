@@ -8,7 +8,7 @@
     <file path="/estoque.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368237381039" ignored="false" />
     <file path="/models.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368389802484" ignored="false" />
     <file path="/settings.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368384461309" ignored="false" />
-    <file path="/views.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368409073437" ignored="false" />
+    <file path="/views.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368409936635" ignored="false" />
     <file path="/urls.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368388219074" ignored="false" />
     <file path="/admin.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368409725838" ignored="false" />
     <file path="/integration.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368240972748" ignored="false" />
@@ -58,13 +58,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="views.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/salesReport/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="45" column="33" selection-start="2103" selection-end="2103" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="e#24#118#0" expanded="true" />
-              </folding>
+            <state line="4" column="10" selection-start="227" selection-end="227" vertical-scroll-proportion="-0.5851064">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -78,10 +76,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="admin.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="admin.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/salesReport/admin.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="41" selection-start="289" selection-end="289" vertical-scroll-proportion="0.18197574">
+            <state line="7" column="41" selection-start="289" selection-end="289" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="e#47#79#0" expanded="true" />
               </folding>
@@ -108,8 +106,8 @@
         <option value="$PROJECT_DIR$/salesReport/models.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/salesReport/pymagento.py" />
-        <option value="$PROJECT_DIR$/salesReport/views.py" />
         <option value="$PROJECT_DIR$/salesReport/admin.py" />
+        <option value="$PROJECT_DIR$/salesReport/views.py" />
       </list>
     </option>
   </component>
@@ -548,15 +546,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/salesReport/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="33" selection-start="2103" selection-end="2103" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#24#118#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/salesReport/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="16" column="15" selection-start="894" selection-end="905" vertical-scroll-proportion="0.0">
@@ -566,10 +555,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/salesReport/admin.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="41" selection-start="289" selection-end="289" vertical-scroll-proportion="0.18197574">
+        <state line="7" column="41" selection-start="289" selection-end="289" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="e#47#79#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/salesReport/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="10" selection-start="227" selection-end="227" vertical-scroll-proportion="-0.5851064">
+          <folding />
         </state>
       </provider>
     </entry>

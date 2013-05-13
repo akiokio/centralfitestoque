@@ -27,7 +27,7 @@ def saveOrderInDatabase(o):
 
 
 def getVMD30(dateRangeInit, dateStart, item, dateEnd):
-    #Generate VMD30
+    print('Generate VMD30 for : %s' % item)
     totalInPeriod = 0
     dateMinus30 = dateRangeInit - timedelta(days=30)
     last30DaysOrders = order.objects.filter(created_at__gte=dateMinus30).filter(created_at__lte=dateRangeInit)
@@ -40,7 +40,7 @@ def getVMD30(dateRangeInit, dateStart, item, dateEnd):
 
 
 def getVMD(dateStart, item, salesReport, dateRangeInit, dateEnd):
-    #Generate VMD
+    print('Generate VMD for : %s' % item)
     dateEnd = date(int(dateEnd[0:4]), int(dateEnd[5:7]), int(dateEnd[8:10]))
     dateRangeInDays = dateEnd - dateRangeInit
     if dateRangeInDays.days == 0:
@@ -51,6 +51,7 @@ def getVMD(dateStart, item, salesReport, dateRangeInit, dateEnd):
 
 
 def saveCSV(salesReport, dateStart, dateEnd):
+    print('Saving CSV File')
     dateRangeInit = date(int(dateStart[0:4]), int(dateStart[5:7]), int(dateStart[8:10]))
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="salesReport.csv"'
@@ -121,7 +122,6 @@ def generateCSV(orderArray, dateStart, dateEnd):
                     itemsHash.append(item['sku'])
                 else:
                     salesReportDict[item['sku']]['qty_holded'] += 1
-    print salesReportDict
 
     return saveCSV(salesReportDict, dateStart, dateEnd)
 
