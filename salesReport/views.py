@@ -130,7 +130,7 @@ def importOrdersSinceDay(request, dateStart, dateEnd):
     salesReport = Magento()
     salesReport.connect()
     orders = salesReport.listOrdersSinceStatusDate('holded', dateStart, dateEnd) + \
-            salesReport.listOrdersSinceStatusDate('pending', dateStart, dateEnd)
+            salesReport.listOrdersSinceStatusDate('processing', dateStart, dateEnd)
     for order in orders:
         saveOrderInDatabase(order)
     csvFile = generateCSV(orders, dateStart, dateEnd)
