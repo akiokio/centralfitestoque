@@ -72,15 +72,15 @@ def generateCSV(orderArray, dateStart, dateEnd):
     BRANDS_ARRAY = []
     for brand in brands.objects.all():
         BRANDS_ARRAY.append(brand.name.encode('UTF-8'))
-    salesReport = {}
+    salesReportDict = {}
     itemsHash = []
     for order in orderArray:
-        if order['status'] == 'pending':
+        if order['status'] == 'processing':
             for item in order['items']:
                 if item['sku'] not in itemsHash:
                     itemDetail = item['name'].split('-')
                     if itemDetail[-1].strip() not in BRANDS_ARRAY and len(itemDetail) >= 2:
-                        salesReport[item['sku']] = {'sku': item['sku'],
+                        salesReportDict[item['sku']] = {'sku': item['sku'],
                                                  'name': item['name'],
                                                  'brand': itemDetail[-2],
                                                  'qty': 1,
@@ -88,7 +88,7 @@ def generateCSV(orderArray, dateStart, dateEnd):
                                                  'price': item['price'],
                         }
                     else:
-                        salesReport[item['sku']] = {'sku': item['sku'],
+                        salesReportDict[item['sku']] = {'sku': item['sku'],
                                                  'name': item['name'],
                                                  'brand': itemDetail[-1],
                                                  'qty': 1,
@@ -97,13 +97,13 @@ def generateCSV(orderArray, dateStart, dateEnd):
                         }
                     itemsHash.append(item['sku'])
                 else:
-                    salesReport[item['sku']]['qty'] += 1
+                    salesReportDict[item['sku']]['qty'] += 1
         elif order['status'] == 'holded':
             for item in order['items']:
                 if item['sku'] not in itemsHash:
                     itemDetail = item['name'].split('-')
                     if itemDetail[-1].strip().encode('UTF-8') not in BRANDS_ARRAY and len(itemDetail) >= 2:
-                        salesReport[item['sku']] = {'sku': item['sku'],
+                        salesReportDict[item['sku']] = {'sku': item['sku'],
                                                  'name': item['name'],
                                                  'brand': itemDetail[-2],
                                                  'qty': 0,
@@ -111,7 +111,7 @@ def generateCSV(orderArray, dateStart, dateEnd):
                                                  'price': item['price'],
                         }
                     else:
-                        salesReport[item['sku']] = {'sku': item['sku'],
+                        salesReportDict[item['sku']] = {'sku': item['sku'],
                                                  'name': item['name'],
                                                  'brand': itemDetail[-1],
                                                  'qty': 0,
@@ -120,10 +120,10 @@ def generateCSV(orderArray, dateStart, dateEnd):
                         }
                     itemsHash.append(item['sku'])
                 else:
-                    salesReport[item['sku']]['qty_holded'] += 1
-    print salesReport
+                    salesReportDict[item['sku']]['qty_holded'] += 1
+    print salesReportDict
 
-    return saveCSV(salesReport, dateStart, dateEnd)
+    return saveCSV(salesReportDict, dateStart, dateEnd)
 
 def importOrdersSinceDay(request, dateStart, dateEnd):
     print('-- Start import')
