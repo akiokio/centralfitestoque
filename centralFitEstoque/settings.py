@@ -162,3 +162,5 @@ try:
     from local_settings import *
 except :
     pass
+
+GRAPPELLI_ADMIN_TITLE = 'Centralfit - Sales Report'
