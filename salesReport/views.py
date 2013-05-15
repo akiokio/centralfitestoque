@@ -64,10 +64,16 @@ def generateCSV(orderArray, dateStart, dateEnd, itemsHash, productList):
     for order in orderArray:
         if order['status'] == 'processing':
             for item in order['items']:
-                productList[itemsHash.index(item['sku'])][4] += 1
+                try:
+                    productList[itemsHash.index(item['sku'])][4] += 1
+                except:
+                    pass
         elif order['status'] == 'holded':
             for item in order['items']:
-                productList[itemsHash.index(item['sku'])][5] += 1
+                try:
+                    productList[itemsHash.index(item['sku'])][5] += 1
+                except:
+                    pass
 
     return saveCSV(productList, dateStart, dateEnd)
 
@@ -76,7 +82,6 @@ def getBrand(item, BRANDS_ARRAY):
     if itemDetail[-1].strip().encode('UTF-8') not in BRANDS_ARRAY and len(itemDetail) >= 2:
         #Case X-Pharma
         testString = itemDetail[-2] + '-' + itemDetail[-1]
-        print testString.encode('utf-8').strip()
         if testString.encode('utf-8').strip() == 'X-Pharma' or testString.encode('utf-8').strip() == 'X-pharma':
             return testString
         return itemDetail[-2]
