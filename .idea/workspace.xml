@@ -52,13 +52,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/salesReport/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="80" column="0" selection-start="3547" selection-end="3547" vertical-scroll-proportion="0.33208954">
+            <state line="80" column="0" selection-start="3547" selection-end="3547" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="e#24#118#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="3" column="5" selection-start="41" selection-end="41" vertical-scroll-proportion="0.16791044">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -467,11 +476,6 @@
         <state line="34" column="0" selection-start="1178" selection-end="1178" vertical-scroll-proportion="0.65217394" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="5" selection-start="41" selection-end="41" vertical-scroll-proportion="0.13975155" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/env/lib/python2.7/site-packages/django/utils/autoreload.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="93" column="0" selection-start="3701" selection-end="3701" vertical-scroll-proportion="0.33333334" />
@@ -536,10 +540,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/salesReport/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="80" column="0" selection-start="3547" selection-end="3547" vertical-scroll-proportion="0.33208954">
+        <state line="80" column="0" selection-start="3547" selection-end="3547" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="e#24#118#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="5" selection-start="41" selection-end="41" vertical-scroll-proportion="0.16791044">
+          <folding />
         </state>
       </provider>
     </entry>
