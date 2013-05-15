@@ -8,7 +8,7 @@
     <file path="/estoque.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368237381039" ignored="false" />
     <file path="/models.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368389802484" ignored="false" />
     <file path="/settings.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368588391406" ignored="false" />
-    <file path="/views.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368592648332" ignored="false" />
+    <file path="/views.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368595000989" ignored="false" />
     <file path="/urls.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368503744460" ignored="false" />
     <file path="/admin.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368590366191" ignored="false" />
     <file path="/integration.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368240972748" ignored="false" />
@@ -55,7 +55,7 @@
       <file leaf-file-name="views.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/salesReport/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="35" selection-start="1596" selection-end="1596" vertical-scroll-proportion="0.4402985">
+            <state line="80" column="0" selection-start="3547" selection-end="3547" vertical-scroll-proportion="0.33208954">
               <folding>
                 <element signature="e#24#118#0" expanded="true" />
               </folding>
@@ -443,7 +443,7 @@
           <line>63</line>
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="46" />
+      <option name="time" value="49" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -536,7 +536,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/salesReport/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="35" selection-start="1596" selection-end="1596" vertical-scroll-proportion="0.4402985">
+        <state line="80" column="0" selection-start="3547" selection-end="3547" vertical-scroll-proportion="0.33208954">
           <folding>
             <element signature="e#24#118#0" expanded="true" />
           </folding>
