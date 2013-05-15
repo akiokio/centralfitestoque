@@ -1,4 +1,4 @@
-V - 0.5: Add VMD30 new logic
+V - 0.5: Add VMD30 new logic, hot-fix for X-Pharma
 V - 0.4: Change main logic, salas report turn to array, add admin pages
 V - 0.3: Add VMD, Add VMD30, bugfixes
 V - 0.2: Add filter by date, Add save order to database, Add admin page

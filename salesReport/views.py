@@ -76,8 +76,8 @@ def getBrand(item, BRANDS_ARRAY):
     if itemDetail[-1].strip().encode('UTF-8') not in BRANDS_ARRAY and len(itemDetail) >= 2:
         #Case X-Pharma
         testString = itemDetail[-2] + '-' + itemDetail[-1]
-        print testString.strip()
-        if testString.strip() == 'X-Pharma':
+        print testString.encode('utf-8').strip
+        if testString.encode('utf-8').strip == 'X-Pharma' or testString.encode('utf-8').strip == 'X-pharma':
             return testString
         return itemDetail[-2]
     else:
