@@ -8,7 +8,7 @@ from datetime import date, timedelta
 
 def saveItemInDatabse(i, parentOrder):
     orderItem.objects.create(item_id=i['item_id'], product_id=i['product_id'], sku=i['sku'], name=i['name'],
-                             price=i['price'], order=parentOrder)
+                             price=i['price'], order=parentOrder, created_at=parentOrder.created_at)
 
 def saveOrderInDatabase(o):
     print 'Saving Order: %s' % o['increment_id']
@@ -26,21 +26,13 @@ def saveOrderInDatabase(o):
             saveItemInDatabse(item, databaseOrder)
 
 
-def getVMD30(dateRangeInit, dateStart, item, dateEnd, last30DaysOrders):
-    print('Generate VMD30 for : %s' % item)
-    totalInPeriod = 0
-    for last30DaysOrder in last30DaysOrders:
-        for last30DaysItem in last30DaysOrder.orderItem.all():
-            if last30DaysItem.sku == item:
-                totalInPeriod += 1
-    VMD30 = totalInPeriod / 30
-    return VMD30
+def getVMD30(item, dateMinus30, dateRangeEnd):
+    totalInPeriod = orderItem.objects.filter(sku=item[0]).filter(created_at__range=[dateMinus30, dateRangeEnd])
+    vmd30 = len(totalInPeriod) / 30
+    return vmd30
 
 
-def getVMD(item, dateRangeInit, dateEnd):
-    print('Generate VMD for : %s' % item)
-    dateEnd = date(int(dateEnd[0:4]), int(dateEnd[5:7]), int(dateEnd[8:10]))
-    dateRangeInDays = dateEnd - dateRangeInit
+def getVMD(item, dateRangeInDays):
     if dateRangeInDays.days == 0:
         vmd = float(item[4] + item[5] / 1)
     else:
@@ -51,19 +43,20 @@ def getVMD(item, dateRangeInit, dateEnd):
 def saveCSV(productList, dateStart, dateEnd):
     print('Saving CSV File')
     dateRangeInit = date(int(dateStart[0:4]), int(dateStart[5:7]), int(dateStart[8:10]))
+    dateRangeEnd = date(int(dateEnd[0:4]), int(dateEnd[5:7]), int(dateEnd[8:10]))
+    dateRangeInDays = dateRangeEnd - dateRangeInit
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="salesReport.csv"'
     writer = csv.writer(response)
     writer.writerow(['sku', 'name', 'brand', 'price', 'qty', 'qty_holded', 'VMD', 'VMD30'])
-    dateMinus30 = dateRangeInit - timedelta(days=30)
-    last30DaysOrders = order.objects.filter(created_at__gte=dateMinus30).filter(created_at__lte=dateRangeInit)
+    dateMinus30 = dateRangeEnd - timedelta(days=30)
     for item in productList:
-        vmd = getVMD(item, dateRangeInit, dateEnd)
+        vmd = getVMD(item, dateRangeInDays)
 
-        # VMD30 = getVMD30(dateRangeInit, dateStart, item, dateEnd, last30DaysOrders)
+        VMD30 = getVMD30(item, dateMinus30, dateRangeEnd)
 
         writer.writerow([item[0].encode('UTF-8'), item[1].encode('utf-8', 'replace'), item[2].encode('utf-8', 'replace')
-                        , item[3], item[4], item[5], vmd])
+                        , item[3], item[4], item[5], vmd, VMD30])
     return response
 
 
@@ -81,6 +74,10 @@ def generateCSV(orderArray, dateStart, dateEnd, itemsHash, productList):
 def getBrand(item, BRANDS_ARRAY):
     itemDetail = item['name'].split('-')
     if itemDetail[-1].strip().encode('UTF-8') not in BRANDS_ARRAY and len(itemDetail) >= 2:
+        #Case X-Pharma
+        testString = itemDetail[-1] + '-' + itemDetail[-2]
+        if testString == 'X-Pharma':
+            return testString
         return itemDetail[-2]
     else:
         return itemDetail[-1]

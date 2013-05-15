@@ -156,7 +156,7 @@ LOGGING = {
     }
 }
 
-magentoURL = 'http://127.0.0.1/api/xmlrpc/'
+magentoURL = 'http://www.centralfit.com.br/api/xmlrpc/'
 
 try:
     from local_settings import *

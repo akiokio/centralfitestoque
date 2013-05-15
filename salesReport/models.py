@@ -22,8 +22,8 @@ class order(models.Model):
 
 class orderItem(models.Model):
     item_id = models.CharField(max_length=500, null=True, blank=True)
-    created_at = models.CharField(max_length=500, null=True, blank=True)
-    updated_at = models.CharField(max_length=500, null=True, blank=True)
+    created_at = models.DateField(max_length=500, null=True, blank=True)
+    updated_at = models.DateField(max_length=500, null=True, blank=True)
     product_id = models.CharField(max_length=500, null=True, blank=True)
     weight = models.CharField(max_length=500, null=True, blank=True)
     sku = models.CharField(max_length=500, null=True, blank=True)
