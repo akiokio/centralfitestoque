@@ -49,7 +49,7 @@ def saveCSV(productList, dateStart, dateEnd):
     response['Content-Disposition'] = 'attachment; filename="salesReport.csv"'
     writer = csv.writer(response)
     writer.writerow(['sku', 'name', 'brand', 'price', 'qty', 'qty_holded', 'VMD', 'VMD30',
-                     'qty_complete', 'qty_fraud', 'qty_fraud2', 'complete2'])
+                     'qty_complete', 'qty_fraud', 'qty_fraud2', 'qty_complete2'])
     dateMinus30 = dateRangeEnd - timedelta(days=30)
     for item in productList:
         vmd = getVMD(item, dateRangeInDays)
