@@ -1,3 +1,4 @@
+V - 0.6: Add colums, complete, fraud and fraud2. New logic for this new items
 V - 0.5: Add VMD30 new logic, hot-fix for X-Pharma
 V - 0.4: Change main logic, salas report turn to array, add admin pages
 V - 0.3: Add VMD, Add VMD30, bugfixes

@@ -34,9 +34,9 @@ def getVMD30(item, dateMinus30, dateRangeEnd):
 
 def getVMD(item, dateRangeInDays):
     if dateRangeInDays.days == 0:
-        vmd = float(item[4] + item[5] + item[6] + item[7] + item[8] / 1)
+        vmd = float(item[4] + item[5] + item[6] + item[7] + item[8] + item[9] / 1)
     else:
-        vmd = float(item[4] + item[5] + item[6] + item[7] + item[8] / dateRangeInDays.days)
+        vmd = float(item[4] + item[5] + item[6] + item[7] + item[8] + item[9] / dateRangeInDays.days)
     return vmd
 
 
@@ -57,7 +57,7 @@ def saveCSV(productList, dateStart, dateEnd):
         VMD30 = getVMD30(item, dateMinus30, dateRangeEnd)
 
         writer.writerow([item[0].encode('UTF-8'), item[1].encode('utf-8', 'replace'), item[2].encode('utf-8', 'replace')
-                        , item[3], item[4], item[5], vmd, VMD30, item[6], item[7], item[8]])
+                        , item[3], item[4], item[5], vmd, VMD30, item[6], item[7], item[8], item[9]])
     return response
 
 
@@ -93,6 +93,12 @@ def generateCSV(orderArray, dateStart, dateEnd, itemsHash, productList):
                     productList[itemsHash.index(item['sku'])][8] += 1
                 except:
                     pass
+        elif order['status'] == 'complete2':
+            for item in order['items']:
+                try:
+                    productList[itemsHash.index(item['sku'])][9] += 1
+                except:
+                    pass
 
     return saveCSV(productList, dateStart, dateEnd)
 
@@ -115,7 +121,8 @@ def importOrdersSinceDay(request, dateStart, dateEnd):
             salesReport.listOrdersSinceStatusDate('processing', dateStart, dateEnd) + \
             salesReport.listOrdersSinceStatusDate('complete', dateStart, dateEnd) + \
             salesReport.listOrdersSinceStatusDate('fraud', dateStart, dateEnd) + \
-            salesReport.listOrdersSinceStatusDate('fraud2', dateStart, dateEnd)
+            salesReport.listOrdersSinceStatusDate('fraud2', dateStart, dateEnd) + \
+            salesReport.listOrdersSinceStatusDate('complete2', dateStart, dateEnd)
 
     itemsHash = []
     productList = []
@@ -126,7 +133,7 @@ def importOrdersSinceDay(request, dateStart, dateEnd):
 
     for product in salesReport.getProductArray():
         itemsHash.append(product['sku'])
-        productList.append([product['sku'], product['name'], getBrand(product, BRANDS_ARRAY), product['price'], 0, 0, 0, 0, 0])
+        productList.append([product['sku'], product['name'], getBrand(product, BRANDS_ARRAY), product['price'], 0, 0, 0, 0, 0, 0])
 
     for order in orders:
         saveOrderInDatabase(order)
