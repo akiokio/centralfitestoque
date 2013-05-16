@@ -61,9 +61,8 @@ class Magento(object):
             print info
 
     def listOrdersSinceStatusDate(self, status, orderdate, orderdateend):
-        print('Starting get orders...')
+        print('Starting get orders: %s' % status)
         orderList = []
-        filter = [{"created_at": {"from": orderdate}, "status": {"eq": status}}]
         complex_filter = [{"created_at": {"from": orderdate, 'to': orderdateend + ' 23:59:59'}, "status": {"eq": status}}]
         orders = self.svr.call(self.token, 'sales_order.list', complex_filter)
         print '%s orders recovered' % len(orders)
