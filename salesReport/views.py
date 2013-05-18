@@ -28,15 +28,15 @@ def saveOrderInDatabase(o):
 
 def getVMD30(item, dateMinus30, dateRangeEnd):
     totalInPeriod = orderItem.objects.filter(sku=item[0]).filter(created_at__range=[dateMinus30, dateRangeEnd])
-    vmd30 = len(totalInPeriod) / 30
+    vmd30 = float(len(totalInPeriod) / 30.0)
     return vmd30
 
 
 def getVMD(item, dateRangeInDays):
-    if dateRangeInDays.days == 0:
-        vmd = float(item[4] + item[5] + item[6] + item[7] + item[8] + item[9] / 1)
+    if dateRangeInDays.days == 0.0:
+        vmd = float(item[4] + item[5] + item[6] + item[7] + item[8] + item[9] / 1.0)
     else:
-        vmd = float(item[4] + item[5] + item[6] + item[7] + item[8] + item[9] / dateRangeInDays.days)
+        vmd = float(item[4] + item[5] + item[6] + item[7] + item[8] + item[9] / float(dateRangeInDays.days))
     return vmd
 
 
@@ -108,10 +108,10 @@ def getBrand(item, BRANDS_ARRAY):
         #Case X-Pharma
         testString = itemDetail[-2] + '-' + itemDetail[-1]
         if testString.encode('utf-8').strip() == 'X-Pharma' or testString.encode('utf-8').strip() == 'X-pharma':
-            return testString
-        return itemDetail[-2]
+            return testString.strip()
+        return itemDetail[-2].strip()
     else:
-        return itemDetail[-1]
+        return itemDetail[-1].strip()
 
 def importOrdersSinceDay(request, dateStart, dateEnd):
     print('-- Start import')
