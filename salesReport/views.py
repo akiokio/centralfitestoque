@@ -25,6 +25,10 @@ def saveOrderInDatabase(o):
         for item in o['items']:
             saveItemInDatabse(item, databaseOrder)
 
+def getQtyHolded(item, dateEnd):
+    dateStart = dateEnd - timedelta(days=7)
+    totalInPeriod = orderItem.objects.filter(sku=item[0]).filter(created_at__range=[dateStart, dateEnd]).filter(order__status='holded')
+    return len(totalInPeriod)
 
 def getVMD30(item, dateMinus30, dateRangeEnd):
     totalInPeriod = orderItem.objects.filter(sku=item[0]).filter(created_at__range=[dateMinus30, dateRangeEnd])
@@ -52,14 +56,15 @@ def saveCSV(productList, dateStart, dateEnd):
                      'qty_complete', 'qty_fraud', 'qty_fraud2', 'qty_complete2'])
     dateMinus30 = dateRangeEnd - timedelta(days=30)
     for item in productList:
+        qtd_holded = getQtyHolded(item, dateRangeEnd)
+
         vmd = getVMD(item, dateRangeInDays)
 
         VMD30 = getVMD30(item, dateMinus30, dateRangeEnd)
 
         writer.writerow([item[0].encode('UTF-8'), item[1].encode('utf-8', 'replace'), item[2].encode('utf-8', 'replace')
-                        , item[3], item[4], item[5], vmd, VMD30, item[6], item[7], item[8], item[9]])
+                        , item[3], item[4], qtd_holded, vmd, VMD30, item[6], item[7], item[8], item[9]])
     return response
-
 
 def generateCSV(orderArray, dateStart, dateEnd, itemsHash, productList):
     for order in orderArray:
@@ -133,7 +138,10 @@ def importOrdersSinceDay(request, dateStart, dateEnd):
 
     for product in salesReport.getProductArray():
         itemsHash.append(product['sku'])
-        productList.append([product['sku'], product['name'], getBrand(product, BRANDS_ARRAY), product['price'], 0, 0, 0, 0, 0, 0])
+        if product['type'] == 'simple':
+            productList.append([product['sku'], product['name'], getBrand(product, BRANDS_ARRAY), product['special_price'], 0, 0, 0, 0, 0, 0])
+        else:
+            productList.append([product['sku'], product['name'], getBrand(product, BRANDS_ARRAY), product['price'], 0, 0, 0, 0, 0, 0])
 
     for order in orders:
         saveOrderInDatabase(order)
