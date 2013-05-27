@@ -1,3 +1,4 @@
+V - 0.9: Fix special prize logic, add column status
 V - 0.8: Change qty_holded method and logic, change price and special price
 V - 0.7: Add float values to vmd and vmd30
 V - 0.6: Add colums, complete, fraud and fraud2. New logic for this new items

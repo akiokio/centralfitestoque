@@ -138,7 +138,6 @@ def importOrdersSinceDay(request, dateStart, dateEnd):
 
     for product in salesReport.getProductArray():
         itemsHash.append(product['sku'])
-        print'%s - %s - %s' % (product['sku'],  product['price'], product['special_price'])
         if product['status'] == '1':
             status = 'Enable'
         else:
