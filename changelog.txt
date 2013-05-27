@@ -1,3 +1,4 @@
+V - 0.8: Change qty_holded method and logic, change price and special price
 V - 0.7: Add float values to vmd and vmd30
 V - 0.6: Add colums, complete, fraud and fraud2. New logic for this new items
 V - 0.5: Add VMD30 new logic, hot-fix for X-Pharma

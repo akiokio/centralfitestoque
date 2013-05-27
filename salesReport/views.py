@@ -53,7 +53,7 @@ def saveCSV(productList, dateStart, dateEnd):
     response['Content-Disposition'] = 'attachment; filename="salesReport.csv"'
     writer = csv.writer(response)
     writer.writerow(['sku', 'name', 'brand', 'price', 'qty', 'qty_holded', 'VMD', 'VMD30',
-                     'qty_complete', 'qty_fraud', 'qty_fraud2', 'qty_complete2'])
+                     'qty_complete', 'qty_fraud', 'qty_fraud2', 'qty_complete2', 'status'])
     dateMinus30 = dateRangeEnd - timedelta(days=30)
     for item in productList:
         qtd_holded = getQtyHolded(item, dateRangeEnd)
@@ -63,7 +63,7 @@ def saveCSV(productList, dateStart, dateEnd):
         VMD30 = getVMD30(item, dateMinus30, dateRangeEnd)
 
         writer.writerow([item[0].encode('UTF-8'), item[1].encode('utf-8', 'replace'), item[2].encode('utf-8', 'replace')
-                        , item[3], item[4], qtd_holded, vmd, VMD30, item[6], item[7], item[8], item[9]])
+                        , item[3], item[4], qtd_holded, vmd, VMD30, item[6], item[7], item[8], item[9], item[10]])
     return response
 
 def generateCSV(orderArray, dateStart, dateEnd, itemsHash, productList):
@@ -138,10 +138,15 @@ def importOrdersSinceDay(request, dateStart, dateEnd):
 
     for product in salesReport.getProductArray():
         itemsHash.append(product['sku'])
-        if product['type'] == 'simple':
-            productList.append([product['sku'], product['name'], getBrand(product, BRANDS_ARRAY), product['special_price'], 0, 0, 0, 0, 0, 0])
+        print'%s - %s - %s' % (product['sku'],  product['price'], product['special_price'])
+        if product['status'] == '1':
+            status = 'Enable'
         else:
-            productList.append([product['sku'], product['name'], getBrand(product, BRANDS_ARRAY), product['price'], 0, 0, 0, 0, 0, 0])
+            status = 'Disable'
+        if product['special_price']:
+            productList.append([product['sku'], product['name'], getBrand(product, BRANDS_ARRAY), product['special_price'], 0, 0, 0, 0, 0, 0, status])
+        else:
+            productList.append([product['sku'], product['name'], getBrand(product, BRANDS_ARRAY), product['price'], 0, 0, 0, 0, 0, 0, status])
 
     for order in orders:
         saveOrderInDatabase(order)
