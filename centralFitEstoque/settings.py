@@ -74,6 +74,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    os.path.join(PROJECT_ROOT, '../static/'),
 )
 
 # List of finder classes that know how to find static files in
@@ -110,7 +111,9 @@ ROOT_URLCONF = 'centralFitEstoque.urls'
 WSGI_APPLICATION = 'centralFitEstoque.wsgi.application'
 
 import os
-TEMPLATE_DIRS = (os.path.join(os.path.dirname(__file__), '..', 'templates').replace('\\','/'),)
+TEMPLATE_DIRS = (
+    os.path.join(os.path.dirname(__file__), '..', 'templates').replace('\\', '/'),
+)
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -122,6 +125,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable the admin:
     'grappelli',
     'django.contrib.admin',
+    'south',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'salesReport',
@@ -156,8 +160,8 @@ LOGGING = {
     }
 }
 
-magentoURL = 'http://127.0.0.1/api/xmlrpc/'
-# magentoURL = 'http://www.centralfit.com.br/api/xmlrpc/'
+# magentoURL = 'http://127.0.0.1/api/xmlrpc/'
+magentoURL = 'http://www.centralfit.com.br/api/xmlrpc/'
 
 try:
     from local_settings import *

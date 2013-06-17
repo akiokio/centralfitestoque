@@ -3,27 +3,115 @@ from django.http import HttpRequest, HttpResponse, HttpResponseForbidden, HttpRe
 from salesReport.pymagento import Magento
 from salesReport.models import order, orderItem, brands
 import csv
-import datetime
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
+from .models import order, orderItem, item as itemObject
+from django.views.generic import TemplateView, FormView, CreateView, UpdateView, ListView, DetailView, DeleteView
+from datetime import datetime, timedelta
+from django.shortcuts import render_to_response
+from django.template import RequestContext
 
-def saveItemInDatabse(i, parentOrder):
-    orderItem.objects.create(item_id=i['item_id'], product_id=i['product_id'], sku=i['sku'], name=i['name'],
-                             price=i['price'], order=parentOrder, created_at=parentOrder.created_at)
+class home(TemplateView):
+    template_name = 'index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(home, self).get_context_data(**kwargs)
+        dateRange = date.today() - timedelta(days=30)
+        pedidoArray = [
+            ['D-01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            ['D-02', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            ['D-03', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            ['D-04', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            ['D-05', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            ['D-06', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            ['D-07', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            ['D-08', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            ['D-09', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            ['D-10', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            ['D-11', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            ['D-12', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            ['D-13', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            ['D-14', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            ['D-15', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            ['D-16', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            ['D-17', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            ['D-18', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            ['D-19', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            ['D-20', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            ['D-21', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            ['D-22', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            ['D-23', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            ['D-24', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            ['D-25', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            ['D-26', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            ['D-27', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            ['D-28', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            ['D-29', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            ['D-30', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            ['D-31', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        ]
+        for orderInPeriod in order.objects.filter(created_at__gt=dateRange):
+            diferencaDias = date.today() - orderInPeriod.created_at.date()
+            hora = orderInPeriod.created_at.hour
+
+            pedidoArray[diferencaDias.days - 1][hora + 1] += 1
+            pedidoArray[diferencaDias.days - 1][25] += 1
+        context['tabelaPedidos'] = pedidoArray
+        return context
+
+def saveItemInDatabse(i):
+    #TODO Testar
+    if 'cost' in i:
+        cost = i['cost']
+    else:
+        cost = 0
+    newItem = itemObject.objects.create(
+            product_id=i['product_id'],
+            sku=i['sku'],
+            name=i['name'],
+            cost=cost,
+            price=i['price'],
+            )
+    return newItem
+
+def saveOrderItemInDatabse(order, orderItemToSave):
+    try:
+        itemToSave = itemObject.objects.get(sku=int(orderItemToSave['sku']))
+    except Exception as e:
+        print e
+        itemToSave = saveItemInDatabse(orderItemToSave)
+        print itemToSave
+    newOrderItem = orderItem.objects.create(
+        item=itemToSave,
+        order=order,
+        quantidade=float(orderItemToSave['qty_ordered']),
+        updated_at=orderItemToSave['created_at'],
+        created_at=orderItemToSave['updated_at'],
+    )
+    return newOrderItem
 
 def saveOrderInDatabase(o):
     print 'Saving Order: %s' % o['increment_id']
     try:
         databaseOrder = order.objects.get(increment_id=o['increment_id'])
         print('Order in database: %s' % databaseOrder.increment_id)
+        return 'NaBase'
     except:
         print '%s - %s - %s' % (int(o['created_at'][0:4]), int(o['created_at'][5:7]), int(o['created_at'][8:10]))
-        created_at = datetime.datetime.strptime(o['created_at'].split(' ')[0], '%Y-%m-%d')
-        updated_at = datetime.datetime.strptime(o['updated_at'].split(' ')[0], '%Y-%m-%d')
-        databaseOrder = order.objects.create(increment_id=o['increment_id'],
-                     created_at=created_at, updated_at=updated_at,
-                     grand_total=o['base_grand_total'], subtotal=o['base_subtotal'], status=o['status'])
-        for item in o['items']:
-            saveItemInDatabse(item, databaseOrder)
+        databaseOrder = order.objects.create(
+                                            increment_id=o['increment_id'],
+                                            created_at=o['created_at'],
+                                            updated_at=o['updated_at'],
+                                            is_active=True,
+                                            customer_id=o['customer_id'],
+                                            grand_total=o['base_grand_total'],
+                                            subtotal=o['base_subtotal'],
+                                            status=o['status'],
+                                            customer_email=o['customer_email'],
+                                            order_id=o['order_id'])
+        for itemInOrder in o['items']:
+            saveOrderItemInDatabse(databaseOrder, itemInOrder)
+
+        return 'Importado'
 
 def getQtyHolded(item, dateEnd):
     dateStart = dateEnd - timedelta(days=7)
@@ -152,3 +240,69 @@ def importOrdersSinceDay(request, dateStart, dateEnd):
     csvFile = generateCSV(orders, dateStart, dateEnd, itemsHash, productList)
     print('-- End import')
     return csvFile
+
+def importar(request):
+    return render_to_response('importar.html',
+                          {'status': 'ok'},
+                          context_instance=RequestContext(request))
+
+def importAllProducts(request):
+    if request.method == 'POST':
+        print('-- Start Product import')
+        salesReport = Magento()
+        salesReport.connect()
+        quantidadeImportada = 0
+        for product in salesReport.getProductArray():
+            try:
+                saveItemInDatabse(product)
+                quantidadeImportada += 1
+            except Exception as e:
+                print e
+        return render_to_response('importar.html',
+                          {
+                              'status': 'importacaoSucesso',
+                              'quantidadeImportada': quantidadeImportada
+                          },
+                          context_instance=RequestContext(request))
+    else:
+        return render_to_response('importar.html',
+                          {'status': 'ok'},
+                          context_instance=RequestContext(request))
+
+def importAllOrders(request):
+    if request.method == 'POST':
+        naBase = 0
+        importado = 0
+        dateStart = request.POST.get('dataInicio').split('-')
+        dateEnd = request.POST.get('dataFim').split('-')
+        print('-- Start Order import')
+        salesReport = Magento()
+        salesReport.connect()
+        formatedDateInit = dateStart[2] + '-' + dateStart[1]  + '-' +  dateStart[0]
+        formatedDateEnd = dateEnd[2] + '-' + dateEnd[1]  + '-' +  dateEnd[0]
+
+        orders = salesReport.listOrdersSinceStatusDate('holded', formatedDateInit, formatedDateEnd) + \
+                salesReport.listOrdersSinceStatusDate('processing', formatedDateInit, formatedDateEnd) + \
+                salesReport.listOrdersSinceStatusDate('complete', formatedDateInit, formatedDateEnd) + \
+                salesReport.listOrdersSinceStatusDate('fraud', formatedDateInit, formatedDateEnd) + \
+                salesReport.listOrdersSinceStatusDate('fraud2', formatedDateInit, formatedDateEnd) + \
+                salesReport.listOrdersSinceStatusDate('complete2', formatedDateInit, formatedDateEnd)
+
+        for order in orders:
+            status = saveOrderInDatabase(order)
+            if status == 'Importado':
+                importado += 1
+            else:
+                naBase += 1
+
+        return render_to_response('importar.html',
+                          {
+                              'status': 'importacaoSucesso',
+                              'quantidadeImportada': importado,
+                              'naBase': naBase
+                          },
+                          context_instance=RequestContext(request))
+    else:
+        return render_to_response('importar.html',
+                          {'status': 'ok'},
+                          context_instance=RequestContext(request))

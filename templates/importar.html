@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block importar_active %}active{% endblock %}
+{% block title %}Cfit App - Importar{% endblock %}
+
+{% block main_content %}
+    {% if status == 'importacaoSucesso' %}
+        <div class='well'>
+        <p>Status: {{ status }}</p>
+        <p>Quantidade importada: {{ quantidadeImportada }}</p>
+        {% if naBase > 0 %}
+            <p>Quantidade já na base: {{ naBase }} </p>
+        {% endif %}
+        </div>
+    {% endif %}
+    <div class='well'>
+        <h4>Modos de importação</h4>
+        <form action="{% url 'importarProdutos' %}" method="POST">
+            {% csrf_token %}
+            <span class="help-block">Importa todos os <strong>produtos</strong> para atualizar a base</span>
+            <button type="submit" class="btn">Importar Produtos</button>
+        </form>
+        <hr>
+        <form action="{% url 'importarPedidos' %}" method="POST">
+            {% csrf_token %}
+            <span class="help-block">Importa todos os <strong>pedidos</strong> para atualizar a base</span>
+            <p>
+            Data de Inicio:
+            <input type="text" name='dataInicio' class="span2" value="Insira a data" id="dataInicio" data-date-format="dd-mm-yyyy">
+            Data Fim:
+            <input type="text" name='dataFim' class="span2" value="Insira a data" id="dataFim" data-date-format="dd-mm-yyyy"></p>
+            <button id="importarProdutos" type="submit" class="btn">Importar Pedidos</button>
+        </form>
+    </div>
+{% endblock %}

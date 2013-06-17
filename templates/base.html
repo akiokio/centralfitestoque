@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+
+    <link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="{{ STATIC_URL }}css/commom.css" rel="stylesheet" media="screen">
+    <link href="{{ STATIC_URL }}css/datepicker.css" rel="stylesheet" media="screen">
+
+</head>
+<body>
+    <div class="container">
+     <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li class="{% block home_active %}{% endblock %}"><a href="{% url 'home' %}">Home</a></li>
+          <li class="{% block exportar_active %}{% endblock %}"><a href="#">Exportar</a></li>
+          <li class="{% block contato_active %}{% endblock %}"><a href="#">Faturamento</a></li>
+          <li class="{% block importar_active %}{% endblock %}"><a href="{% url 'importar' %}">Importar</a></li>
+        </ul>
+        <h3 class="muted">Centralfit App</h3>
+     </div>
+
+    <hr>
+    {% block main_content %}
+
+    {% endblock %}
+    <hr>
+
+    <div class="footer">
+        <p>&copy; Centralfit 2013</p>
+    </div>
+
+    </div>
+
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap-datepicker.js"></script>
+    <script src="{{ STATIC_URL }}js/commom.js"></script>
+
+</body>
+</html>
