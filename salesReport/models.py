@@ -1,13 +1,23 @@
 from django.db import models
 
+class brands(models.Model):
+    name = models.CharField(max_length=100, primary_key=True, unique=True)
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'brands'
+        verbose_name_plural = 'brands'
+
 class item(models.Model):
     product_id = models.IntegerField(primary_key=True)
     weight = models.CharField(max_length=500, null=True, blank=True)
     sku = models.IntegerField(unique=True)
     name = models.CharField(max_length=500)
     cost = models.FloatField(max_length=500, null=True, blank=True)
-    price = models.FloatField(max_length=500)
-    brand = models.ForeignKey('brands', null=True, blank=True)
+    price = models.FloatField()
+    brand = models.ForeignKey(brands, null=True, blank=True)
 
     def __unicode__(self):
         return self.name
@@ -46,12 +56,3 @@ class orderItem(models.Model):
         return '%s - %s' % (self.item.name, self.order.increment_id)
 
 
-class brands(models.Model):
-    name = models.CharField(max_length=100, primary_key=True, unique=True)
-
-    def __unicode__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = 'brands'
-        verbose_name_plural = 'brands'

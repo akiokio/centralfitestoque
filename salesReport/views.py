@@ -9,6 +9,12 @@ from django.views.generic import TemplateView, FormView, CreateView, UpdateView,
 from datetime import datetime, timedelta
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.utils.timezone import utc, make_aware, localtime
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
+from django.contrib.auth import authenticate, login
+from django.core.urlresolvers import reverse
+
 
 class home(TemplateView):
     template_name = 'index.html'
@@ -17,6 +23,7 @@ class home(TemplateView):
         context = super(home, self).get_context_data(**kwargs)
         dateRange = date.today() - timedelta(days=30)
         pedidoArray = [
+            ['D-00', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             ['D-01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             ['D-02', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             ['D-03', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -48,14 +55,18 @@ class home(TemplateView):
             ['D-29', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             ['D-30', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             ['D-31', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            ['TOTAL', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         ]
         for orderInPeriod in order.objects.filter(created_at__gt=dateRange):
             diferencaDias = date.today() - orderInPeriod.created_at.date()
             hora = orderInPeriod.created_at.hour
 
-            pedidoArray[diferencaDias.days - 1][hora + 1] += 1
-            pedidoArray[diferencaDias.days - 1][25] += 1
+            pedidoArray[diferencaDias.days][hora + 1] += 1
+            pedidoArray[diferencaDias.days][25] += 1
+            pedidoArray[32][hora + 1] += 1
+            pedidoArray[32][25] += 1
         context['tabelaPedidos'] = pedidoArray
+        context['usuario'] = self.request.user
         return context
 
 def saveItemInDatabse(i):
@@ -64,28 +75,29 @@ def saveItemInDatabse(i):
         cost = i['cost']
     else:
         cost = 0
-    newItem = itemObject.objects.create(
-            product_id=i['product_id'],
-            sku=i['sku'],
-            name=i['name'],
-            cost=cost,
-            price=i['price'],
-            )
+    try:
+        newItem = itemObject.objects.create(
+                product_id=i['product_id'],
+                sku=i['sku'],
+                name=i['name'],
+                cost=cost,
+                price=i['price'],
+                )
+    except Exception as e:
+        newItem = None
     return newItem
 
 def saveOrderItemInDatabse(order, orderItemToSave):
     try:
         itemToSave = itemObject.objects.get(sku=int(orderItemToSave['sku']))
     except Exception as e:
-        print e
         itemToSave = saveItemInDatabse(orderItemToSave)
-        print itemToSave
     newOrderItem = orderItem.objects.create(
         item=itemToSave,
         order=order,
         quantidade=float(orderItemToSave['qty_ordered']),
-        updated_at=orderItemToSave['created_at'],
-        created_at=orderItemToSave['updated_at'],
+        created_at=orderItemToSave['created_at'],
+        updated_at=orderItemToSave['updated_at'],
     )
     return newOrderItem
 
@@ -96,11 +108,14 @@ def saveOrderInDatabase(o):
         print('Order in database: %s' % databaseOrder.increment_id)
         return 'NaBase'
     except:
-        print '%s - %s - %s' % (int(o['created_at'][0:4]), int(o['created_at'][5:7]), int(o['created_at'][8:10]))
+        createdAt = datetime.strptime(o['created_at'], '%Y-%m-%d %H:%M:%S')
+        createdAt = make_aware(createdAt, utc)
+        updated_at = datetime.strptime(o['updated_at'], '%Y-%m-%d %H:%M:%S')
+        updated_at = make_aware(updated_at, utc)
         databaseOrder = order.objects.create(
                                             increment_id=o['increment_id'],
-                                            created_at=o['created_at'],
-                                            updated_at=o['updated_at'],
+                                            created_at= createdAt,
+                                            updated_at=updated_at,
                                             is_active=True,
                                             customer_id=o['customer_id'],
                                             grand_total=o['base_grand_total'],
@@ -254,10 +269,10 @@ def importAllProducts(request):
         quantidadeImportada = 0
         for product in salesReport.getProductArray():
             try:
+                item = item.objects.get(product['sku'])
+            except Exception as e:
                 saveItemInDatabse(product)
                 quantidadeImportada += 1
-            except Exception as e:
-                print e
         return render_to_response('importar.html',
                           {
                               'status': 'importacaoSucesso',
@@ -306,3 +321,28 @@ def importAllOrders(request):
         return render_to_response('importar.html',
                           {'status': 'ok'},
                           context_instance=RequestContext(request))
+
+def loginView(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                # Redirect to a success page.
+                return HttpResponseRedirect(reverse('home'))
+            else:
+                pass
+                # Return a 'disabled account' error message
+        else:
+            pass
+            # Return an 'invalid login' error message.
+    else:
+        return render_to_response('registration/login.html',
+                          {'status': 'ok'},
+                          context_instance=RequestContext(request))
+
+def logoutView(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('login'))

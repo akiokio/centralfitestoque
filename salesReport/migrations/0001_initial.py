@@ -8,16 +8,21 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
+        # Adding model 'brands'
+        db.create_table(u'salesReport_brands', (
+            ('name', self.gf('django.db.models.fields.CharField')(unique=True, max_length=100, primary_key=True)),
+        ))
+        db.send_create_signal(u'salesReport', ['brands'])
+
         # Adding model 'item'
         db.create_table(u'salesReport_item', (
-            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('product_id', self.gf('django.db.models.fields.CharField')(max_length=500, null=True, blank=True)),
+            ('product_id', self.gf('django.db.models.fields.IntegerField')(primary_key=True)),
             ('weight', self.gf('django.db.models.fields.CharField')(max_length=500, null=True, blank=True)),
-            ('sku', self.gf('django.db.models.fields.CharField')(max_length=500, null=True, blank=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=500, null=True, blank=True)),
-            ('free_shipping', self.gf('django.db.models.fields.CharField')(max_length=500, null=True, blank=True)),
-            ('cost', self.gf('django.db.models.fields.CharField')(max_length=500, null=True, blank=True)),
-            ('price', self.gf('django.db.models.fields.CharField')(max_length=500, null=True, blank=True)),
+            ('sku', self.gf('django.db.models.fields.IntegerField')(unique=True)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=500)),
+            ('cost', self.gf('django.db.models.fields.FloatField')(max_length=500, null=True, blank=True)),
+            ('price', self.gf('django.db.models.fields.FloatField')()),
+            ('brand', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['salesReport.brands'], null=True, blank=True)),
         ))
         db.send_create_signal(u'salesReport', ['item'])
 
@@ -42,22 +47,19 @@ class Migration(SchemaMigration):
         # Adding model 'orderItem'
         db.create_table(u'salesReport_orderitem', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('created_at', self.gf('django.db.models.fields.DateField')(max_length=500, null=True, blank=True)),
-            ('updated_at', self.gf('django.db.models.fields.DateField')(max_length=500, null=True, blank=True)),
-            ('quantidade', self.gf('django.db.models.fields.PositiveIntegerField')()),
-            ('item_id', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['salesReport.item'])),
+            ('created_at', self.gf('django.db.models.fields.DateTimeField')(max_length=500, null=True, blank=True)),
+            ('updated_at', self.gf('django.db.models.fields.DateTimeField')(max_length=500, null=True, blank=True)),
+            ('quantidade', self.gf('django.db.models.fields.FloatField')()),
+            ('item', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['salesReport.item'])),
             ('order', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['salesReport.order'])),
         ))
         db.send_create_signal(u'salesReport', ['orderItem'])
 
-        # Adding model 'brands'
-        db.create_table(u'salesReport_brands', (
-            ('name', self.gf('django.db.models.fields.CharField')(unique=True, max_length=100, primary_key=True)),
-        ))
-        db.send_create_signal(u'salesReport', ['brands'])
-
 
     def backwards(self, orm):
+        # Deleting model 'brands'
+        db.delete_table(u'salesReport_brands')
+
         # Deleting model 'item'
         db.delete_table(u'salesReport_item')
 
@@ -67,9 +69,6 @@ class Migration(SchemaMigration):
         # Deleting model 'orderItem'
         db.delete_table(u'salesReport_orderitem')
 
-        # Deleting model 'brands'
-        db.delete_table(u'salesReport_brands')
-
 
     models = {
         u'salesReport.brands': {
@@ -78,13 +77,12 @@ class Migration(SchemaMigration):
         },
         u'salesReport.item': {
             'Meta': {'object_name': 'item'},
-            'cost': ('django.db.models.fields.CharField', [], {'max_length': '500', 'null': 'True', 'blank': 'True'}),
-            'free_shipping': ('django.db.models.fields.CharField', [], {'max_length': '500', 'null': 'True', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '500', 'null': 'True', 'blank': 'True'}),
-            'price': ('django.db.models.fields.CharField', [], {'max_length': '500', 'null': 'True', 'blank': 'True'}),
-            'product_id': ('django.db.models.fields.CharField', [], {'max_length': '500', 'null': 'True', 'blank': 'True'}),
-            'sku': ('django.db.models.fields.CharField', [], {'max_length': '500', 'null': 'True', 'blank': 'True'}),
+            'brand': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['salesReport.brands']", 'null': 'True', 'blank': 'True'}),
+            'cost': ('django.db.models.fields.FloatField', [], {'max_length': '500', 'null': 'True', 'blank': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '500'}),
+            'price': ('django.db.models.fields.FloatField', [], {}),
+            'product_id': ('django.db.models.fields.IntegerField', [], {'primary_key': 'True'}),
+            'sku': ('django.db.models.fields.IntegerField', [], {'unique': 'True'}),
             'weight': ('django.db.models.fields.CharField', [], {'max_length': '500', 'null': 'True', 'blank': 'True'})
         },
         u'salesReport.order': {
@@ -106,12 +104,12 @@ class Migration(SchemaMigration):
         },
         u'salesReport.orderitem': {
             'Meta': {'object_name': 'orderItem'},
-            'created_at': ('django.db.models.fields.DateField', [], {'max_length': '500', 'null': 'True', 'blank': 'True'}),
+            'created_at': ('django.db.models.fields.DateTimeField', [], {'max_length': '500', 'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'item_id': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['salesReport.item']"}),
+            'item': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['salesReport.item']"}),
             'order': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['salesReport.order']"}),
-            'quantidade': ('django.db.models.fields.PositiveIntegerField', [], {}),
-            'updated_at': ('django.db.models.fields.DateField', [], {'max_length': '500', 'null': 'True', 'blank': 'True'})
+            'quantidade': ('django.db.models.fields.FloatField', [], {}),
+            'updated_at': ('django.db.models.fields.DateTimeField', [], {'max_length': '500', 'null': 'True', 'blank': 'True'})
         }
     }
 

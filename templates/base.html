@@ -17,8 +17,9 @@
           <li class="{% block exportar_active %}{% endblock %}"><a href="#">Exportar</a></li>
           <li class="{% block contato_active %}{% endblock %}"><a href="#">Faturamento</a></li>
           <li class="{% block importar_active %}{% endblock %}"><a href="{% url 'importar' %}">Importar</a></li>
+          <li class=""><a href="{% url 'logout' %}">Sair</a></li>
         </ul>
-        <h3 class="muted">Centralfit App</h3>
+        <h3 class="muted">Centralfit App {% if usuario %}- Olá, {{ usuario }}{% endif %}</h3>
      </div>
 
     <hr>

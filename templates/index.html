@@ -3,23 +3,17 @@
 {% block title %}Cfit App {% endblock %}
 
 {% block main_content %}
-    <div class="jumbotron">
-        <h1>Dashboard</h1>
-        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        <a class="btn btn-large btn-success" href="#">Detalhes</a>
-      </div>
-
-      <hr>
-
       <div class="row-fluid">
         <div class="well">
-
+            <h1>Dashboard</h1>
             <h4>Parametros de busca:</h4>
+
             <p>
             Data de Inicio:
-            <input type="text" class="span2" value="Insira a data" id="dataInicio" data-date-format="dd-mm-yyyy">
+            <input type="text" class="span2" value="Insira a data" id="dataInicio" data-date-format="dd-mm-yyyy" disabled="true">
             Data Fim:
-            <input type="text" class="span2" value="Insira a data" id="dataFim" data-date-format="dd-mm-yyyy"></p>
+            <input type="text" class="span2" value="Insira a data" id="dataFim" data-date-format="dd-mm-yyyy" disabled="true"></p>
+
         </div>
             <table class="table table-striped table-bordered table-hover">
                 <thead>
@@ -54,9 +48,14 @@
                 </thead>
                 <tbody>
                 {% for dia in tabelaPedidos %}
-                    <tr>
-                        {% for hora in dia %}
-                            <td>{{ hora }}</td>
+                    <tr class="{% if dia.25 > 100 %}success
+                                {% elif dia.25 > 75 %}info
+                                {% elif dia.25 > 50 %}warning
+                                {% elif dia.25 > 25 %}error
+                                {% endif %}">
+
+                        {% for horaPedido in dia %}
+                            <td>{{ horaPedido }}</td>
                         {% endfor %}
                     </tr>
                 {% endfor %}

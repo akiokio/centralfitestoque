@@ -7,9 +7,9 @@ class orderItemInlines(admin.StackedInline):
     model = orderItem
 
 class orderAdmin(admin.ModelAdmin):
-    list_display = ['increment_id', 'status', 'created_at', 'grand_total']
-    list_filter = ['status', 'created_at']
-    search_fields = ['increment_id', 'status', 'created_at', 'grand_total']
+    list_display = ['increment_id', 'status', 'created_at', 'grand_total', 'customer_email']
+    list_filter = ['status', 'created_at', 'customer_email']
+    search_fields = ['increment_id', 'status', 'created_at', 'grand_total', 'customer_email']
 
 class orderItemAdmin(admin.ModelAdmin):
     list_display = ['quantidade', 'item', 'created_at']
