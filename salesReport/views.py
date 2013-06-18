@@ -143,8 +143,6 @@ def getQtyHolded(item, dateEnd):
 def getVMD30(item, dateMinus30, dateRangeEnd):
     try:
         totalInPeriod = orderItem.objects.filter(item__sku=item[0]).filter(created_at__range=[dateMinus30, dateRangeEnd])
-        if len(totalInPeriod) > 1:
-            print len(totalInPeriod)
     except Exception as e:
         print e
         totalInPeriod = []
