@@ -61,6 +61,9 @@ class home(TemplateView):
             diferencaDias = date.today() - orderInPeriod.created_at.date()
             hora = orderInPeriod.created_at.hour
 
+            if orderInPeriod.created_at.day == 18:
+                print orderInPeriod.pk , orderInPeriod.created_at, diferencaDias.days
+
             pedidoArray[diferencaDias.days][hora + 1] += 1
             pedidoArray[diferencaDias.days][25] += 1
             pedidoArray[32][hora + 1] += 1
@@ -130,11 +133,21 @@ def saveOrderInDatabase(o):
 
 def getQtyHolded(item, dateEnd):
     dateStart = dateEnd - timedelta(days=7)
-    totalInPeriod = orderItem.objects.filter(sku=item[0]).filter(created_at__range=[dateStart, dateEnd]).filter(order__status='holded')
+    try:
+        totalInPeriod = orderItem.objects.filter(item__sku=item[0]).filter(created_at__range=[dateStart, dateEnd]).filter(order__status='holded')
+    except Exception as e:
+        print e
+        totalInPeriod = []
     return len(totalInPeriod)
 
 def getVMD30(item, dateMinus30, dateRangeEnd):
-    totalInPeriod = orderItem.objects.filter(sku=item[0]).filter(created_at__range=[dateMinus30, dateRangeEnd])
+    try:
+        totalInPeriod = orderItem.objects.filter(item__sku=item[0]).filter(created_at__range=[dateMinus30, dateRangeEnd])
+        if len(totalInPeriod) > 1:
+            print len(totalInPeriod)
+    except Exception as e:
+        print e
+        totalInPeriod = []
     vmd30 = float(len(totalInPeriod) / 30.0)
     return vmd30
 
