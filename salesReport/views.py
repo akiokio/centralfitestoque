@@ -146,15 +146,15 @@ def getVMD30(item, dateMinus30, dateRangeEnd):
     except Exception as e:
         print e
         totalInPeriod = []
-    vmd30 = float(len(totalInPeriod) / 30.0)
+    vmd30 = round(float(len(totalInPeriod) / 30.0), 3)
     return vmd30
 
 
 def getVMD(item, dateRangeInDays):
     if dateRangeInDays.days == 0.0:
-        vmd = float(item[4] + item[5] + item[6] + item[7] + item[8] + item[9] / 1.0)
+        vmd = round(float(item[4] + item[5] + item[6] + item[7] + item[8] + item[9] / 1.0), 3)
     else:
-        vmd = float(item[4] + item[5] + item[6] + item[7] + item[8] + item[9] / float(dateRangeInDays.days))
+        vmd = round(float(item[4] + item[5] + item[6] + item[7] + item[8] + item[9] / float(dateRangeInDays.days)), 3)
     return vmd
 
 
