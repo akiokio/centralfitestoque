@@ -5,6 +5,8 @@ import xmlrpclib
 import random
 import csv
 from centralFitEstoque.settings import magentoURL
+from .models import order as OrdersInDatabase
+from django.utils.timezone import utc, make_aware, localtime, get_current_timezone
 
 class Magento(object):
     ''' Add default login details here if required '''
@@ -68,8 +70,12 @@ class Magento(object):
         print '%s orders recovered' % len(orders)
         for order in orders:
             print('Getting order info: %s - created at: %s' % (order['increment_id'], order['created_at']))
-            info = self.svr.call(self.token, 'sales_order.info', [order['increment_id']])
-            orderList.append(info)
+            info = []
+            try:
+                order = OrdersInDatabase.objects.get(increment_id=order['increment_id'])
+            except Exception as e:
+                info = self.svr.call(self.token, 'sales_order.info', [order['increment_id']])
+                orderList.append(info)
         print('End get orders...')
         return orderList
 

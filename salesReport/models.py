@@ -43,7 +43,6 @@ class order(models.Model):
         return '%s' % self.increment_id
 
 
-
 class orderItem(models.Model):
     created_at = models.DateTimeField(max_length=500, null=True, blank=True)
     updated_at = models.DateTimeField(max_length=500, null=True, blank=True)

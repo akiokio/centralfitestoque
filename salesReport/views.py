@@ -9,7 +9,7 @@ from django.views.generic import TemplateView, FormView, CreateView, UpdateView,
 from datetime import datetime, timedelta
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.utils.timezone import utc, make_aware, localtime
+from django.utils.timezone import utc, make_aware, localtime, get_current_timezone
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.contrib.auth import authenticate, login
@@ -22,47 +22,24 @@ class home(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(home, self).get_context_data(**kwargs)
         dateRange = date.today() - timedelta(days=30)
-        pedidoArray = [
-            ['D-00', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            ['D-01', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            ['D-02', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            ['D-03', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            ['D-04', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            ['D-05', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            ['D-06', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            ['D-07', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            ['D-08', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            ['D-09', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            ['D-10', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            ['D-11', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            ['D-12', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            ['D-13', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            ['D-14', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            ['D-15', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            ['D-16', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            ['D-17', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            ['D-18', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            ['D-19', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            ['D-20', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            ['D-21', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            ['D-22', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            ['D-23', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            ['D-24', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            ['D-25', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            ['D-26', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            ['D-27', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            ['D-28', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            ['D-29', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            ['D-30', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            ['D-31', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            ['TOTAL', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        ]
+        #Cria a tabela da dashboard limpa
+        pedidoArray = []
+        today = date.today()
+        for day in range(0, 32):
+            pedidoArray.append([
+                str(today.day) + '-' + str(today.month), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            ])
+            today -= timedelta(days=1)
+        pedidoArray.append(['TOTAL', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+
+        #Preenche a tabela com os pedidos
         for orderInPeriod in order.objects.filter(created_at__gt=dateRange):
             diferencaDias = date.today() - orderInPeriod.created_at.date()
-            hora = orderInPeriod.created_at.hour
+            #Arruar TODO Time zone que está vindo está UTC, 3 horas na frente
+            hora = orderInPeriod.created_at.hour - 3
 
-            if orderInPeriod.created_at.day == 18:
-                print orderInPeriod.pk , orderInPeriod.created_at, diferencaDias.days
+            if orderInPeriod.increment_id == 100010801:
+                print orderInPeriod.pk, orderInPeriod.created_at, diferencaDias.days
 
             pedidoArray[diferencaDias.days][hora + 1] += 1
             pedidoArray[diferencaDias.days][25] += 1
@@ -71,6 +48,20 @@ class home(TemplateView):
         context['tabelaPedidos'] = pedidoArray
         context['usuario'] = self.request.user
         return context
+
+def timeInUTC(dateString):
+        dateReturn = datetime.strptime(dateString, "%Y-%m-%d %H:%M:%S")
+        print dateReturn
+        dateReturn = dateReturn + timedelta(hours=3)
+        print dateReturn
+        return dateReturn
+
+def timeInGMT(dateString):
+        dateReturn = datetime.strptime(dateString, "%Y-%m-%d %H:%M:%S")
+        print dateReturn
+        dateReturn = dateReturn - timedelta(hours=3)
+        print dateReturn
+        return dateReturn
 
 def saveItemInDatabse(i):
     #TODO Testar
@@ -95,12 +86,15 @@ def saveOrderItemInDatabse(order, orderItemToSave):
         itemToSave = itemObject.objects.get(sku=int(orderItemToSave['sku']))
     except Exception as e:
         itemToSave = saveItemInDatabse(orderItemToSave)
+    createdAt = timeInGMT(orderItemToSave['created_at'])
+    updated_at = timeInGMT(orderItemToSave['updated_at'])
+
     newOrderItem = orderItem.objects.create(
         item=itemToSave,
         order=order,
         quantidade=float(orderItemToSave['qty_ordered']),
-        created_at=orderItemToSave['created_at'],
-        updated_at=orderItemToSave['updated_at'],
+        created_at=createdAt,
+        updated_at=updated_at,
     )
     return newOrderItem
 
@@ -111,10 +105,8 @@ def saveOrderInDatabase(o):
         print('Order in database: %s' % databaseOrder.increment_id)
         return 'NaBase'
     except:
-        createdAt = datetime.strptime(o['created_at'], '%Y-%m-%d %H:%M:%S')
-        createdAt = make_aware(createdAt, utc)
-        updated_at = datetime.strptime(o['updated_at'], '%Y-%m-%d %H:%M:%S')
-        updated_at = make_aware(updated_at, utc)
+        createdAt = timeInGMT(o['created_at'])
+        updated_at = timeInGMT(o['updated_at'])
         databaseOrder = order.objects.create(
                                             increment_id=o['increment_id'],
                                             created_at= createdAt,
@@ -301,18 +293,18 @@ def importAllOrders(request):
         importado = 0
         dateStart = request.POST.get('dataInicio').split('-')
         dateEnd = request.POST.get('dataFim').split('-')
+        dateStartImUTC = timeInUTC(dateStart[2] + '-' + dateStart[1] + '-' + dateStart[0] + ' 00:00:00')
+        dateEndImUTC = timeInUTC(dateEnd[2] + '-' + dateEnd[1] + '-' + dateEnd[0] + ' 23:59:59')
         print('-- Start Order import')
         salesReport = Magento()
         salesReport.connect()
-        formatedDateInit = dateStart[2] + '-' + dateStart[1]  + '-' +  dateStart[0]
-        formatedDateEnd = dateEnd[2] + '-' + dateEnd[1]  + '-' +  dateEnd[0]
 
-        orders = salesReport.listOrdersSinceStatusDate('holded', formatedDateInit, formatedDateEnd) + \
-                salesReport.listOrdersSinceStatusDate('processing', formatedDateInit, formatedDateEnd) + \
-                salesReport.listOrdersSinceStatusDate('complete', formatedDateInit, formatedDateEnd) + \
-                salesReport.listOrdersSinceStatusDate('fraud', formatedDateInit, formatedDateEnd) + \
-                salesReport.listOrdersSinceStatusDate('fraud2', formatedDateInit, formatedDateEnd) + \
-                salesReport.listOrdersSinceStatusDate('complete2', formatedDateInit, formatedDateEnd)
+        orders = salesReport.listOrdersSinceStatusDate('holded', dateStartImUTC.strftime('%Y-%m-%d %H:%M:%s'), dateEndImUTC.strftime('%Y-%m-%d %H:%M:%S')) + \
+                salesReport.listOrdersSinceStatusDate('processing', dateStartImUTC.strftime('%Y-%m-%d %H:%M:%s'), dateEndImUTC.strftime('%Y-%m-%d %H:%M:%S')) + \
+                salesReport.listOrdersSinceStatusDate('complete', dateStartImUTC.strftime('%Y-%m-%d %H:%M:%s'), dateEndImUTC.strftime('%Y-%m-%d %H:%M:%S')) + \
+                salesReport.listOrdersSinceStatusDate('fraud', dateStartImUTC.strftime('%Y-%m-%d %H:%M:%s'), dateEndImUTC.strftime('%Y-%m-%d %H:%M:%S')) + \
+                salesReport.listOrdersSinceStatusDate('fraud2', dateStartImUTC.strftime('%Y-%m-%d %H:%M:%s'), dateEndImUTC.strftime('%Y-%m-%d %H:%M:%S')) + \
+                salesReport.listOrdersSinceStatusDate('complete2', dateStartImUTC.strftime('%Y-%m-%d %H:%M:%s'), dateEndImUTC.strftime('%Y-%m-%d %H:%M:%S'))
 
         for order in orders:
             status = saveOrderInDatabase(order)
