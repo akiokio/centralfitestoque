@@ -11,15 +11,17 @@ class orderAdmin(admin.ModelAdmin):
     list_filter = ['status', 'created_at', 'customer_email']
     search_fields = ['increment_id', 'status', 'created_at', 'grand_total', 'customer_email']
 
+    inlines = [orderItemInlines,]
+
 class orderItemAdmin(admin.ModelAdmin):
-    list_display = ['quantidade', 'item', 'created_at']
-    list_filter = ['quantidade', 'item', 'created_at']
-    search_fields = ['quantidade', 'item', 'created_at']
+    list_display = ['quantidade', 'item', 'created_at', 'price']
+    list_filter = ['quantidade', 'item', 'created_at', 'price']
+    search_fields = ['quantidade', 'item', 'created_at', 'price']
 
 class itemAdmin(admin.ModelAdmin):
-    list_display = ['product_id', 'sku', 'name', 'cost', 'price']
-    list_filter = ['product_id', 'sku', 'name', 'cost', 'price']
-    search_fields = ['product_id', 'sku', 'name', 'cost', 'price']
+    list_display = ['product_id', 'sku', 'name', 'cost', 'price', 'specialPrice', 'brand']
+    list_filter = ['product_id', 'sku', 'name', 'cost', 'price', 'specialPrice', 'brand']
+    search_fields = ['product_id', 'sku', 'name', 'cost', 'price', 'specialPrice', 'brand']
 
 admin.site.register(order, orderAdmin)
 admin.site.register(orderItem, orderItemAdmin)

@@ -15,9 +15,11 @@ class item(models.Model):
     weight = models.CharField(max_length=500, null=True, blank=True)
     sku = models.IntegerField(unique=True)
     name = models.CharField(max_length=500)
-    cost = models.FloatField(max_length=500, null=True, blank=True)
+    cost = models.FloatField(null=True, blank=True)
     price = models.FloatField()
+    specialPrice = models.FloatField(null=True, blank=True)
     brand = models.ForeignKey(brands, null=True, blank=True)
+    status = models.BooleanField()
 
     def __unicode__(self):
         return self.name
@@ -32,10 +34,15 @@ class order(models.Model):
     grand_total = models.FloatField()
     status = models.CharField(max_length=500)
     shipping_method = models.CharField(max_length=500, null=True, blank=True)
+    shipping_amount = models.FloatField()
     customer_email = models.CharField(max_length=500, null=True, blank=True)
     customer_firstname = models.CharField(max_length=500, null=True, blank=True)
     customer_lastname = models.CharField(max_length=500, null=True, blank=True)
     order_id = models.FloatField()
+    discount_amount = models.FloatField()
+    payment_method = models.CharField(max_length=500, null=True, blank=True)
+    payment_shipping_amount = models.FloatField(null=True, blank=True)
+    payment_amount_ordered = models.FloatField(null=True, blank=True)
 
     item = models.ManyToManyField(item, through='orderItem')
 
@@ -47,6 +54,7 @@ class orderItem(models.Model):
     created_at = models.DateTimeField(max_length=500, null=True, blank=True)
     updated_at = models.DateTimeField(max_length=500, null=True, blank=True)
     quantidade = models.FloatField()
+    price = models.FloatField()
 
     item = models.ForeignKey(item)
     order = models.ForeignKey(order)

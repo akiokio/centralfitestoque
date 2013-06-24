@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block exportar_active %}active{% endblock %}
+{% block title %}Cfit App - Exportar{% endblock %}
+
+{% block main_content %}
+    <div class='well'>
+        <h4>Exportar relatório CSV</h4>
+        <form action="{% url 'exportar' %}" method="POST">
+            {% csrf_token %}
+            <span class="help-block">Exporta o relatório csv dentro do range</span>
+            <span class="help-block">Considera apenas os pedidos importados</span>
+
+            <p>
+            Data de Inicio:
+            <input type="text" name='dataInicio' class="span2" value="Insira a data" id="dataInicio" data-date-format="dd-mm-yyyy">
+            Data Fim:
+            <input type="text" name='dataFim' class="span2" value="Insira a data" id="dataFim" data-date-format="dd-mm-yyyy"></p>
+
+            <button type="submit" class="btn">Exportar</button>
+        </form>
+        <hr>
+    </div>
+{% endblock %}

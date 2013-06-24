@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block faturamento_active %}active{% endblock %}
+{% block title %}Cfit App - Faturamento{% endblock %}
+
+{% block main_content %}
+    <div class='well'>
+        <h4>Tabela de faturamento</h4>
+
+        <hr>
+
+        <table class="table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th># Pedidos</th>
+                        <th>Valor Bruto faturado</th>
+                        <th>Receita Frete</th>
+                        <th>Valor Desconto</th>
+                        <th>Valor Bonificado</th>
+                        <th>Valor Liquido Produto</th>
+                        <th>Custo Produtos</th>
+                        <th>Valor Frete</th>
+                        <th>Valor Taxa Cartão</th>
+                        <th>Margem bruta (Produtos)</th>
+                        <th>Margem bruta (Cartão + Frete)</th>
+                        <th>Ticket Médio</th>
+                        <th># Produtos pedido</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for dia in tabelaFaturamento %}
+                    <tr class="">
+                        {% for value in dia %}
+                            <td>{{ value }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+    </div>
+{% endblock %}

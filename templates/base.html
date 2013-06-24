@@ -14,8 +14,8 @@
      <div class="masthead">
         <ul class="nav nav-pills pull-right">
           <li class="{% block home_active %}{% endblock %}"><a href="{% url 'home' %}">Home</a></li>
-          <li class="{% block exportar_active %}{% endblock %}"><a href="#">Exportar</a></li>
-          <li class="{% block contato_active %}{% endblock %}"><a href="#">Faturamento</a></li>
+          <li class="{% block exportar_active %}{% endblock %}"><a href="{% url 'exportar' %}">Exportar</a></li>
+          <li class="{% block contato_active %}{% endblock %}"><a href="{% url 'faturamento' %}">Faturamento</a></li>
           <li class="{% block importar_active %}{% endblock %}"><a href="{% url 'importar' %}">Importar</a></li>
           <li class=""><a href="{% url 'logout' %}">Sair</a></li>
         </ul>

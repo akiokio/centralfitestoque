@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.http import HttpRequest, HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from salesReport.pymagento import Magento
-from salesReport.models import order, orderItem, brands
+from salesReport.models import order as orderNaBase, orderItem, brands, item as itemNaBase
 import csv
 from datetime import date, timedelta, datetime
 from .models import order, orderItem, item as itemObject
@@ -21,7 +21,7 @@ class home(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(home, self).get_context_data(**kwargs)
-        dateRange = date.today() - timedelta(days=30)
+        dateRange = datetime.today() - timedelta(days=30)
         #Cria a tabela da dashboard limpa
         pedidoArray = []
         today = date.today()
@@ -35,15 +35,12 @@ class home(TemplateView):
         #Preenche a tabela com os pedidos
         for orderInPeriod in order.objects.filter(created_at__gt=dateRange):
             diferencaDias = date.today() - orderInPeriod.created_at.date()
-            #Arruar TODO Time zone que está vindo está UTC, 3 horas na frente
-            hora = orderInPeriod.created_at.hour - 3
 
-            if orderInPeriod.increment_id == 100010801:
-                print orderInPeriod.pk, orderInPeriod.created_at, diferencaDias.days
-
-            pedidoArray[diferencaDias.days][hora + 1] += 1
+            #Soma a coluna de dias
+            pedidoArray[diferencaDias.days][orderInPeriod.created_at.hour + 1] += 1
             pedidoArray[diferencaDias.days][25] += 1
-            pedidoArray[32][hora + 1] += 1
+            #Soma a coluna Totais
+            pedidoArray[32][orderInPeriod.created_at.hour + 1] += 1
             pedidoArray[32][25] += 1
         context['tabelaPedidos'] = pedidoArray
         context['usuario'] = self.request.user
@@ -63,12 +60,17 @@ def timeInGMT(dateString):
         print dateReturn
         return dateReturn
 
-def saveItemInDatabse(i):
+def saveItemInDatabse(i, BRANDS_ARRAY):
     #TODO Testar
-    if 'cost' in i:
+    if i['cost']:
         cost = i['cost']
     else:
         cost = 0
+    if i['special_price']:
+        precoEspecial = i['special_price']
+    else:
+        precoEspecial = 0
+
     try:
         newItem = itemObject.objects.create(
                 product_id=i['product_id'],
@@ -76,8 +78,12 @@ def saveItemInDatabse(i):
                 name=i['name'],
                 cost=cost,
                 price=i['price'],
+                specialPrice=precoEspecial,
+                status=i['status'],
+                # weight=i['weight'] TODO
                 )
     except Exception as e:
+        print e
         newItem = None
     return newItem
 
@@ -95,7 +101,8 @@ def saveOrderItemInDatabse(order, orderItemToSave):
         quantidade=float(orderItemToSave['qty_ordered']),
         created_at=createdAt,
         updated_at=updated_at,
-    )
+        price=float(orderItemToSave['price'],
+    ))
     return newOrderItem
 
 def saveOrderInDatabase(o):
@@ -117,7 +124,12 @@ def saveOrderInDatabase(o):
                                             subtotal=o['base_subtotal'],
                                             status=o['status'],
                                             customer_email=o['customer_email'],
-                                            order_id=o['order_id'])
+                                            order_id=o['order_id'],
+                                            shipping_amount=o['shipping_amount'],
+                                            shipping_method=o['shipping_method'],
+                                            discount_amount=o['discount_amount'],
+                                            payment_method=o['payment']['additional_information']['PaymentMethod']
+                                            )
         for itemInOrder in o['items']:
             saveOrderItemInDatabse(databaseOrder, itemInOrder)
 
@@ -152,27 +164,26 @@ def getVMD(item, dateRangeInDays):
 
 def saveCSV(productList, dateStart, dateEnd):
     print('Saving CSV File')
-    dateRangeInit = date(int(dateStart[0:4]), int(dateStart[5:7]), int(dateStart[8:10]))
-    dateRangeEnd = date(int(dateEnd[0:4]), int(dateEnd[5:7]), int(dateEnd[8:10]))
-    dateRangeInDays = dateRangeEnd - dateRangeInit
+    dateRangeInDays = dateEnd - dateStart
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="salesReport.csv"'
     writer = csv.writer(response)
     writer.writerow(['sku', 'name', 'brand', 'price', 'qty', 'qty_holded', 'VMD', 'VMD30',
                      'qty_complete', 'qty_fraud', 'qty_fraud2', 'qty_complete2', 'status'])
-    dateMinus30 = dateRangeEnd - timedelta(days=30)
+    dateMinus30 = dateEnd - timedelta(days=30)
     for item in productList:
-        qtd_holded = getQtyHolded(item, dateRangeEnd)
+        qtd_holded = getQtyHolded(item, dateEnd)
 
         vmd = getVMD(item, dateRangeInDays)
 
-        VMD30 = getVMD30(item, dateMinus30, dateRangeEnd)
+        VMD30 = getVMD30(item, dateMinus30, dateEnd)
 
-        writer.writerow([item[0].encode('UTF-8'), item[1].encode('utf-8', 'replace'), item[2].encode('utf-8', 'replace')
+        writer.writerow([item[0], item[1].encode('utf-8', 'replace'), item[2].encode('utf-8', 'replace')
                         , item[3], item[4], qtd_holded, vmd, VMD30, item[6], item[7], item[8], item[9], item[10]])
     return response
 
 def generateCSV(orderArray, dateStart, dateEnd, itemsHash, productList):
+    #Salva a quantidade de pedidos por tupo
     for order in orderArray:
         if order['status'] == 'processing':
             for item in order['items']:
@@ -264,17 +275,93 @@ def importar(request):
                           {'status': 'ok'},
                           context_instance=RequestContext(request))
 
+def exportar(request):
+    if request.method == "POST":
+        itemsHash = []
+        productList = []
+        BRANDS_ARRAY = []
+
+        for brand in brands.objects.all():
+            BRANDS_ARRAY.append(brand.name.encode('UTF-8'))
+
+        for product in itemNaBase.objects.all():
+            itemsHash.append(product.sku)
+            itemDict = {
+                'name': product.name
+            }
+            if product.status:
+                status = 'Enable'
+            else:
+                status = 'Disable'
+            if product.specialPrice:
+                productList.append([product.sku, product.name, getBrand(itemDict, BRANDS_ARRAY), product.specialPrice, 0, 0, 0, 0, 0, 0, status])
+            else:
+                productList.append([product.sku, product.name, getBrand(itemDict, BRANDS_ARRAY), product.price, 0, 0, 0, 0, 0, 0, status])
+
+        dataInicial = datetime.strptime(request.POST.get('dataInicio'), '%d-%m-%Y')
+        dataFinal = datetime.strptime(request.POST.get('dataFim') + ' 23:59:59', '%d-%m-%Y %H:%M:%S')
+
+        orders = orderNaBase.objects.filter(created_at__range=[dataInicial, dataFinal])
+
+        for order in orders:
+            if order.status == 'processing':
+                print order.orderitem_set.all()
+                for itemOrder in order.orderitem_set.all():
+                    try:
+                        productList[itemsHash.index(itemOrder.item.sku)][4] += 1
+                    except:
+                        pass
+            elif order.status == 'holded':
+                for itemOrder in order.orderitem_set.all():
+                    try:
+                        productList[itemsHash.index(itemOrder.item.sku)][5] += 1
+                    except:
+                        pass
+            elif order.status == 'complete':
+                for itemOrder in order.orderitem_set.all():
+                    try:
+                        productList[itemsHash.index(itemOrder.item.sku)][6] += 1
+                    except:
+                        pass
+            elif order.status == 'fraud':
+                for itemOrder in order.orderitem_set.all():
+                    try:
+                        productList[itemsHash.index(itemOrder.item.sku)][7] += 1
+                    except:
+                        pass
+            elif order.status == 'fraud2':
+                for itemOrder in order.orderitem_set.all():
+                    try:
+                        productList[itemsHash.index(itemOrder.item.sku)][8] += 1
+                    except:
+                        pass
+            elif order.status == 'complete2':
+                for itemOrder in order.orderitem_set.all():
+                    try:
+                        productList[itemsHash.index(itemOrder.item.sku)][9] += 1
+                    except:
+                        pass
+
+        return saveCSV(productList, dataInicial, dataFinal)
+    else:
+        return render_to_response('exportar.html',
+                              {'status': 'ok'},
+                              context_instance=RequestContext(request))
+
 def importAllProducts(request):
     if request.method == 'POST':
         print('-- Start Product import')
         salesReport = Magento()
         salesReport.connect()
         quantidadeImportada = 0
+        BRANDS_ARRAY = []
+        for brand in brands.objects.all():
+            BRANDS_ARRAY.append(brand.name.encode('UTF-8'))
         for product in salesReport.getProductArray():
             try:
                 item = item.objects.get(product['sku'])
             except Exception as e:
-                saveItemInDatabse(product)
+                saveItemInDatabse(product, BRANDS_ARRAY)
                 quantidadeImportada += 1
         return render_to_response('importar.html',
                           {
@@ -349,3 +436,101 @@ def loginView(request):
 def logoutView(request):
     logout(request)
     return HttpResponseRedirect(reverse('login'))
+
+def getFaturamentoForDay(date):
+    inicioDoDia = date.replace(hour=0, minute=0, second=0)
+    fimDoDia = date.replace(hour=23, minute=59, second=59)
+    orders = orderNaBase.objects.filter(created_at__range=[inicioDoDia, fimDoDia])
+    today = str(date.day) + '-' + str(date.month),
+    numeroDePedidos = len(orders)
+    valorBrutoFaturado = 0
+    receitaFrete = 0
+    valorDesconto = 0
+    valorBonificado = 0
+    valorLiquidoProdutos = 0
+    # ALTERARRR!!!!!
+    custoProdutos = 1
+    # ALTERARRR!!!!!
+    valorFrete = 1
+    # ALTERARRR!!!!!
+    valorTaxaCartao = 0
+    somatoriaProdutos = 0
+
+    for order in orders:
+        valorBrutoFaturado += order.grand_total
+        receitaFrete += order.shipping_amount
+        valorDesconto += order.discount_amount
+
+        valorBonificadoPedido = 0
+        for item in order.orderitem_set.all():
+            somatoriaProdutos += 1
+            custoProdutos += item.item.cost
+            if item.price == 0.0:
+                valorBonificado += item.item.price
+                valorBonificadoPedido += item.item.price
+
+        valorLiquidoProdutos += order.grand_total - order.shipping_amount - order.discount_amount - valorBonificadoPedido
+        valorFrete += order.shipping_amount
+
+        if order.payment_method == 'BoletoBancario':
+            valorTaxaCartao += 3.5
+        else:
+            valorTaxaCartao += 1.8
+
+    margemBrutaSoProdutos = 1 - (custoProdutos / valorLiquidoProdutos)
+    margemBrutaCartaoFrete = 1 - ((custoProdutos + valorFrete + valorTaxaCartao) / (valorLiquidoProdutos + receitaFrete))
+    ticketMedio = valorLiquidoProdutos / numeroDePedidos
+    nuemroPedidosProdutos = somatoriaProdutos / numeroDePedidos
+
+    print today[0]
+    return [
+        today[0],
+        numeroDePedidos,
+        round(valorBrutoFaturado, 2),
+        round(receitaFrete, 2),
+        round(valorDesconto, 2),
+        round(valorBonificado, 2),
+        round(valorLiquidoProdutos, 2),
+        round(custoProdutos, 2),
+        round(valorFrete, 2),
+        round(valorTaxaCartao, 2),
+        round(margemBrutaSoProdutos, 2),
+        round(margemBrutaCartaoFrete, 2),
+        round(ticketMedio, 2),
+        nuemroPedidosProdutos
+    ]
+    # return {
+    #     'dia': today,
+    #     'numeroDePedidos': numeroDePedidos,
+    #     'valorBrutoFaturado': valorBrutoFaturado,
+    #     'receitaFrete': receitaFrete,
+    #     'valorDesconto': valorDesconto,
+    #     'valorBonificado': valorBonificado,
+    #     'valorLiquidoProdutos': valorLiquidoProdutos,
+    #     'custoProdutos': custoProdutos,
+    #     'valorFrete': valorFrete,
+    #     'valorTaxaCartao': valorTaxaCartao,
+    #     'somatoriaProdutos': somatoriaProdutos,
+    #     'margemBrutaSoProdutos': margemBrutaSoProdutos,
+    #     'margemBrutaCartaoFrete': margemBrutaCartaoFrete,
+    #     'ticketMedio': ticketMedio,
+    #     'nuemroPedidosProdutos': nuemroPedidosProdutos,
+    # }
+
+class Faturamento(TemplateView):
+    template_name = 'faturamento.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(Faturamento, self).get_context_data(**kwargs)
+        #Cria a tabela da dashboard limpa
+        tabela = []
+        today = datetime.now()
+        for day in range(0, 7):
+            tabela.append(getFaturamentoForDay(today))
+            today -= timedelta(days=1)
+        tabela.append(['TOTAL'])
+
+        print tabela
+
+        context['tabelaFaturamento'] = tabela
+        return context
