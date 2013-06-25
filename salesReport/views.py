@@ -559,7 +559,7 @@ def importProductCost(request):
                 except Exception as e:
                     print e
 
-        return render_to_response('exportar.html',
+        return render_to_response('importar.html',
                               {'status': 'importacaoSucesso',
                                'atualizadoSucesso': quantidadeAtualizada},
                               context_instance=RequestContext(request))
