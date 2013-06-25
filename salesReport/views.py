@@ -23,7 +23,7 @@ class home(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(home, self).get_context_data(**kwargs)
-        dateRange = datetime.today() - timedelta(days=30)
+        dateRange = datetime.today() - timedelta(days=30) - timedelta(hours=3)
         #Cria a tabela da dashboard limpa
         pedidoArray = []
         today = date.today()
@@ -36,6 +36,8 @@ class home(TemplateView):
 
         #Preenche a tabela com os pedidos
         for orderInPeriod in order.objects.filter(created_at__gt=dateRange):
+            #Ajuste de UTC para GMT-3
+            orderInPeriod.created_at -= timedelta(hours=3)
             diferencaDias = date.today() - orderInPeriod.created_at.date()
 
             #Soma a coluna de dias
