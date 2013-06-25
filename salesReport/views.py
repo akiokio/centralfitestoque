@@ -500,7 +500,7 @@ def getFaturamentoForDay(date):
     margemBrutaSoProdutos = 1 - (custoProdutos / valorLiquidoProdutos)
     margemBrutaCartaoFrete = 1 - ((custoProdutos + valorFrete + valorTaxaCartao) / (valorLiquidoProdutos + receitaFrete))
     ticketMedio = valorLiquidoProdutos / numeroDePedidos
-    nuemroPedidosProdutos = somatoriaProdutos / numeroDePedidos
+    nuemroPedidosProdutos = round(somatoriaProdutos / numeroDePedidos, 2)
 
     return [
         today[0],
