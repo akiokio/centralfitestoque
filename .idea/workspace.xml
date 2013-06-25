@@ -8,7 +8,7 @@
     <file path="/estoque.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368237381039" ignored="false" />
     <file path="/models.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1372132194058" ignored="false" />
     <file path="/settings.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1371515337821" ignored="false" />
-    <file path="/views.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1372135284105" ignored="false" />
+    <file path="/views.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1372135748139" ignored="false" />
     <file path="/urls.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1372126176267" ignored="false" />
     <file path="/admin.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1372033859794" ignored="false" />
     <file path="/integration.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368240972748" ignored="false" />
@@ -75,10 +75,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="views.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/salesReport/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="483" column="78" selection-start="20459" selection-end="20459" vertical-scroll-proportion="0.0">
+            <state line="492" column="34" selection-start="20847" selection-end="20847" vertical-scroll-proportion="8.434097">
               <folding>
                 <element signature="e#24#118#0" expanded="true" />
               </folding>
@@ -90,15 +90,6 @@
         <entry file="file://$PROJECT_DIR$/templates/importar.html">
           <provider selected="true" editor-type-id="text-editor">
             <state line="10" column="28" selection-start="376" selection-end="376" vertical-scroll-proportion="-6.25">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="admin.py" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/salesReport/admin.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="91" selection-start="845" selection-end="845" vertical-scroll-proportion="0.4945355">
               <folding />
             </state>
           </provider>
@@ -146,14 +137,14 @@
         <option value="$PROJECT_DIR$/salesReport/correios.py" />
         <option value="$PROJECT_DIR$/templates/faturamento.html" />
         <option value="$PROJECT_DIR$/salesReport/models.py" />
-        <option value="$PROJECT_DIR$/salesReport/views.py" />
         <option value="$PROJECT_DIR$/salesReport/admin.py" />
+        <option value="$PROJECT_DIR$/salesReport/views.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-315" />
-    <option name="y" value="-1079" />
+    <option name="x" value="321" />
+    <option name="y" value="-1080" />
     <option name="width" value="1280" />
     <option name="height" value="1079" />
   </component>
@@ -448,15 +439,15 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-315" y="-1079" width="1280" height="1079" extended-state="0" />
+    <frame x="321" y="-1080" width="1280" height="1079" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298217" sideWeight="0.43482795" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21393842" sideWeight="0.43482795" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.5651721" sideWeight="0.9605123" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21393842" sideWeight="0.77059436" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22940563" sideWeight="0.9605123" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23662885" sideWeight="0.28741497" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35689655" sideWeight="0.50041497" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24087591" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -529,7 +520,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="155" />
+      <option name="time" value="156" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -587,26 +578,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/importar.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="28" selection-start="376" selection-end="376" vertical-scroll-proportion="-6.25">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/faturamento.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="15" column="24" selection-start="456" selection-end="508" vertical-scroll-proportion="-9.375">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/salesReport/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="483" column="78" selection-start="20459" selection-end="20459" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#24#118#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -628,6 +603,22 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="18" column="91" selection-start="845" selection-end="845" vertical-scroll-proportion="0.4945355">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/importar.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="28" selection-start="376" selection-end="376" vertical-scroll-proportion="-6.25">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/salesReport/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="492" column="34" selection-start="20847" selection-end="20847" vertical-scroll-proportion="8.434097">
+          <folding>
+            <element signature="e#24#118#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
