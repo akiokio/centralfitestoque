@@ -55,6 +55,8 @@ class orderItem(models.Model):
     updated_at = models.DateTimeField(max_length=500, null=True, blank=True)
     quantidade = models.FloatField()
     price = models.FloatField()
+    is_child = models.BooleanField(default=False)
+    productType = models.CharField(max_length=155)
 
     item = models.ForeignKey(item)
     order = models.ForeignKey(order)

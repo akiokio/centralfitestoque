@@ -14,6 +14,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.contrib.auth import authenticate, login
 from django.core.urlresolvers import reverse
+from xlrd import open_workbook
+from .correios import correios_frete_simples
 
 
 class home(TemplateView):
@@ -48,16 +50,12 @@ class home(TemplateView):
 
 def timeInUTC(dateString):
         dateReturn = datetime.strptime(dateString, "%Y-%m-%d %H:%M:%S")
-        print dateReturn
         dateReturn = dateReturn + timedelta(hours=3)
-        print dateReturn
         return dateReturn
 
 def timeInGMT(dateString):
         dateReturn = datetime.strptime(dateString, "%Y-%m-%d %H:%M:%S")
-        print dateReturn
         dateReturn = dateReturn - timedelta(hours=3)
-        print dateReturn
         return dateReturn
 
 def saveItemInDatabse(i, BRANDS_ARRAY):
@@ -95,14 +93,21 @@ def saveOrderItemInDatabse(order, orderItemToSave):
     createdAt = timeInGMT(orderItemToSave['created_at'])
     updated_at = timeInGMT(orderItemToSave['updated_at'])
 
+    if orderItemToSave['parent_item_id'] != None:
+        is_child = orderItemToSave['parent_item_id']
+    else:
+        is_child = False
+
     newOrderItem = orderItem.objects.create(
         item=itemToSave,
         order=order,
         quantidade=float(orderItemToSave['qty_ordered']),
         created_at=createdAt,
         updated_at=updated_at,
-        price=float(orderItemToSave['price'],
-    ))
+        price=float(orderItemToSave['price']),
+        is_child=is_child,
+        productType=orderItemToSave['product_type'],
+    )
     return newOrderItem
 
 def saveOrderInDatabase(o):
@@ -118,6 +123,14 @@ def saveOrderInDatabase(o):
             payment_method = o['payment']['additional_information']['PaymentMethod']
         else:
             payment_method = 'Sem Informacao'
+        pesoPedido = 0
+        for item in o['items']:
+            pesoPedido += float(item['weight'].replace(',', '.'))
+        shipping_amount_simulate = correios_frete_simples('04105020', o['billing_address']['postcode'], 30, 30, 30, pesoPedido)
+        if o['shipping_method'].split('_')[2] == '41112':
+            shipping_amount = shipping_amount_simulate['sedex']['valor'].replace(',', '.')
+        else:
+            shipping_amount = shipping_amount_simulate['pac']['valor'].replace(',', '.')
         databaseOrder = order.objects.create(
                                             increment_id=o['increment_id'],
                                             created_at= createdAt,
@@ -129,7 +142,7 @@ def saveOrderInDatabase(o):
                                             status=o['status'],
                                             customer_email=o['customer_email'],
                                             order_id=o['order_id'],
-                                            shipping_amount=o['shipping_amount'],
+                                            shipping_amount=shipping_amount,
                                             shipping_method=o['shipping_method'],
                                             discount_amount=o['discount_amount'],
                                             payment_method=payment_method
@@ -452,11 +465,8 @@ def getFaturamentoForDay(date):
     valorDesconto = 0
     valorBonificado = 0
     valorLiquidoProdutos = 0
-    # ALTERARRR!!!!!
-    custoProdutos = 1
-    # ALTERARRR!!!!!
-    valorFrete = 1
-    # ALTERARRR!!!!!
+    custoProdutos = 0
+    valorFrete = 0
     valorTaxaCartao = 0
     somatoriaProdutos = 0
 
@@ -468,8 +478,9 @@ def getFaturamentoForDay(date):
         valorBonificadoPedido = 0
         for item in order.orderitem_set.all():
             somatoriaProdutos += 1
-            custoProdutos += item.item.cost
-            if item.price == 0.0:
+            if item.productType != 'bundle':
+                custoProdutos += item.item.cost * item.quantidade
+            if item.price == 0.0 and item.is_child == False:
                 valorBonificado += item.item.price
                 valorBonificadoPedido += item.item.price
 
@@ -477,16 +488,15 @@ def getFaturamentoForDay(date):
         valorFrete += order.shipping_amount
 
         if order.payment_method == 'BoletoBancario':
-            valorTaxaCartao += 3.5
+            valorTaxaCartao += 2.2
         else:
-            valorTaxaCartao += 1.8
+            valorTaxaCartao += (order.grand_total * 0.029)
 
     margemBrutaSoProdutos = 1 - (custoProdutos / valorLiquidoProdutos)
     margemBrutaCartaoFrete = 1 - ((custoProdutos + valorFrete + valorTaxaCartao) / (valorLiquidoProdutos + receitaFrete))
     ticketMedio = valorLiquidoProdutos / numeroDePedidos
     nuemroPedidosProdutos = somatoriaProdutos / numeroDePedidos
 
-    print today[0]
     return [
         today[0],
         numeroDePedidos,
@@ -503,23 +513,6 @@ def getFaturamentoForDay(date):
         round(ticketMedio, 2),
         nuemroPedidosProdutos
     ]
-    # return {
-    #     'dia': today,
-    #     'numeroDePedidos': numeroDePedidos,
-    #     'valorBrutoFaturado': valorBrutoFaturado,
-    #     'receitaFrete': receitaFrete,
-    #     'valorDesconto': valorDesconto,
-    #     'valorBonificado': valorBonificado,
-    #     'valorLiquidoProdutos': valorLiquidoProdutos,
-    #     'custoProdutos': custoProdutos,
-    #     'valorFrete': valorFrete,
-    #     'valorTaxaCartao': valorTaxaCartao,
-    #     'somatoriaProdutos': somatoriaProdutos,
-    #     'margemBrutaSoProdutos': margemBrutaSoProdutos,
-    #     'margemBrutaCartaoFrete': margemBrutaCartaoFrete,
-    #     'ticketMedio': ticketMedio,
-    #     'nuemroPedidosProdutos': nuemroPedidosProdutos,
-    # }
 
 class Faturamento(TemplateView):
     template_name = 'faturamento.html'
@@ -538,3 +531,38 @@ class Faturamento(TemplateView):
 
         context['tabelaFaturamento'] = tabela
         return context
+
+def importProductCost(request):
+    if request.method == "POST":
+        from django.core.files.storage import default_storage
+        from django.core.files.base import ContentFile
+        from centralFitEstoque.settings import MEDIA_ROOT
+
+        quantidadeAtualizada = 0
+
+        file = request.FILES['docfile']
+        path = default_storage.save('tabelaCustoProduto.xlsx', ContentFile(file.read()))
+        wb = open_workbook(MEDIA_ROOT + path)
+        for s in wb.sheets():
+            print 'Sheet:', s.name
+            for row in range(s.nrows):
+                values = []
+                for col in range(s.ncols):
+                    values.append(s.cell(row, col).value)
+                print
+                try:
+                    if values[2] != 0:
+                        produto = itemNaBase.objects.get(sku=values[2])
+                        print produto, produto.cost
+                        produto.cost = values[4]
+                        produto.save()
+                        quantidadeAtualizada += 1
+                except Exception as e:
+                    print e
+
+        return render_to_response('exportar.html',
+                              {'status': 'importacaoSucesso',
+                               'atualizadoSucesso': quantidadeAtualizada},
+                              context_instance=RequestContext(request))
+    else:
+        return HttpResponseForbidden

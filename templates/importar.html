@@ -11,9 +11,23 @@
             <p>Quantidade já na base: {{ naBase }} </p>
         {% endif %}
         </div>
+    {% elif status == 'atualizadoSucesso' %}
+        <div class='well'>
+            <p>Status: {{ status }}</p>
+            <p>Quantidade importada: {{ quantidadeAtualizada }}</p>
+        </div>
     {% endif %}
     <div class='well'>
         <h4>Modos de importação</h4>
+        <hr>
+        <form action="{% url 'atualizarProdutosCusto' %}" method="post" enctype="multipart/form-data">
+            <span class="help-block">Importa os <strong>custos</strong> de todos os produtos da base</span>
+            {% csrf_token %}
+            <input type="file" value="title" name="docfile" id="title" />
+            </p>
+            <p><input type="submit" value="Upload" /></p>
+        </form>
+        <hr>
         <form action="{% url 'importarProdutos' %}" method="POST">
             {% csrf_token %}
             <span class="help-block">Importa todos os <strong>produtos</strong> para atualizar a base</span>

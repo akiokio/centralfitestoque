@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from salesReport.views import home, importAllProducts, importAllOrders, importar, loginView, logoutView, exportar, Faturamento
+from salesReport.views import home, importAllProducts, importAllOrders, importar, loginView, logoutView, exportar, Faturamento, importProductCost
 from django.contrib.auth.decorators import login_required
 
 # Uncomment the next two lines to enable the admin:
@@ -24,6 +24,7 @@ urlpatterns = patterns('',
     url(r'^importar/$', login_required(importar), name='importar'),
     url(r'^importar/produtos/$', importAllProducts, name='importarProdutos'),
     url(r'^importar/pedidos/$', importAllOrders, name='importarPedidos'),
+    url(r'^importar/custos/$', importProductCost, name='atualizarProdutosCusto'),
     url(r'^login/$', loginView, name="login"),
     url(r'^logout/$', logoutView, name="logout"),
 )
