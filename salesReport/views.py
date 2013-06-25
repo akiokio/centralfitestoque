@@ -526,7 +526,7 @@ class Faturamento(TemplateView):
         #Cria a tabela da dashboard limpa
         tabela = []
         today = datetime.now()
-        for day in range(0, 7):
+        for day in range(0, 14):
             tabela.append(getFaturamentoForDay(today))
             today -= timedelta(days=1)
         tabela.append(['TOTAL'])

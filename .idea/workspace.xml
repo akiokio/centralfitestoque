@@ -24,7 +24,7 @@
     <file path="/index.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1372105117844" ignored="false" />
     <file path="/base.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1372031209401" ignored="false" />
     <file path="/commom.js" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1371502718838" ignored="false" />
-    <file path="/importar.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1372127881471" ignored="false" />
+    <file path="/importar.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1372136624924" ignored="false" />
     <file path="/login.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1371514916162" ignored="false" />
     <file path="/Dummy.txt" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1372127921501" ignored="false" />
     <file path="/exportar.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1372022515524" ignored="false" />
@@ -75,10 +75,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/salesReport/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="47" column="26" selection-start="2265" selection-end="2265" vertical-scroll-proportion="0.6232092">
+            <state line="535" column="45" selection-start="22344" selection-end="22344" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="e#24#118#0" expanded="true" />
               </folding>
@@ -86,10 +86,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="importar.html" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="importar.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/importar.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="28" selection-start="376" selection-end="376" vertical-scroll-proportion="-6.25">
+            <state line="30" column="41" selection-start="1310" selection-end="1310" vertical-scroll-proportion="0.6216617">
               <folding />
             </state>
           </provider>
@@ -133,12 +133,12 @@
         <option value="$PROJECT_DIR$/templates/exportar.html" />
         <option value="$PROJECT_DIR$/templates/base.html" />
         <option value="$PROJECT_DIR$/centralFitEstoque/urls.py" />
-        <option value="$PROJECT_DIR$/templates/importar.html" />
         <option value="$PROJECT_DIR$/salesReport/correios.py" />
         <option value="$PROJECT_DIR$/templates/faturamento.html" />
         <option value="$PROJECT_DIR$/salesReport/models.py" />
         <option value="$PROJECT_DIR$/salesReport/admin.py" />
         <option value="$PROJECT_DIR$/salesReport/views.py" />
+        <option value="$PROJECT_DIR$/templates/importar.html" />
       </list>
     </option>
   </component>
@@ -606,19 +606,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/importar.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="28" selection-start="376" selection-end="376" vertical-scroll-proportion="-6.25">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/salesReport/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="26" selection-start="2265" selection-end="2265" vertical-scroll-proportion="0.6232092">
+        <state line="535" column="45" selection-start="22344" selection-end="22344" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="e#24#118#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/importar.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="41" selection-start="1310" selection-end="1310" vertical-scroll-proportion="0.6216617">
+          <folding />
         </state>
       </provider>
     </entry>
