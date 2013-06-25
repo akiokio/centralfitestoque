@@ -14,9 +14,9 @@ class orderAdmin(admin.ModelAdmin):
     inlines = [orderItemInlines,]
 
 class orderItemAdmin(admin.ModelAdmin):
-    list_display = ['quantidade', 'item', 'created_at', 'price']
-    list_filter = ['quantidade', 'item', 'created_at', 'price']
-    search_fields = ['quantidade', 'item', 'created_at', 'price']
+    list_display = ['quantidade', 'item', 'created_at', 'price', 'productType', 'is_child']
+    list_filter = ['quantidade', 'item', 'created_at', 'price', 'productType', 'is_child']
+    search_fields = ['quantidade', 'item', 'created_at', 'price', 'productType', 'is_child']
 
 class itemAdmin(admin.ModelAdmin):
     list_display = ['product_id', 'sku', 'name', 'cost', 'price', 'specialPrice', 'brand']
