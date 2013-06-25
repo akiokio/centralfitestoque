@@ -27,7 +27,7 @@ class home(TemplateView):
         #Cria a tabela da dashboard limpa
         pedidoArray = []
         today = date.today()
-        for day in range(0, 32):
+        for day in range(0, 31):
             pedidoArray.append([
                 str(today.day) + '-' + str(today.month), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
             ])
@@ -44,8 +44,8 @@ class home(TemplateView):
             pedidoArray[diferencaDias.days][orderInPeriod.created_at.hour + 1] += 1
             pedidoArray[diferencaDias.days][25] += 1
             #Soma a coluna Totais
-            pedidoArray[32][orderInPeriod.created_at.hour + 1] += 1
-            pedidoArray[32][25] += 1
+            pedidoArray[31][orderInPeriod.created_at.hour + 1] += 1
+            pedidoArray[31][25] += 1
         context['tabelaPedidos'] = pedidoArray
         context['usuario'] = self.request.user
         return context
