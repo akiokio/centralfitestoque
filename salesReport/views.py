@@ -114,6 +114,10 @@ def saveOrderInDatabase(o):
     except:
         createdAt = timeInGMT(o['created_at'])
         updated_at = timeInGMT(o['updated_at'])
+        if len(o['payment']['additional_information']) > 0:
+            payment_method = o['payment']['additional_information']['PaymentMethod']
+        else:
+            payment_method = 'Sem Informacao'
         databaseOrder = order.objects.create(
                                             increment_id=o['increment_id'],
                                             created_at= createdAt,
@@ -128,7 +132,7 @@ def saveOrderInDatabase(o):
                                             shipping_amount=o['shipping_amount'],
                                             shipping_method=o['shipping_method'],
                                             discount_amount=o['discount_amount'],
-                                            payment_method=o['payment']['additional_information']['PaymentMethod']
+                                            payment_method=payment_method
                                             )
         for itemInOrder in o['items']:
             saveOrderItemInDatabse(databaseOrder, itemInOrder)
