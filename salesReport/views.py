@@ -479,10 +479,11 @@ def getFaturamentoForDay(date):
 
         valorBonificadoPedido = 0
         for item in order.orderitem_set.all():
-            somatoriaProdutos += 1
             #Para produtos com tipos especiais somar o custo somente dos produtos simples
+            #Somente produtos simples são somados no variavel somatoria de produtos para calcular o # de produtos pedidos
             if item.productType == 'simple':
                 custoProdutos += item.item.cost * item.quantidade
+                somatoriaProdutos += item.quantidade
             #Para o valor bonificado somar somente os produtos simples (filhos)
             if item.price == 0.0 and item.is_child == False:
                 valorBonificado += item.item.price
