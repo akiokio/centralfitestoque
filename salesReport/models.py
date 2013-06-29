@@ -42,7 +42,12 @@ class order(models.Model):
     discount_amount = models.FloatField()
     payment_method = models.CharField(max_length=500, null=True, blank=True)
     payment_shipping_amount = models.FloatField(null=True, blank=True)
+    shipping_amount_centralfit = models.FloatField(null=True, blank=True)
     payment_amount_ordered = models.FloatField(null=True, blank=True)
+    shipping_address_postcode = models.CharField(max_length=500)
+    shipping_address_region = models.CharField(max_length=500)
+    shipping_address_street = models.CharField(max_length=500)
+    weight = models.FloatField()
 
     item = models.ManyToManyField(item, through='orderItem')
 

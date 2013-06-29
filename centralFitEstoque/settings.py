@@ -171,3 +171,5 @@ except :
 GRAPPELLI_ADMIN_TITLE = 'Centralfit - Webapp'
 
 LOGIN_URL = '/login/'
+
+FRETE_ORIGEM = '05319000'

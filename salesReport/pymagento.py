@@ -79,6 +79,9 @@ class Magento(object):
         print('End get orders...')
         return orderList
 
+    def getSingleOrderInfo(self, increment_id):
+        return self.svr.call(self.token, 'sales_order.info', [increment_id])
+
     def createStockCSV(self, filename):
         outfile = csv.writer(open(filename, 'w'))
         products = self.svr.call(self.token, 'catalog_product.list')

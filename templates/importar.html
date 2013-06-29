@@ -45,5 +45,7 @@
             <input type="text" name='dataFim' class="span2" value="Insira a data" id="dataFim" data-date-format="dd-mm-yyyy"></p>
             <button id="importarProdutos" type="submit" class="btn">Importar Pedidos</button>
         </form>
+        <hr>
+        <a href="{% url 'atualizarPedidosBoleto' %}">Atualizar status pedidos de boleto (- 7 dias)</a>
     </div>
 {% endblock %}
