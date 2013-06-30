@@ -4,13 +4,10 @@ __author__ = 'akiokio'
 from django_cron import CronJobBase, Schedule
 import datetime
 from django.core.mail import send_mail
-from centralFitEstoque.settings import LISTA_REMETENTES_EMAIL
+from centralFitEstoque.settings import LISTA_REMETENTES_EMAIL, RUN_EVERY_MINS
 from salesReport.views import timeInGMT, timeInUTC, updateLast7daysOrderStatus, importOrders
 
 class MyCronJob(CronJobBase):
-    # RUN_EVERY_MINS = 1440 # every 24 hours
-    RUN_EVERY_MINS = 1 # every 1 min
-
     schedule = Schedule(run_every_mins=RUN_EVERY_MINS)
     code = 'my_app.my_cron_job'    # a unique code
 
