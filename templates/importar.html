@@ -10,11 +10,12 @@
         {% if naBase > 0 %}
             <p>Quantidade já na base: {{ naBase }} </p>
         {% endif %}
+        <p>Periodo: {{ RangeImportado }}</p>
         </div>
     {% elif status == 'atualizadoSucesso' %}
         <div class='well'>
             <p>Status: {{ status }}</p>
-            <p>Quantidade importada: {{ quantidadeAtualizada }}</p>
+            <p>Quantidade importada: {{ quantidadeAtualizada }} </p>
         </div>
     {% endif %}
     <div class='well'>

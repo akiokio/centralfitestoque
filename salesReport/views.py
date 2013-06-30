@@ -423,7 +423,8 @@ def importProductCost(request):
 
         return render_to_response('importar.html',
                               {'status': 'importacaoSucesso',
-                               'atualizadoSucesso': quantidadeAtualizada},
+                               'atualizadoSucesso': quantidadeAtualizada
+                              },
                               context_instance=RequestContext(request))
     else:
         return HttpResponseForbidden
@@ -447,5 +448,6 @@ def atualizarStatusPedido(request):
 
     return render_to_response('importar.html',
                               {'status': 'atualizadoSucesso',
-                               'quantidadeAtualizada': quantidadeAtualizada},
+                               'quantidadeAtualizada': quantidadeAtualizada,
+                              },
                               context_instance=RequestContext(request))

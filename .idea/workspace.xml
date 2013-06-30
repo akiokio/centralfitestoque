@@ -2,23 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ebd84075-4f20-4613-bc6e-2f01cb9657e6" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dashboard/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/salesReport/factory.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/salesReport/helpers.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dashboard/models.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dashboard/tests.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/dashboard/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/importar.html" afterPath="$PROJECT_DIR$/templates/importar.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/salesReport/models.py" afterPath="$PROJECT_DIR$/salesReport/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/salesReport/pymagento.py" afterPath="$PROJECT_DIR$/salesReport/pymagento.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/centralFitEstoque/settings.py" afterPath="$PROJECT_DIR$/centralFitEstoque/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/salesReport/tests.py" afterPath="$PROJECT_DIR$/salesReport/tests.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/centralFitEstoque/urls.py" afterPath="$PROJECT_DIR$/centralFitEstoque/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/salesReport/views.py" afterPath="$PROJECT_DIR$/salesReport/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="centralFitEstoque.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -42,7 +27,7 @@
     <file path="/index.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1372105117844" ignored="false" />
     <file path="/base.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1372031209401" ignored="false" />
     <file path="/commom.js" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1371502718838" ignored="false" />
-    <file path="/importar.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1372384693111" ignored="false" />
+    <file path="/importar.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1372550397064" ignored="false" />
     <file path="/login.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1371514916162" ignored="false" />
     <file path="/Dummy.txt" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1372516635443" ignored="false" />
     <file path="/exportar.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1372022515524" ignored="false" />
@@ -99,7 +84,7 @@
       <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/salesReport/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="386" column="58" selection-start="16837" selection-end="16837" vertical-scroll-proportion="0.0">
+            <state line="450" column="76" selection-start="19550" selection-end="19550" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="e#24#118#0" expanded="true" />
                 <element signature="e#7245#8704#0" expanded="false" />
@@ -128,10 +113,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dashboard/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="108" column="50" selection-start="4659" selection-end="4659" vertical-scroll-proportion="0.34">
+            <state line="108" column="50" selection-start="4659" selection-end="4659" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="e#47#91#0" expanded="true" />
               </folding>
@@ -139,10 +124,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="importar.html" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="importar.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/importar.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="48" column="92" selection-start="2335" selection-end="2335" vertical-scroll-proportion="-7.0833335">
+            <state line="17" column="68" selection-start="664" selection-end="664" vertical-scroll-proportion="0.69018406">
               <folding />
             </state>
           </provider>
@@ -180,7 +165,6 @@
         <option value="$PROJECT_DIR$/templates/faturamento.html" />
         <option value="$PROJECT_DIR$/salesReport/admin.py" />
         <option value="$PROJECT_DIR$/salesReport/pymagento.py" />
-        <option value="$PROJECT_DIR$/templates/importar.html" />
         <option value="$PROJECT_DIR$/dashboard/models.py" />
         <option value="$PROJECT_DIR$/centralFitEstoque/urls.py" />
         <option value="$PROJECT_DIR$/dashboard/tests.py" />
@@ -191,6 +175,7 @@
         <option value="$PROJECT_DIR$/dashboard/views.py" />
         <option value="$PROJECT_DIR$/salesReport/models.py" />
         <option value="$PROJECT_DIR$/salesReport/views.py" />
+        <option value="$PROJECT_DIR$/templates/importar.html" />
       </list>
     </option>
   </component>
@@ -662,13 +647,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/importar.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="92" selection-start="2335" selection-end="2335" vertical-scroll-proportion="-7.0833335">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/salesReport/helpers.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="739" column="25" selection-start="38429" selection-end="38444" vertical-scroll-proportion="0.0">
@@ -692,9 +670,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/dashboard/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="108" column="50" selection-start="4659" selection-end="4659" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="e#47#91#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/salesReport/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="386" column="58" selection-start="16837" selection-end="16837" vertical-scroll-proportion="0.0">
+        <state line="450" column="76" selection-start="19550" selection-end="19550" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="e#24#118#0" expanded="true" />
             <element signature="e#7245#8704#0" expanded="false" />
@@ -702,12 +689,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dashboard/views.py">
+    <entry file="file://$PROJECT_DIR$/templates/importar.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="108" column="50" selection-start="4659" selection-end="4659" vertical-scroll-proportion="0.34">
-          <folding>
-            <element signature="e#47#91#0" expanded="true" />
-          </folding>
+        <state line="17" column="68" selection-start="664" selection-end="664" vertical-scroll-proportion="0.69018406">
+          <folding />
         </state>
       </provider>
     </entry>
