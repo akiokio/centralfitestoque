@@ -19,7 +19,8 @@
           <li class="{% block importar_active %}{% endblock %}"><a href="{% url 'importar' %}">Importar</a></li>
           <li class=""><a href="{% url 'logout' %}">Sair</a></li>
         </ul>
-        <h3 class="muted">Centralfit App {% if usuario %}- Olá, {{ usuario }}{% endif %}</h3>
+         <img src="http://www.centralfit.com.br/skin/frontend/fortis/default/images/logo.png" alt="LogoCentralfit"/>
+        <h6 class="muted">{% if usuario %}Olá, {{ usuario }}{% endif %}</h6>
      </div>
 
     <hr>

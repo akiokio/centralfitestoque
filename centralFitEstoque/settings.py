@@ -6,7 +6,7 @@ DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('Guilherme  Akio Sakae', 'akio.xd@gmail.com'),
 )
 
 MANAGERS = ADMINS
@@ -129,6 +129,8 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'salesReport',
+    'dashboard',
+    'django_cron',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -173,3 +175,16 @@ GRAPPELLI_ADMIN_TITLE = 'Centralfit - Webapp'
 LOGIN_URL = '/login/'
 
 FRETE_ORIGEM = '05319000'
+
+CRON_CLASSES = [
+    "salesReport.cron.MyCronJob",
+]
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'akio.xd@gmail.com'
+EMAIL_HOST_PASSWORD = 'aKiOSk2102'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+# LISTA_REMETENTES_EMAIL = ['akio.xd@gmail.com', 'rafael@centralfit.com.br']
+LISTA_REMETENTES_EMAIL = ['akio.xd@gmail.com']

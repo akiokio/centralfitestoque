@@ -353,6 +353,32 @@ def importAllProducts(request):
                           {'status': 'ok'},
                           context_instance=RequestContext(request))
 
+
+def importOrders(dateEndImUTC, dateStartImUTC, importado, naBase):
+    salesReport = Magento()
+    salesReport.connect()
+    orders = salesReport.listOrdersSinceStatusDate('holded', dateStartImUTC.strftime('%Y-%m-%d %H:%M:%s'),
+                                                   dateEndImUTC.strftime('%Y-%m-%d %H:%M:%S')) + \
+             salesReport.listOrdersSinceStatusDate('processing', dateStartImUTC.strftime('%Y-%m-%d %H:%M:%s'),
+                                                   dateEndImUTC.strftime('%Y-%m-%d %H:%M:%S')) + \
+             salesReport.listOrdersSinceStatusDate('complete', dateStartImUTC.strftime('%Y-%m-%d %H:%M:%s'),
+                                                   dateEndImUTC.strftime('%Y-%m-%d %H:%M:%S')) + \
+             salesReport.listOrdersSinceStatusDate('fraud', dateStartImUTC.strftime('%Y-%m-%d %H:%M:%s'),
+                                                   dateEndImUTC.strftime('%Y-%m-%d %H:%M:%S')) + \
+             salesReport.listOrdersSinceStatusDate('fraud2', dateStartImUTC.strftime('%Y-%m-%d %H:%M:%s'),
+                                                   dateEndImUTC.strftime('%Y-%m-%d %H:%M:%S')) + \
+             salesReport.listOrdersSinceStatusDate('complete2', dateStartImUTC.strftime('%Y-%m-%d %H:%M:%s'),
+                                                   dateEndImUTC.strftime('%Y-%m-%d %H:%M:%S'))
+    for order in orders:
+        status = saveOrderInDatabase(order)
+        if status == 'NaBase':
+            naBase += 1
+        else:
+            importado += 1
+
+    return importado, naBase
+
+
 def importAllOrders(request):
     if request.method == 'POST':
         naBase = 0
@@ -362,22 +388,7 @@ def importAllOrders(request):
         dateStartImUTC = timeInUTC(dateStart[2] + '-' + dateStart[1] + '-' + dateStart[0] + ' 00:00:00')
         dateEndImUTC = timeInUTC(dateEnd[2] + '-' + dateEnd[1] + '-' + dateEnd[0] + ' 23:59:59')
         print('-- Start Order import')
-        salesReport = Magento()
-        salesReport.connect()
-
-        orders = salesReport.listOrdersSinceStatusDate('holded', dateStartImUTC.strftime('%Y-%m-%d %H:%M:%s'), dateEndImUTC.strftime('%Y-%m-%d %H:%M:%S')) + \
-                salesReport.listOrdersSinceStatusDate('processing', dateStartImUTC.strftime('%Y-%m-%d %H:%M:%s'), dateEndImUTC.strftime('%Y-%m-%d %H:%M:%S')) + \
-                salesReport.listOrdersSinceStatusDate('complete', dateStartImUTC.strftime('%Y-%m-%d %H:%M:%s'), dateEndImUTC.strftime('%Y-%m-%d %H:%M:%S')) + \
-                salesReport.listOrdersSinceStatusDate('fraud', dateStartImUTC.strftime('%Y-%m-%d %H:%M:%s'), dateEndImUTC.strftime('%Y-%m-%d %H:%M:%S')) + \
-                salesReport.listOrdersSinceStatusDate('fraud2', dateStartImUTC.strftime('%Y-%m-%d %H:%M:%s'), dateEndImUTC.strftime('%Y-%m-%d %H:%M:%S')) + \
-                salesReport.listOrdersSinceStatusDate('complete2', dateStartImUTC.strftime('%Y-%m-%d %H:%M:%s'), dateEndImUTC.strftime('%Y-%m-%d %H:%M:%S'))
-
-        for order in orders:
-            status = saveOrderInDatabase(order)
-            if status == 'Importado':
-                importado += 1
-            else:
-                naBase += 1
+        importado, naBase = importOrders(dateEndImUTC, dateStartImUTC, importado, naBase)
 
         return render_to_response('importar.html',
                           {
@@ -429,13 +440,13 @@ def importProductCost(request):
     else:
         return HttpResponseForbidden
 
-def atualizarStatusPedido(request):
+
+def updateLast7daysOrderStatus():
     data_inicio = datetime.today() - timedelta(days=7)
     orders = orderNaBase.objects.filter(created_at__gt=data_inicio, status__in=['holded', 'processing'])
     quantidadeAtualizada = 0
     salesReport = Magento()
     salesReport.connect()
-
     #call magento and update orderStatus
     for orderToBeUpdated in orders:
         print 'trying update order %s' % orderToBeUpdated.increment_id
@@ -445,6 +456,11 @@ def atualizarStatusPedido(request):
             orderToBeUpdated.status = new_order_info['status']
             orderToBeUpdated.save()
             quantidadeAtualizada += 1
+    return quantidadeAtualizada
+
+
+def atualizarStatusPedido(request):
+    quantidadeAtualizada = updateLast7daysOrderStatus()
 
     return render_to_response('importar.html',
                               {'status': 'atualizadoSucesso',

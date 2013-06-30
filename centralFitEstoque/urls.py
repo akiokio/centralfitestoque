@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import admin
 admin.autodiscover()
 
+
 urlpatterns = patterns('',
     url(r'^$', login_required(home.as_view()), name='home'),
 
