@@ -21,8 +21,8 @@ class MyCronJob(CronJobBase):
         naBase = 0
         importado = 0
 
-        dateInitInUtc = timeInGMT('%s-%s-%s 00:00:00' % (dateInit.year, dateInit.month, dateInit.day))
-        dateEndInUtc = timeInGMT('%s-%s-%s 23:59:59' % (dateEnd.year, dateEnd.month, dateEnd.day))
+        dateInitInUtc = timeInUTC('%s-%s-%s 00:00:00' % (dateInit.year, dateInit.month, dateInit.day))
+        dateEndInUtc = timeInUTC('%s-%s-%s 23:59:59' % (dateEnd.year, dateEnd.month, dateEnd.day))
 
         importado, naBase = importOrders(dateEndInUtc, dateInitInUtc, importado, naBase)
 
