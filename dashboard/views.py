@@ -72,6 +72,9 @@ class home(TemplateView):
 def getFaturamentoForDay(date, totalArr):
     inicioDoDia = date.replace(hour=0, minute=0, second=0)
     fimDoDia = date.replace(hour=23, minute=59, second=59)
+    inicioDoDia = inicioDoDia - timedelta(hours=3)
+    fimDoDia = fimDoDia - timedelta(hours=3)
+
     orders = orderNaBase.objects.filter(created_at__range=[inicioDoDia, fimDoDia]).filter(status__in=['complete', 'complete2'])
     today = str(date.day) + '-' + str(date.month),
     numeroDePedidos = len(orders)
@@ -90,6 +93,8 @@ def getFaturamentoForDay(date, totalArr):
 
     for order in orders:
         valorBrutoFaturado += order.grand_total
+        if order.discount_amount != 0.0:
+            valorBrutoFaturado += (order.discount_amount * (-1))
         receitaFrete += order.shipping_amount
         valorDesconto += order.discount_amount
 
@@ -99,22 +104,27 @@ def getFaturamentoForDay(date, totalArr):
             #Somente produtos simples são somados no variavel somatoria de produtos para calcular o # de produtos pedidos
             if item.productType == 'simple':
                 custoProdutos += item.item.cost * item.quantidade
-                somatoriaProdutos += item.quantidade
             #Para o valor bonificado somar somente os produtos simples (filhos)
             if item.price == 0.0 and item.is_child == False:
                 valorBonificado += item.item.price
                 valorBonificadoPedido += item.item.price
+            if item.price > 0.0:
+                #soma ao total de itens analisados, não leva em consideração brindes
+                somatoriaProdutos += item.quantidade
 
-        valorLiquidoProdutos += order.grand_total - order.shipping_amount - order.discount_amount - valorBonificadoPedido
-        valorFrete += order.shipping_amount_centralfit
+        valorLiquidoProdutos += order.grand_total - order.shipping_amount - valorBonificadoPedido
+        if order.shipping_amount > 0:
+            valorFrete += order.shipping_amount
+        else:
+            valorFrete += order.shipping_amount_centralfit
 
         if order.payment_method == 'BoletoBancario':
-            valorTaxaCartao += 2.2
+            valorTaxaCartao += 2.0
         else:
             valorTaxaCartao += (order.grand_total * 0.029)
 
-    margemBrutaSoProdutos = 1 - (custoProdutos / valorLiquidoProdutos)
-    margemBrutaCartaoFrete = 1 - ((custoProdutos + valorFrete + valorTaxaCartao) / (valorLiquidoProdutos + receitaFrete))
+    margemBrutaSoProdutos = (1 - (custoProdutos / valorLiquidoProdutos)) * 100
+    margemBrutaCartaoFrete = (1 - ((custoProdutos + valorFrete + valorTaxaCartao) / (valorLiquidoProdutos + receitaFrete))) * 100
     ticketMedio = valorLiquidoProdutos / numeroDePedidos
     nuemroPedidosProdutos = round(somatoriaProdutos / numeroDePedidos, 2)
 

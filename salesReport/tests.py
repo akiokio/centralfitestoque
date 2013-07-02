@@ -9,9 +9,10 @@ Replace this with more appropriate tests for your application.
 from django.test import TestCase
 from salesReport.models import item as modelItem, orderItem as modelOrderItem, order as modelOrder, brands as modelBrands
 from salesReport.views import saveItemInDatabse, saveOrderInDatabase, saveOrderItemInDatabase, getVMD, getVMD30
-from salesReport.helpers import simple_order, simple_product, simple_item_in_order
+from salesReport.helpers import simple_order, simple_product, simple_item_in_order, test_order_01
 # from salesReport.factory import brandFactory, itemFactory
 import datetime
+from dashboard.views import getFaturamentoForDay
 
 class SimpleTest(TestCase):
     def test_basic_addition(self):
@@ -109,10 +110,30 @@ class salesReportTestCase(TestCase):
         vmd30 = getVMD30(item, dateMinus30, dateRangeEnd)
 
         self.assertEqual(0.067, vmd30)
-#
-# class importTestCase(TestCase):
-#     def setUp(self):
-#         pass
+
+class faturamentoTestCase(TestCase):
+    def setUp(self):
+        pass
+
+    def test_faturamento_pedido_01(self):
+        """
+            Primeiro teste case enviado pelo felipe
+            data do pedido=30/06/2013
+        """
+        #cria o pedido
+        order = saveOrderInDatabase(test_order_01)
+        #atualiza o custo dos produtos
+        item = modelItem.objects.get(sku=2326)
+        item.cost = 64.3
+        item.save()
+        array_esperado = ['1-7', 1, 151.41, 46.51, 10, 0, 94.9, 64.3, 46.51, 2.00, 32.24, 20.22, 94.9, 1.0]
+        date = datetime.datetime.strptime('01/07/2013', '%d/%m/%Y')
+
+        faturamento_array = getFaturamentoForDay(date, [])
+
+        self.assertEqual(array_esperado, faturamento_array)
+
+
 
 
 

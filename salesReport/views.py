@@ -75,8 +75,8 @@ def saveOrderInDatabase(o):
     print 'Saving Order: %s' % o['increment_id']
     databaseOrder = order.objects.filter(increment_id=o['increment_id'])
     if len(databaseOrder) > 0:
-        print('Order in database: %s' % databaseOrder.increment_id)
-        return 'NaBase'
+        print('Order in database: %s' % databaseOrder[0].increment_id)
+        return databaseOrder[0]
     else:
         createdAt = timeInGMT(o['created_at'])
         updated_at = timeInGMT(o['updated_at'])
@@ -369,6 +369,7 @@ def importOrders(dateEndImUTC, dateStartImUTC, importado, naBase):
                                                    dateEndImUTC.strftime('%Y-%m-%d %H:%M:%S')) + \
              salesReport.listOrdersSinceStatusDate('complete2', dateStartImUTC.strftime('%Y-%m-%d %H:%M:%s'),
                                                    dateEndImUTC.strftime('%Y-%m-%d %H:%M:%S'))
+
     for order in orders:
         status = saveOrderInDatabase(order)
         if status == 'NaBase':

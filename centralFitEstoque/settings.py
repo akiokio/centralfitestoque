@@ -179,12 +179,3 @@ FRETE_ORIGEM = '05319000'
 CRON_CLASSES = [
     "salesReport.cron.MyCronJob",
 ]
-
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'akio.xd@gmail.com'
-EMAIL_HOST_PASSWORD = 'aKiOSk2102'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-
-# LISTA_REMETENTES_EMAIL = ['akio.xd@gmail.com', 'rafael@centralfit.com.br']
-LISTA_REMETENTES_EMAIL = ['akio.xd@gmail.com']
