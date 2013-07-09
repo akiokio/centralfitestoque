@@ -122,8 +122,9 @@ class order(models.Model):
         else:
             self.valorTaxaCartao += (float(self.grand_total) * 0.029)
 
-        self.margemBrutaSoProdutos = (1 - (self.custoProdutos / self.valorLiquidoProdutos)) * 100
-        self.margemBrutaCartaoFrete = (1 - ((self.custoProdutos + self.valorFrete + self.valorTaxaCartao) / (self.valorLiquidoProdutos + self.receitaFrete))) * 100
+        if self.custoProdutos > 0.0:
+            self.margemBrutaSoProdutos = (1 - (self.custoProdutos / self.valorLiquidoProdutos)) * 100
+            self.margemBrutaCartaoFrete = (1 - ((self.custoProdutos + self.valorFrete + self.valorTaxaCartao) / (self.valorLiquidoProdutos + self.receitaFrete))) * 100
 
         self.save()
 

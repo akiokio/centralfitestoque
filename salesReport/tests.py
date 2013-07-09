@@ -131,11 +131,7 @@ class faturamentoTestCase(TestCase):
 
         self.assertEqual(array_esperado, faturamento_array)
 
-    def test_faturamento_pedido_02(self):
-        """
-            Segundo teste case enviado pelo felipe
-            data do pedido=30/06/2013
-        """
+    def test_faturamento_pedido_pedido_com_frete_a_pagar(self):
         #cria o pedido
         order = saveOrderInDatabase(extractOrderInfoFromMagento('100011676'))
         array_esperado = ['1-7', 1, 151.41, 46.51, 10, 0, 94.9, 64.3, 46.51, 2.00, 32.24, 20.22, 94.9, 1.0]
@@ -143,9 +139,38 @@ class faturamentoTestCase(TestCase):
 
         faturamento_array = getFaturamentoForDay(date, [])
 
-        print faturamento_array
+        self.assertEqual(array_esperado, faturamento_array)
+
+    def test_faturamento_pedido_pedido_com_brinde_01(self):
+        #cria o pedido
+        order = saveOrderInDatabase(extractOrderInfoFromMagento('100011681'))
+        array_esperado = ['1-7', 1, 151.41, 46.51, 10, 0, 94.9, 64.3, 46.51, 2.00, 32.24, 20.22, 94.9, 1.0]
+        date = datetime.datetime.strptime('04/07/2013', '%d/%m/%Y')
+
+        faturamento_array = getFaturamentoForDay(date, [])
 
         self.assertEqual(array_esperado, faturamento_array)
+
+    def test_faturamento_pedido_pedido_com_brinde_02(self):
+        #cria o pedido
+        order = saveOrderInDatabase(extractOrderInfoFromMagento('100011538'))
+        array_esperado = ['1-7', 1, 151.41, 46.51, 10, 0, 94.9, 64.3, 46.51, 2.00, 32.24, 20.22, 94.9, 1.0]
+        date = datetime.datetime.strptime('02/07/2013', '%d/%m/%Y')
+
+        faturamento_array = getFaturamentoForDay(date, [])
+
+        self.assertEqual(array_esperado, faturamento_array)
+
+    def test_faturamento_pedido_pedido_com_cupom_de_desconto(self):
+        #cria o pedido
+        order = saveOrderInDatabase(extractOrderInfoFromMagento('100011474'))
+        array_esperado = ['1-7', 1, 151.41, 46.51, 10, 0, 94.9, 64.3, 46.51, 2.00, 32.24, 20.22, 94.9, 1.0]
+        date = datetime.datetime.strptime('03/07/2013', '%d/%m/%Y')
+
+        faturamento_array = getFaturamentoForDay(date, [])
+
+        self.assertEqual(array_esperado, faturamento_array)
+
 
 
 
