@@ -70,13 +70,13 @@ class home(TemplateView):
         return context
 
 def getFaturamentoForDay(date, totalArr):
-    inicioDoDia = date.replace(hour=0, minute=0, second=0)
-    fimDoDia = date.replace(hour=23, minute=59, second=59)
-    inicioDoDia = inicioDoDia - timedelta(hours=3)
-    fimDoDia = fimDoDia - timedelta(hours=3)
+    inicioDoDia = date.replace(hour=0, minute=0, second=0) - timedelta(hours=3)
+    fimDoDia = date.replace(hour=23, minute=59, second=59) - timedelta(hours=3)
 
-    orders = orderNaBase.objects.filter(created_at__range=[inicioDoDia, fimDoDia]).filter(status__in=['complete', 'complete2'])
+    orders = orderNaBase.objects.filter(updated_at__range=[inicioDoDia, fimDoDia]).filter(status__in=['complete', 'complete2'])
+    # orders = orderNaBase.objects.filter(created_at__range=[inicioDoDia, fimDoDia]).filter(status__in=['complete', 'complete2'])
     today = str(date.day) + '-' + str(date.month),
+
     numeroDePedidos = len(orders)
     valorBrutoFaturado = 0
     receitaFrete = 0
@@ -88,48 +88,29 @@ def getFaturamentoForDay(date, totalArr):
     valorTaxaCartao = 0
     somatoriaProdutos = 0
 
+    #Não existem pedidos nesse dia
     if len(orders) == 0:
         return [today[0],0,0,0,0,0,0,0,0,0,0,0,0,0]
 
     for order in orders:
-        valorBrutoFaturado += order.grand_total
-        if order.discount_amount != 0.0:
-            valorBrutoFaturado += (order.discount_amount * (-1))
-        receitaFrete += order.shipping_amount
-        valorDesconto += order.discount_amount
+        tmp_valorBrutoFaturado, tmp_receitaFrete, tmp_valorDesconto, tmp_custoProdutos, tmp_valorBonificado, \
+        tmp_valorBonificadoPedido, tmp_somatoriaProdutos, tmp_valorLiquidoProdutos, tmp_valorFrete, tmp_valorTaxaCartao = order.getBillingInfo()
 
-        valorBonificadoPedido = 0
-        for item in order.orderitem_set.all():
-            #Para produtos com tipos especiais somar o custo somente dos produtos simples
-            #Somente produtos simples são somados no variavel somatoria de produtos para calcular o # de produtos pedidos
-            if item.productType == 'simple':
-                custoProdutos += item.item.cost * item.quantidade
-            #Para o valor bonificado somar somente os produtos simples (filhos)
-            if item.price == 0.0 and item.is_child == False:
-                valorBonificado += item.item.price
-                valorBonificadoPedido += item.item.price
-            if item.price > 0.0:
-                #soma ao total de itens analisados, não leva em consideração brindes
-                somatoriaProdutos += item.quantidade
+        valorBrutoFaturado += tmp_valorBrutoFaturado
+        receitaFrete += tmp_receitaFrete
+        valorDesconto += tmp_valorDesconto
+        valorBonificado += tmp_valorBonificado
+        valorLiquidoProdutos += tmp_valorLiquidoProdutos
+        custoProdutos += tmp_custoProdutos
+        valorFrete += tmp_valorFrete
+        valorTaxaCartao += tmp_valorTaxaCartao
+        somatoriaProdutos += tmp_somatoriaProdutos
 
-        valorLiquidoProdutos += order.grand_total - order.shipping_amount - valorBonificadoPedido
-        if order.shipping_amount > 0:
-            valorFrete += order.shipping_amount
-        else:
-            valorFrete += order.shipping_amount_centralfit
-
-        if order.payment_method == 'BoletoBancario':
-            valorTaxaCartao += 2.0
-        else:
-            valorTaxaCartao += (order.grand_total * 0.029)
 
     margemBrutaSoProdutos = (1 - (custoProdutos / valorLiquidoProdutos)) * 100
     margemBrutaCartaoFrete = (1 - ((custoProdutos + valorFrete + valorTaxaCartao) / (valorLiquidoProdutos + receitaFrete))) * 100
     ticketMedio = valorLiquidoProdutos / numeroDePedidos
     nuemroPedidosProdutos = round(somatoriaProdutos / numeroDePedidos, 2)
-
-    #fix negative sign in vlr_desconto
-    valorDesconto = valorDesconto * (-1)
 
     return [
         today[0],
@@ -158,7 +139,7 @@ class Faturamento(TemplateView):
         totalArr = []
         today = datetime.now()
         #range define a quantidade de dia que a tabela deve ter
-        for day in range(0, 7):
+        for day in range(0, 14):
             tabela.append(getFaturamentoForDay(today, totalArr))
             today -= timedelta(days=1)
         tabela.append(['TOTAL'])

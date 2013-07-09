@@ -4,15 +4,18 @@ from salesReport.pymagento import Magento
 from salesReport.models import order as orderNaBase, orderItem, brands, item as itemNaBase
 import csv
 from datetime import date, timedelta, datetime
-from .models import order, orderItem, item as itemObject
+from .models import order, orderItem, item as itemObject, status_history
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from xlrd import open_workbook
 from .correios import correios_frete_simples
 from centralFitEstoque.settings import FRETE_ORIGEM
+from django.core.serializers import serialize
+from django.utils import simplejson
+from django.utils import timezone
 
 def timeInUTC(dateString):
-        dateReturn = datetime.strptime(dateString, "%Y-%m-%d %H:%M:%S")
+        dateReturn = datetime.strptime(dateString, "%Y-%m-%d %H:%M:%S").replace(tzinfo=timezone.utc)
         dateReturn = dateReturn + timedelta(hours=3)
         return dateReturn
 
@@ -22,7 +25,6 @@ def timeInGMT(dateString):
         return dateReturn
 
 def saveItemInDatabse(i):
-    #TODO Testar
     if not 'cost' in i:
         i['cost'] = 0
 
@@ -46,6 +48,17 @@ def saveItemInDatabse(i):
             )
     return newItem
 
+def saveOrderStatusHistory(iteration, order):
+    iteration = status_history.objects.create(
+        comment=iteration['comment'],
+        status=iteration['status'],
+        entity_name=iteration['entity_name'],
+        created_at=datetime.strptime(iteration['created_at'], '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone.utc),
+        order=order,
+    )
+    return iteration
+
+
 def saveOrderItemInDatabase(order, orderItemToSave):
     try:
         itemToSave = itemObject.objects.get(sku=int(orderItemToSave['sku']))
@@ -63,8 +76,8 @@ def saveOrderItemInDatabase(order, orderItemToSave):
         item=itemToSave,
         order=order,
         quantidade=float(orderItemToSave['qty_ordered']),
-        created_at=createdAt,
-        updated_at=updated_at,
+        created_at=datetime.strptime(orderItemToSave['created_at'], '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone.utc),
+        updated_at=datetime.strptime(orderItemToSave['updated_at'], '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone.utc),
         price=float(orderItemToSave['price']),
         is_child=is_child,
         productType=orderItemToSave['product_type'],
@@ -78,8 +91,6 @@ def saveOrderInDatabase(o):
         print('Order in database: %s' % databaseOrder[0].increment_id)
         return databaseOrder[0]
     else:
-        createdAt = timeInGMT(o['created_at'])
-        updated_at = timeInGMT(o['updated_at'])
         if len(o['payment']['additional_information']) > 0:
             payment_method = o['payment']['additional_information']['PaymentMethod']
         else:
@@ -94,8 +105,8 @@ def saveOrderInDatabase(o):
             shipping_amount_centralfit = float(shipping_amount_simulate['pac']['valor'].replace(',', '.'))
         databaseOrder = order.objects.create(
                                             increment_id=o['increment_id'],
-                                            created_at= createdAt,
-                                            updated_at=updated_at,
+                                            created_at= datetime.strptime(o['created_at'], '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone.utc),
+                                            updated_at=datetime.strptime(o['updated_at'], '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone.utc),
                                             is_active=True,
                                             customer_id=o['customer_id'],
                                             grand_total=o['base_grand_total'],
@@ -115,6 +126,13 @@ def saveOrderInDatabase(o):
                                             )
         for itemInOrder in o['items']:
             saveOrderItemInDatabase(databaseOrder, itemInOrder)
+
+        #Salvar o historico de iteracoes do pedido
+        for iteration in o['status_history']:
+            databaseIteration = saveOrderStatusHistory(iteration, databaseOrder)
+
+        databaseOrder.generateBillingInformation()
+        databaseOrder.save()
 
         return databaseOrder
 
@@ -458,6 +476,17 @@ def updateLast7daysOrderStatus():
             orderToBeUpdated.save()
             quantidadeAtualizada += 1
     return quantidadeAtualizada
+
+
+def extractOrderInfoFromMagento(order_id):
+    salesReport = Magento()
+    salesReport.connect()
+    return salesReport.getSingleOrderInfo(order_id)
+
+
+def SingleOrderInfo(request, order_id):
+    orderJson = extractOrderInfoFromMagento(order_id)
+    return HttpResponse(simplejson.dumps(orderJson))
 
 
 def atualizarStatusPedido(request):

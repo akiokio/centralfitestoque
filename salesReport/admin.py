@@ -1,17 +1,20 @@
 # -*- coding: utf-8 -*-
 __author__ = 'akiokio'
 from django.contrib import admin
-from salesReport.models import order, orderItem, brands, item
+from salesReport.models import order, orderItem, brands, item, status_history
 
 class orderItemInlines(admin.StackedInline):
     model = orderItem
+
+class statusHistoryInlines(admin.StackedInline):
+    model = status_history
 
 class orderAdmin(admin.ModelAdmin):
     list_display = ['increment_id', 'status', 'created_at', 'grand_total', 'customer_email']
     list_filter = ['status', 'created_at', 'customer_email']
     search_fields = ['increment_id', 'status', 'created_at', 'grand_total', 'customer_email']
 
-    inlines = [orderItemInlines,]
+    inlines = [orderItemInlines, statusHistoryInlines]
 
 class orderItemAdmin(admin.ModelAdmin):
     list_display = ['quantidade', 'item', 'created_at', 'price', 'productType', 'is_child']

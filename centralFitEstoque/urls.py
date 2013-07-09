@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from salesReport.views import importAllProducts, importAllOrders,  exportar, importProductCost, atualizarStatusPedido
+from salesReport.views import importAllProducts, importAllOrders,  exportar, importProductCost, atualizarStatusPedido, SingleOrderInfo
 
 from dashboard.views import home, importar, loginView, logoutView, Faturamento
 from django.contrib.auth.decorators import login_required
@@ -25,6 +25,8 @@ urlpatterns = patterns('',
     url(r'^importar/pedidos/$', importAllOrders, name='importarPedidos'),
     url(r'^importar/custos/$', importProductCost, name='atualizarProdutosCusto'),
     url(r'^atualizar/pedido/$', atualizarStatusPedido, name='atualizarPedidosBoleto'),
+
+    url(r'^pedido/detalhes/(?P<order_id>[\w|\W]+)/$', SingleOrderInfo, name='singleOrderInfo'),
 
 
     url(r'^login/$', loginView, name="login"),
