@@ -4,6 +4,7 @@
 
 {% block main_content %}
     {{ state }}
+    <p class="error_login">{{ error }}</p>
 	<form action="{% url 'login' %}" method="post">
         {% csrf_token %}
 		{% if next %}

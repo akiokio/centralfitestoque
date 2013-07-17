@@ -23,10 +23,15 @@ def loginView(request):
                 # Redirect to a success page.
                 return HttpResponseRedirect(reverse('home'))
             else:
-                pass
+
+                return render_to_response('registration/login.html',
+                                          {'error': 'Usuario ou senha incorreta'},
+                                          context_instance=RequestContext(request))
                 # Return a 'disabled account' error message
         else:
-            pass
+            return render_to_response('registration/login.html',
+                                          {'error': 'Usuario ou senha incorreta'},
+                                          context_instance=RequestContext(request))
             # Return an 'invalid login' error message.
     else:
         return render_to_response('registration/login.html',
@@ -139,7 +144,7 @@ class Faturamento(TemplateView):
         totalArr = []
         today = datetime.now()
         #range define a quantidade de dia que a tabela deve ter
-        for day in range(0, 14):
+        for day in range(0, 120):
             tabela.append(getFaturamentoForDay(today, totalArr))
             today -= timedelta(days=1)
         tabela.append(['TOTAL'])

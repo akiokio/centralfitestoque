@@ -34,3 +34,7 @@ body {
     margin-top: 28px;
 }
 
+.error_login {
+    font-weight: bold;
+    color: darkred;
+}
