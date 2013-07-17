@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 __author__ = 'akiokio'
 from django.contrib import admin
-from salesReport.models import order, orderItem, brands, item, status_history
+from salesReport.models import order, orderItem, brands, item, status_history, csvReport
 
 class orderItemInlines(admin.StackedInline):
     model = orderItem
@@ -30,3 +30,4 @@ admin.site.register(order, orderAdmin)
 admin.site.register(orderItem, orderItemAdmin)
 admin.site.register(item, itemAdmin)
 admin.site.register(brands)
+admin.site.register(csvReport)

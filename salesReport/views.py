@@ -4,7 +4,7 @@ from salesReport.pymagento import Magento
 from salesReport.models import order as orderNaBase, orderItem, brands, item as itemNaBase
 import csv
 from datetime import date, timedelta, datetime
-from .models import order, orderItem, item as itemObject, status_history
+from .models import order, orderItem, item as itemObject, status_history, csvReport as reportFile
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from xlrd import open_workbook
@@ -502,3 +502,103 @@ def atualizarStatusPedido(request):
                                'quantidadeAtualizada': quantidadeAtualizada,
                               },
                               context_instance=RequestContext(request))
+
+def generateCsvFileCron(dataInicial, dataFinal):
+    itemsHash = []
+    productList = []
+    BRANDS_ARRAY = []
+
+    for brand in brands.objects.all():
+        BRANDS_ARRAY.append(brand.name.encode('UTF-8'))
+
+    for product in itemNaBase.objects.all():
+        itemsHash.append(product.sku)
+        itemDict = {
+            'name': product.name
+        }
+        if product.status:
+            status = 'Enable'
+        else:
+            status = 'Disable'
+        if product.specialPrice:
+            productList.append([product.sku, product.name, getBrand(itemDict, BRANDS_ARRAY), product.specialPrice, 0, 0, 0, 0, 0, 0, status])
+        else:
+            productList.append([product.sku, product.name, getBrand(itemDict, BRANDS_ARRAY), product.price, 0, 0, 0, 0, 0, 0, status])
+
+    orders = orderNaBase.objects.filter(created_at__range=[dataInicial, dataFinal])
+
+    for order in orders:
+        if order.status == 'processing':
+            print order.orderitem_set.all()
+            for itemOrder in order.orderitem_set.all():
+                try:
+                    productList[itemsHash.index(itemOrder.item.sku)][4] += 1
+                except:
+                    pass
+        elif order.status == 'holded':
+            for itemOrder in order.orderitem_set.all():
+                try:
+                    productList[itemsHash.index(itemOrder.item.sku)][5] += 1
+                except:
+                    pass
+        elif order.status == 'complete':
+            for itemOrder in order.orderitem_set.all():
+                try:
+                    productList[itemsHash.index(itemOrder.item.sku)][6] += 1
+                except:
+                    pass
+        elif order.status == 'fraud':
+            for itemOrder in order.orderitem_set.all():
+                try:
+                    productList[itemsHash.index(itemOrder.item.sku)][7] += 1
+                except:
+                    pass
+        elif order.status == 'fraud2':
+            for itemOrder in order.orderitem_set.all():
+                try:
+                    productList[itemsHash.index(itemOrder.item.sku)][8] += 1
+                except:
+                    pass
+        elif order.status == 'complete2':
+            for itemOrder in order.orderitem_set.all():
+                try:
+                    productList[itemsHash.index(itemOrder.item.sku)][9] += 1
+                except:
+                    pass
+
+    print('Saving CSV File')
+    dateRangeInDays = dataFinal - dataInicial
+    with open('static/sales_report/report_' + dataInicial.strftime('%m%d') + '_' + dataFinal.strftime('%m%d') + '.csv', 'wb+') as csvfile:
+        writer = csv.writer(csvfile, delimiter=';',
+                                quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        writer.writerow(['sku', 'name', 'brand', 'price', 'qty', 'qty_holded', 'VMD', 'VMD30',
+                         'qty_complete', 'qty_fraud', 'qty_fraud2', 'qty_complete2', 'status'])
+        dateMinus30 = dataFinal - timedelta(days=30)
+        for item in productList:
+            qtd_holded = getQtyHolded(item, dataFinal)
+
+            vmd = getVMD(item, dateRangeInDays)
+
+            VMD30 = getVMD30(item, dateMinus30, dataFinal)
+
+            writer.writerow([item[0], item[1].encode('utf-8', 'replace'), item[2].encode('utf-8', 'replace')
+                            , item[3], item[4], qtd_holded, vmd, VMD30, item[6], item[7], item[8], item[9], item[10]])
+
+        print csvfile
+        from django.core.files import File
+        djangoFile = File(csvfile)
+        csvReport = reportFile(csvFile=djangoFile, created_at=datetime.now())
+        csvReport.save()
+
+    return csvReport.csvFile.url
+
+def generateCsvFileCronTeste(request):
+    dateInit = datetime.today().replace(hour=0, minute=0, second=0) - timedelta(days=1)
+    dateEnd = datetime.today().replace(hour=23, minute=59, second=59) - timedelta(days=1)
+
+    dateInitInUtc = timeInUTC('%s-%s-%s 00:00:00' % (dateInit.year, dateInit.month, dateInit.day))
+    dateEndInUtc = timeInUTC('%s-%s-%s 23:59:59' % (dateEnd.year, dateEnd.month, dateEnd.day))
+
+    url_sales_report = generateCsvFileCron(dateInitInUtc, dateEndInUtc)
+
+    return HttpResponse(simplejson.dumps({'status': 'success', 'url': url_sales_report}))

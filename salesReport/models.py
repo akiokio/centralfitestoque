@@ -151,5 +151,11 @@ class orderItem(models.Model):
     def __unicode__(self):
         return '%s - %s' % (self.item.name, self.order.increment_id)
 
+class csvReport(models.Model):
+    csvFile = models.FileField(upload_to='csv_report')
+    created_at = models.DateTimeField(null=True, blank=True)
+
+    def __unicode__(self):
+        return self.csvFile.url
 
 
