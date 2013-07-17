@@ -2,10 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ebd84075-4f20-4613-bc6e-2f01cb9657e6" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/base.html" afterPath="$PROJECT_DIR$/templates/base.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/commom.css" afterPath="$PROJECT_DIR$/static/css/commom.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/registration/login.html" afterPath="$PROJECT_DIR$/templates/registration/login.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/salesReport/models.py" afterPath="$PROJECT_DIR$/salesReport/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dashboard/views.py" afterPath="$PROJECT_DIR$/dashboard/views.py" />
     </list>
     <ignored path="centralFitEstoque.iws" />
@@ -114,7 +110,7 @@
           <file leaf-file-name="views.py" pinned="false" current="true" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/dashboard/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="146" column="31" selection-start="6175" selection-end="6175" vertical-scroll-proportion="0.6082949">
+                <state line="146" column="30" selection-start="6174" selection-end="6174" vertical-scroll-proportion="0.6082949">
                   <folding>
                     <element signature="e#47#91#0" expanded="true" />
                   </folding>
@@ -757,7 +753,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dashboard/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="146" column="31" selection-start="6175" selection-end="6175" vertical-scroll-proportion="0.6082949">
+        <state line="146" column="30" selection-start="6174" selection-end="6174" vertical-scroll-proportion="0.6082949">
           <folding>
             <element signature="e#47#91#0" expanded="true" />
           </folding>

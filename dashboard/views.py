@@ -144,7 +144,7 @@ class Faturamento(TemplateView):
         totalArr = []
         today = datetime.now()
         #range define a quantidade de dia que a tabela deve ter
-        for day in range(0, 120):
+        for day in range(0, 90):
             tabela.append(getFaturamentoForDay(today, totalArr))
             today -= timedelta(days=1)
         tabela.append(['TOTAL'])
