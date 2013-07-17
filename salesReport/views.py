@@ -99,10 +99,15 @@ def saveOrderInDatabase(o):
         for item in o['items']:
             pesoPedido += float(item['weight'].replace(',', '.'))
         shipping_amount_simulate = correios_frete_simples(FRETE_ORIGEM, o['billing_address']['postcode'], 30, 30, 30, pesoPedido)
-        if o['shipping_method'].split('_')[2] == '41112':
-            shipping_amount_centralfit = float(shipping_amount_simulate['sedex']['valor'].replace(',', '.'))
+        if o['shipping_method']:
+            if o['shipping_method'].split('_')[2] == '41112':
+                shipping_amount_centralfit = float(shipping_amount_simulate['sedex']['valor'].replace(',', '.'))
+            else:
+                shipping_amount_centralfit = float(shipping_amount_simulate['pac']['valor'].replace(',', '.'))
         else:
-            shipping_amount_centralfit = float(shipping_amount_simulate['pac']['valor'].replace(',', '.'))
+            shipping_amount_centralfit = 10
+        if not o['shipping_method']:
+            o['shipping_method'] = 'Envio Especial'
         databaseOrder = order.objects.create(
                                             increment_id=o['increment_id'],
                                             created_at= datetime.strptime(o['created_at'], '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone.utc),
