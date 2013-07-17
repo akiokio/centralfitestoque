@@ -26,8 +26,13 @@ class itemAdmin(admin.ModelAdmin):
     list_filter = ['product_id', 'sku', 'name', 'cost', 'price', 'specialPrice', 'brand']
     search_fields = ['product_id', 'sku', 'name', 'cost', 'price', 'specialPrice', 'brand']
 
+class csvReportAdmin(admin.ModelAdmin):
+    list_display = ['csvFile', 'created_at']
+    list_filter = ['csvFile', 'created_at']
+    search_fields = ['csvFile', 'created_at']
+
 admin.site.register(order, orderAdmin)
 admin.site.register(orderItem, orderItemAdmin)
 admin.site.register(item, itemAdmin)
 admin.site.register(brands)
-admin.site.register(csvReport)
+admin.site.register(csvReport, csvReportAdmin)
