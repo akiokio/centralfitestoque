@@ -22,9 +22,9 @@ class orderItemAdmin(admin.ModelAdmin):
     search_fields = ['quantidade', 'item', 'created_at', 'price', 'productType', 'is_child']
 
 class itemAdmin(admin.ModelAdmin):
-    list_display = ['product_id', 'sku', 'name', 'cost', 'price', 'specialPrice', 'brand']
-    list_filter = ['product_id', 'sku', 'name', 'cost', 'price', 'specialPrice', 'brand']
-    search_fields = ['product_id', 'sku', 'name', 'cost', 'price', 'specialPrice', 'brand']
+    list_display = ['product_id', 'sku', 'name', 'cost', 'price', 'specialPrice', 'brand_name', 'status']
+    list_filter = ['product_id', 'sku', 'name', 'cost', 'price', 'specialPrice', 'brand_name', 'status']
+    search_fields = ['product_id', 'sku', 'name', 'cost', 'price', 'specialPrice', 'brand_name', 'status']
 
 class csvReportAdmin(admin.ModelAdmin):
     list_display = ['csvFile', 'created_at']

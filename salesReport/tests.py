@@ -134,7 +134,7 @@ class faturamentoTestCase(TestCase):
     def test_faturamento_pedido_pedido_com_frete_a_pagar(self):
         #cria o pedido
         order = saveOrderInDatabase(extractOrderInfoFromMagento('100011676'))
-        array_esperado = ['1-7', 1, 151.41, 46.51, 10, 0, 94.9, 64.3, 46.51, 2.00, 32.24, 20.22, 94.9, 1.0]
+        array_esperado = ['3-7', 1, 30.86, 6.96, 0, 0, 23.9, 13, 6.96, 0.89, 47.2, 33.7, 23.9, 1.0]
         date = datetime.datetime.strptime('03/07/2013', '%d/%m/%Y')
 
         faturamento_array = getFaturamentoForDay(date, [])
@@ -144,7 +144,7 @@ class faturamentoTestCase(TestCase):
     def test_faturamento_pedido_pedido_com_brinde_01(self):
         #cria o pedido
         order = saveOrderInDatabase(extractOrderInfoFromMagento('100011681'))
-        array_esperado = ['1-7', 1, 151.41, 46.51, 10, 0, 94.9, 64.3, 46.51, 2.00, 32.24, 20.22, 94.9, 1.0]
+        array_esperado = ['4-7', 1, 159.7, 0, 0, 0, 159.7, 108, 19.4, 4.63, 32.7, 17.6, 159.7, 3.0]
         date = datetime.datetime.strptime('04/07/2013', '%d/%m/%Y')
 
         faturamento_array = getFaturamentoForDay(date, [])
@@ -154,7 +154,7 @@ class faturamentoTestCase(TestCase):
     def test_faturamento_pedido_pedido_com_brinde_02(self):
         #cria o pedido
         order = saveOrderInDatabase(extractOrderInfoFromMagento('100011538'))
-        array_esperado = ['1-7', 1, 151.41, 46.51, 10, 0, 94.9, 64.3, 46.51, 2.00, 32.24, 20.22, 94.9, 1.0]
+        array_esperado = ['2-7', 1, 294.0, 0, 0, 0, 294.9, 172, 21, 8.55, 41.7, 31.7, 294.9, 1.0]
         date = datetime.datetime.strptime('02/07/2013', '%d/%m/%Y')
 
         faturamento_array = getFaturamentoForDay(date, [])
@@ -164,7 +164,7 @@ class faturamentoTestCase(TestCase):
     def test_faturamento_pedido_pedido_com_cupom_de_desconto(self):
         #cria o pedido
         order = saveOrderInDatabase(extractOrderInfoFromMagento('100011474'))
-        array_esperado = ['1-7', 1, 151.41, 46.51, 10, 0, 94.9, 64.3, 46.51, 2.00, 32.24, 20.22, 94.9, 1.0]
+        array_esperado = ['3-7', 1, 169.9, 0, 16.99, 0, 152.91, 110, 28.1, 4.43, 27.9, 6.6, 152.91, 1.0]
         date = datetime.datetime.strptime('03/07/2013', '%d/%m/%Y')
 
         faturamento_array = getFaturamentoForDay(date, [])

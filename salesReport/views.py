@@ -35,18 +35,50 @@ def saveItemInDatabse(i):
     #Certos produtos não envia o status
     if not 'status' in i:
         i['status'] = True
+    #Alguns produtos não tem weight
+    if not 'weight' in i:
+        i['weight'] = 0
+    #TODO Marca não inplementado no magento
+    if not 'marca' in i:
+        i['marca'] = 'não informado'
 
-    newItem = itemObject.objects.create(
-            product_id=i['product_id'],
-            sku=i['sku'],
-            name=i['name'],
-            cost=i['cost'],
-            price=i['price'],
-            specialPrice=i['special_price'],
-            status=i['status'],
-            weight=i['weight'],
-            )
-    return newItem
+    if i['status'] == '1':
+        i['status'] = True
+    else:
+        i['status'] = False
+
+    try:
+        newItem = itemObject.objects.filter(sku=i['sku'])
+        if len(newItem) == 0:
+            newItem = itemObject.objects.create(
+                    product_id=i['product_id'],
+                    sku=i['sku'],
+                    name=i['name'],
+                    cost=i['cost'],
+                    price=i['price'],
+                    specialPrice=i['special_price'],
+                    status=i['status'],
+                    weight=i['weight'],
+                    brand_name=i['marca'],
+                    )
+        else:
+            newItem = newItem[0]
+            if newItem.sku == 34:
+                print newItem
+
+            newItem.status = i['status']
+            newItem.cost = i['cost']
+            newItem.name = i['name']
+            newItem.price = i['price']
+            newItem.specialPrice = i['special_price']
+            newItem.weight = i['weight']
+            newItem.brand_name = i['marca']
+            newItem.save()
+        return newItem
+
+    except Exception as e:
+        pass
+
 
 def saveOrderStatusHistory(iteration, order):
     iteration = status_history.objects.create(
