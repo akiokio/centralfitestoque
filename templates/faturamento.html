@@ -6,9 +6,18 @@
     <div class='well'>
         <h4>Tabela de faturamento</h4>
 
+        <p>Filtrar a tabela de faturamento por periodo</p>
+        <p>AVISO: Na linha totais as colunas: # Pedidos, Vlr Bruto faturado, Receita Frete, Vlr Desconto, Vlr Bonificado, Vlr Liquido Produto, Custo Produtos, Vlr Frete, Vlr Taxa Cartão são as somatorias</p>
+        <p>AVISO: Na linha totais as colunas: Margem bruta (Produtos), Margem bruta (Cartão + Frete), Tkt Médio, # Produtos pedido é a média</p>
+        Data de Inicio:
+        <input type="text" name='dataInicio' class="span2" value="Insira a data" id="dataInicio" data-date-format="dd-mm-yyyy">
+        Data Fim:
+        <input type="text" name='dataFim' class="span2" value="Insira a data" id="dataFim" data-date-format="dd-mm-yyyy">
+        <button id="importarProdutos" type="submit" class="btn btn-filtrar-faturamento">Filtrar Periodo</button>
         <hr>
 
-        <table class="table table-striped table-bordered table-hover">
+        <div id="Loading" style="display: none;">loading... :)</div>
+        <table id="tabela_faturamento" class="table table-striped table-bordered table-hover">
                 <thead>
                     <tr>
                         <th>#</th>

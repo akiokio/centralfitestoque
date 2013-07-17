@@ -38,3 +38,8 @@ body {
     font-weight: bold;
     color: darkred;
 }
+
+.btn-filtrar-faturamento {
+    margin-top: -10px;
+    margin-left: 10px;
+}

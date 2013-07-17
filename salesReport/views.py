@@ -63,11 +63,10 @@ def saveItemInDatabse(i):
                     )
         else:
             newItem = newItem[0]
-            if newItem.sku == 34:
-                print newItem
 
             newItem.status = i['status']
-            newItem.cost = i['cost']
+            #Importacao de custo é manual
+            # newItem.cost = i['cost']
             newItem.name = i['name']
             newItem.price = i['price']
             newItem.specialPrice = i['special_price']

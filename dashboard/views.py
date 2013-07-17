@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 __author__ = 'akiokio'
-from django.http import HttpResponseRedirect
+from django.http import HttpRequest, HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from salesReport.models import order as orderNaBase, orderItem, brands, item as itemNaBase
 from datetime import date, timedelta, datetime
 from salesReport.models import order, orderItem, item as itemObject
@@ -10,7 +10,8 @@ from django.template import RequestContext
 from django.contrib.auth import logout
 from django.contrib.auth import authenticate, login
 from django.core.urlresolvers import reverse
-
+from django.utils import simplejson
+from django.views.decorators.csrf import csrf_exempt
 
 def loginView(request):
     if request.method == 'POST':
@@ -117,6 +118,20 @@ def getFaturamentoForDay(date, totalArr):
     ticketMedio = valorLiquidoProdutos / numeroDePedidos
     nuemroPedidosProdutos = round(somatoriaProdutos / numeroDePedidos, 2)
 
+    totalArr[1] += numeroDePedidos
+    totalArr[2] += round(valorBrutoFaturado, 2)
+    totalArr[3] += round(receitaFrete, 2)
+    totalArr[4] += round(valorDesconto, 2)
+    totalArr[5] += round(valorBonificado, 2)
+    totalArr[6] += round(valorLiquidoProdutos, 2)
+    totalArr[7] += round(custoProdutos, 2)
+    totalArr[8] += round(valorFrete, 2)
+    totalArr[9] += round(valorTaxaCartao, 2)
+    totalArr[10] = (totalArr[10] + round(margemBrutaSoProdutos, 2)) /2
+    totalArr[11] = (totalArr[11] + round(margemBrutaCartaoFrete, 2)) /2
+    totalArr[12] = (totalArr[12] + round(ticketMedio, 2)) / 2
+    totalArr[13] += somatoriaProdutos
+
     return [
         today[0],
         numeroDePedidos,
@@ -141,13 +156,31 @@ class Faturamento(TemplateView):
         context = super(Faturamento, self).get_context_data(**kwargs)
         #Cria a tabela da dashboard limpa
         tabela = []
-        totalArr = []
+        totalArr = ['TOTAL',0,0,0,0,0,0,0,0,0,0,0,0,0]
+
         today = datetime.now()
         #range define a quantidade de dia que a tabela deve ter
-        for day in range(0, 90):
+        for day in range(0, 30):
             tabela.append(getFaturamentoForDay(today, totalArr))
             today -= timedelta(days=1)
-        tabela.append(['TOTAL'])
+
+        #Finaliza linha de totais
+        totalArr[13] = totalArr[13] / float(totalArr[1])
+         #Arredonda os valores
+        totalArr[1] = round(totalArr[1], 2)
+        totalArr[2] = round(totalArr[2], 2)
+        totalArr[3] = round(totalArr[3], 2)
+        totalArr[4] = round(totalArr[4], 2)
+        totalArr[5] = round(totalArr[5], 2)
+        totalArr[6] = round(totalArr[6], 2)
+        totalArr[7] = round(totalArr[7], 2)
+        totalArr[8] = round(totalArr[8], 2)
+        totalArr[9] = round(totalArr[9], 2)
+        totalArr[10] = round(totalArr[10], 2)
+        totalArr[11] = round(totalArr[11], 2)
+        totalArr[12] = round(totalArr[12], 2)
+        totalArr[13] = round(totalArr[13], 2)
+        tabela.append(totalArr)
 
         context['tabelaFaturamento'] = tabela
         return context
@@ -156,3 +189,44 @@ def importar(request):
     return render_to_response('importar.html',
                           {'status': 'ok'},
                           context_instance=RequestContext(request))
+
+def daterange(start_date, end_date):
+    dateRange = end_date - start_date
+    if dateRange.days == 0:
+            dateRange += timedelta(days=1)
+    for n in range(int (dateRange.days)):
+        yield start_date + timedelta(n)
+
+@csrf_exempt
+def filtrarFaturamento(request):
+    if request.method == 'POST':
+        tabela = []
+        totalArr = ['TOTAL',0,0,0,0,0,0,0,0,0,0,0,0,0]
+
+        dataInicio = datetime.strptime(request.POST.get('dataInicio'), '%d-%m-%Y')
+        dataFim = datetime.strptime(request.POST.get('dataFim'), '%d-%m-%Y')
+        dataFim += timedelta(days=1)
+
+        for single_date in daterange(dataInicio, dataFim):
+            print single_date
+            tabela.append(getFaturamentoForDay(single_date, totalArr))
+
+        #Finaliza linha de totais
+        totalArr[13] = totalArr[13] / float(totalArr[1])
+        #Arredonda os valores
+        totalArr[1] = round(totalArr[1], 2)
+        totalArr[2] = round(totalArr[2], 2)
+        totalArr[3] = round(totalArr[3], 2)
+        totalArr[4] = round(totalArr[4], 2)
+        totalArr[5] = round(totalArr[5], 2)
+        totalArr[6] = round(totalArr[6], 2)
+        totalArr[7] = round(totalArr[7], 2)
+        totalArr[8] = round(totalArr[8], 2)
+        totalArr[9] = round(totalArr[9], 2)
+        totalArr[10] = round(totalArr[10], 2)
+        totalArr[11] = round(totalArr[11], 2)
+        totalArr[12] = round(totalArr[12], 2)
+        totalArr[13] = round(totalArr[13], 2)
+
+        tabela.append(totalArr)
+        return HttpResponse(simplejson.dumps(tabela))

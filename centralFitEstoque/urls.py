@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from salesReport.views import importAllProducts, importAllOrders,  exportar, importProductCost, atualizarStatusPedido, SingleOrderInfo, generateCsvFileCronTeste
 
-from dashboard.views import home, importar, loginView, logoutView, Faturamento
+from dashboard.views import home, importar, loginView, logoutView, Faturamento, filtrarFaturamento
 from django.contrib.auth.decorators import login_required
 
 from django.contrib import admin
@@ -28,8 +28,8 @@ urlpatterns = patterns('',
 
     url(r'^pedido/detalhes/(?P<order_id>[\w|\W]+)/$', SingleOrderInfo, name='singleOrderInfo'),
 
-    url(r'^salvar/salesReport/', generateCsvFileCronTeste, name='generateCsvCron'),
-
+    url(r'^salvar/salesReport/$', generateCsvFileCronTeste, name='generateCsvCron'),
+    url(r'^filtrar/faturamento/$', filtrarFaturamento, name='filtrarFaturamento'),
 
     url(r'^login/$', loginView, name="login"),
     url(r'^logout/$', logoutView, name="logout"),
