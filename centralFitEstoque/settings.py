@@ -131,6 +131,7 @@ INSTALLED_APPS = (
     'salesReport',
     'dashboard',
     'django_cron',
+    'cronjobs',
 )
 
 # A sample logging configuration. The only tangible logging
