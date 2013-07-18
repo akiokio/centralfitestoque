@@ -31,8 +31,15 @@ class csvReportAdmin(admin.ModelAdmin):
     list_filter = ['csvFile', 'created_at']
     search_fields = ['csvFile', 'created_at']
 
+class status_historyAdmin(admin.ModelAdmin):
+    list_display = ['status', 'created_at', 'order']
+    list_filter = ['status', 'created_at', 'order']
+    search_fields = ['status', 'created_at', 'order__increment_id']
+
 admin.site.register(order, orderAdmin)
 admin.site.register(orderItem, orderItemAdmin)
 admin.site.register(item, itemAdmin)
 admin.site.register(brands)
 admin.site.register(csvReport, csvReportAdmin)
+
+admin.site.register(status_history, status_historyAdmin)

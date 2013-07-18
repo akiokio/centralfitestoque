@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ebd84075-4f20-4613-bc6e-2f01cb9657e6" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dashboard/views.py" afterPath="$PROJECT_DIR$/dashboard/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/salesReport/admin.py" afterPath="$PROJECT_DIR$/salesReport/admin.py" />
     </list>
     <ignored path="centralFitEstoque.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -14,7 +12,7 @@
     <file path="/settings.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1374089241741" ignored="false" />
     <file path="/views.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1374104660058" ignored="false" />
     <file path="/urls.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1374100506647" ignored="false" />
-    <file path="/admin.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1374092892239" ignored="false" />
+    <file path="/admin.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1374117232436" ignored="false" />
     <file path="/integration.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368240972748" ignored="false" />
     <file path="/pymagento.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1372384070724" ignored="false" />
     <file path="/changelog.txt" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1369670795010" ignored="false" />
@@ -78,19 +76,19 @@
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf>
-          <file leaf-file-name="views.py" pinned="false" current="true" current-in-tab="true">
+          <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/dashboard/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="164" column="31" selection-start="7080" selection-end="7080" vertical-scroll-proportion="0.34160304">
+                <state line="164" column="31" selection-start="7080" selection-end="7080" vertical-scroll-proportion="0.0">
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
+          <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/salesReport/models.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="109" column="60" selection-start="4920" selection-end="4920" vertical-scroll-proportion="0.0">
+                <state line="8" column="9" selection-start="308" selection-end="313" vertical-scroll-proportion="0.22900763">
                   <folding />
                 </state>
               </provider>
@@ -118,10 +116,10 @@
       </split-first>
       <split-second>
         <leaf>
-          <file leaf-file-name="faturamento.html" pinned="false" current="false" current-in-tab="true">
+          <file leaf-file-name="faturamento.html" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/templates/faturamento.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="42" column="40" selection-start="2189" selection-end="2189" vertical-scroll-proportion="0.7208413">
+                <state line="42" column="40" selection-start="2189" selection-end="2189" vertical-scroll-proportion="-15.708333">
                   <folding />
                 </state>
               </provider>
@@ -136,13 +134,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="admin.py" pinned="false" current="false" current-in-tab="false">
+          <file leaf-file-name="admin.py" pinned="false" current="true" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/salesReport/admin.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="26" column="105" selection-start="1324" selection-end="1324" vertical-scroll-proportion="0.0">
-                  <folding>
-                    <marker date="1374092896000" expanded="true" signature="1366:1501" placeholder="..." />
-                  </folding>
+                <state line="36" column="65" selection-start="1718" selection-end="1718" vertical-scroll-proportion="0.67093235">
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -174,7 +170,6 @@
         <option value="$PROJECT_DIR$/centralFitEstoque/settings.py" />
         <option value="$PROJECT_DIR$/salesReport/cron.py" />
         <option value="$PROJECT_DIR$/salesReport/tests.py" />
-        <option value="$PROJECT_DIR$/salesReport/admin.py" />
         <option value="$PROJECT_DIR$/static/css/commom.css" />
         <option value="$PROJECT_DIR$/salesReport/views.py" />
         <option value="$PROJECT_DIR$/centralFitEstoque/urls.py" />
@@ -183,6 +178,7 @@
         <option value="$PROJECT_DIR$/templates/faturamento.html" />
         <option value="$PROJECT_DIR$/salesReport/models.py" />
         <option value="$PROJECT_DIR$/dashboard/views.py" />
+        <option value="$PROJECT_DIR$/salesReport/admin.py" />
       </list>
     </option>
   </component>
@@ -721,16 +717,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/salesReport/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="109" column="60" selection-start="4920" selection-end="4920" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/faturamento.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="40" selection-start="2189" selection-end="2189" vertical-scroll-proportion="0.7208413">
+        <state line="42" column="40" selection-start="2189" selection-end="2189" vertical-scroll-proportion="-15.708333">
           <folding />
         </state>
       </provider>
@@ -739,15 +728,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="26" column="28" selection-start="715" selection-end="715" vertical-scroll-proportion="0.0">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/salesReport/admin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="105" selection-start="1324" selection-end="1324" vertical-scroll-proportion="0.0">
-          <folding>
-            <marker date="1374092896000" expanded="true" signature="1366:1501" placeholder="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -760,7 +740,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dashboard/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="164" column="31" selection-start="7080" selection-end="7080" vertical-scroll-proportion="0.34160304">
+        <state line="164" column="31" selection-start="7080" selection-end="7080" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/salesReport/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="9" selection-start="308" selection-end="313" vertical-scroll-proportion="0.22900763">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/salesReport/admin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="36" column="65" selection-start="1718" selection-end="1718" vertical-scroll-proportion="0.67093235">
           <folding />
         </state>
       </provider>
