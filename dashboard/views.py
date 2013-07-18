@@ -160,7 +160,7 @@ class Faturamento(TemplateView):
 
         today = datetime.now()
         #range define a quantidade de dia que a tabela deve ter
-        for day in range(0, 30):
+        for day in range(0, 90):
             tabela.append(getFaturamentoForDay(today, totalArr))
             today -= timedelta(days=1)
 
