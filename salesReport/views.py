@@ -599,7 +599,7 @@ def generateCsvFileCron(dataInicial, dataFinal):
 
     print('Saving CSV File')
     dateRangeInDays = dataFinal - dataInicial
-    with open('static/sales_report/report_' + dataInicial.strftime('%m%d') + '_' + dataFinal.strftime('%m%d') + '.csv', 'wb+') as csvfile:
+    with open('centralFitEstoque/media/csv_report/report_' + dataInicial.strftime('%m%d') + '_' + dataFinal.strftime('%m%d') + '.csv', 'wb+') as csvfile:
         writer = csv.writer(csvfile, delimiter=';',
                                 quotechar='"', quoting=csv.QUOTE_MINIMAL)
         writer.writerow(['sku', 'name', 'brand', 'price', 'qty', 'qty_holded', 'VMD', 'VMD30',
