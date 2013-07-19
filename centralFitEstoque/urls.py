@@ -1,10 +1,11 @@
 from django.conf.urls import patterns, include, url
 from salesReport.views import importAllProducts, importAllOrders,  exportar, importProductCost, atualizarStatusPedido, SingleOrderInfo, generateCsvFileCronTeste
-
+from django.conf import settings
 from dashboard.views import home, importar, loginView, logoutView, Faturamento, filtrarFaturamento
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib import admin
+from django.conf.urls.static import static
 admin.autodiscover()
 
 
@@ -33,4 +34,6 @@ urlpatterns = patterns('',
 
     url(r'^login/$', loginView, name="login"),
     url(r'^logout/$', logoutView, name="logout"),
-)
+) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += staticfiles_urlpatterns()
