@@ -615,7 +615,6 @@ def generateCsvFileCron(dataInicial, dataFinal):
             writer.writerow([item[0], item[1].encode('utf-8', 'replace'), item[2].encode('utf-8', 'replace')
                             , item[3], item[4], qtd_holded, vmd, VMD30, item[6], item[7], item[8], item[9], item[10]])
 
-        print csvfile
         from django.core.files import File
         djangoFile = File(csvfile)
         csvReport = reportFile(csvFile=djangoFile, created_at=datetime.now())

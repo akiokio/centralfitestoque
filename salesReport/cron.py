@@ -54,8 +54,8 @@ class MyCronJob(CronJobBase):
 def periodic_task():
     inicioJob = datetime.datetime.now()
 
-    dateInit = datetime.datetime.today().replace(hour=0, minute=0, second=0) - datetime.timedelta(days=1)
-    dateEnd = datetime.datetime.today().replace(hour=23, minute=59, second=59) - datetime.timedelta(days=1)
+    dateInit = datetime.datetime.today().replace(hour=0, minute=0, second=0) - datetime.timedelta(days=1) - datetime.timedelta(hours=3)
+    dateEnd = datetime.datetime.today().replace(hour=23, minute=59, second=59) - datetime.timedelta(days=1) - datetime.timedelta(hours=3)
 
     #Import yesterday orders
     naBase = 0
