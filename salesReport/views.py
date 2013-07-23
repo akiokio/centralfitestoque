@@ -113,6 +113,22 @@ def saveOrderItemInDatabase(order, orderItemToSave):
         is_child=is_child,
         productType=orderItemToSave['product_type'],
     )
+
+    #Fix se estiver none os campos
+    if not itemToSave.estoque_disponivel:
+        itemToSave.estoque_disponivel = 0
+    if not itemToSave.estoque_empenhado:
+        itemToSave.estoque_empenhado = 0
+    if not itemToSave.estoque_atual:
+        itemToSave.estoque_atual = 0
+
+    if order.status == 'holded':
+        itemToSave.estoque_empenhado += 1
+    elif order.status == 'processing' or order.status == 'complete' or order.status == 'complete2':
+        itemToSave.estoque_atual -= 1
+
+    itemToSave.estoque_disponivel = itemToSave.estoque_atual - itemToSave.estoque_empenhado
+    itemToSave.save()
     return newOrderItem
 
 def saveOrderInDatabase(o):

@@ -12,6 +12,10 @@ from django.contrib.auth import authenticate, login
 from django.core.urlresolvers import reverse
 from django.utils import simplejson
 from django.views.decorators.csrf import csrf_exempt
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from xlrd import open_workbook
+from django.shortcuts import redirect
+
 
 def loginView(request):
     if request.method == 'POST':
@@ -230,3 +234,64 @@ def filtrarFaturamento(request):
 
         tabela.append(totalArr)
         return HttpResponse(simplejson.dumps(tabela))
+
+class cmm(ListView):
+    template_name = 'cmm.html'
+    model = itemObject
+
+
+    def get(self, *args, **kwargs):
+        # context = super(cmm, self).get_context_data(**kwargs)
+        paginator = Paginator(itemObject.objects.all(), 25)
+        page = self.request.GET.get('page')
+        try:
+            itens = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            itens = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            itens = paginator.page(paginator.num_pages)
+
+        # context['itens'] = itens
+
+        return super(cmm, self).get(*args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(cmm, self).get_context_data(**kwargs)
+        itens = itemObject.objects.all().order_by('sku')
+        paginator = Paginator(itens, 10)
+        page = self.request.GET.get('page')
+        try:
+            itens = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            itens = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            itens = paginator.page(paginator.num_pages)
+
+        context['itens'] = itens
+        return context
+
+def importarQuantidadeEstoque(request):
+    if request.method == "POST":
+        file = request.FILES['docfile']
+        wb = open_workbook(file_contents=file.read())
+        for s in wb.sheets():
+            for row in range(s.nrows):
+                values = []
+                for col in range(s.ncols):
+                    values.append(s.cell(row, col).value)
+                try:
+                    if values[0] != 0:
+                        produto = itemNaBase.objects.get(sku=values[0])
+                        print produto, produto.cost
+                        produto.estoque_atual = values[1]
+                        produto.save()
+                except Exception as e:
+                    print e
+
+        return redirect(reverse('cmm'))
+    else:
+        return HttpResponseForbidden()
