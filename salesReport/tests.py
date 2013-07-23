@@ -9,7 +9,7 @@ Replace this with more appropriate tests for your application.
 from django.test import TestCase
 from salesReport.models import item as modelItem, orderItem as modelOrderItem, order as modelOrder, brands as modelBrands
 from salesReport.views import saveItemInDatabse, saveOrderInDatabase, saveOrderItemInDatabase, getVMD, getVMD30, extractOrderInfoFromMagento
-from salesReport.helpers import simple_order, simple_product, simple_item_in_order, test_order_01, item_test_order_01
+from salesReport.helpers import simple_order, simple_product, simple_item_in_order, test_order_01, item_test_order_01, simple_order_canceled
 # from salesReport.factory import brandFactory, itemFactory
 import datetime
 from dashboard.views import getFaturamentoForDay
@@ -110,6 +110,21 @@ class salesReportTestCase(TestCase):
         vmd30 = getVMD30(item, dateMinus30, dateRangeEnd)
 
         self.assertEqual(0.067, vmd30)
+
+    def test_vmd30_for_canceled_item_in_period(self):
+        """
+            Teste consistency of vmd30, trivialCase
+            2 item sold in last 30 days, vmd will be 0.0666666 round to 0.067
+        """
+        #create existing data
+        created_order = saveOrderInDatabase(simple_order_canceled)
+
+        item = ['2290', 'Campo1', 'Campo2', 'Campo3', 10, 5, 0, 1, 0, 0]
+        dateMinus30 = datetime.datetime.today() - datetime.timedelta(days=30)
+        dateRangeEnd = datetime.datetime.today()
+        vmd30 = getVMD30(item, dateMinus30, dateRangeEnd)
+
+        self.assertEqual(0.0, vmd30)
 
 class faturamentoTestCase(TestCase):
     def setUp(self):

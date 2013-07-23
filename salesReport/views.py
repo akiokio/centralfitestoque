@@ -183,7 +183,7 @@ def getQtyHolded(item, dateEnd):
 
 def getVMD30(item, dateMinus30, dateRangeEnd):
     try:
-        totalInPeriod = orderItem.objects.filter(item__sku=item[0]).filter(created_at__range=[dateMinus30, dateRangeEnd])
+        totalInPeriod = orderItem.objects.filter(item__sku=item[0]).filter(created_at__range=[dateMinus30, dateRangeEnd]).exclude(order__status='canceled').exclude(order__status='holded')
     except Exception as e:
         print e
         totalInPeriod = []
