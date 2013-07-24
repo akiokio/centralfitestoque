@@ -7,12 +7,17 @@
     <div class='well'>
         <h4>Tabela de Controle de estoque</h4>
         <div style="width: 100%;">
-            <p class="" style="float:left;"><strong>Sku:</strong> <input type="text" name="qtd_a_posicionar" class="input-small" />
-            <strong>Nome:</strong> <input type="text" name="qtd_a_posicionar" class="input-small" />
-            <strong>Marca:</strong> <input type="text" name="qtd_a_posicionar" class="input-small" /></p>
-            <div style="float:right;">
-                <button class="btn btn-small" type="button">Filtrar #Not Inplemented</button>
-            </div>
+            <p class="" style="float:left;">
+
+                <form action="{% url 'cmm' %}" method="GET"><strong>Sku:</strong> <input type="text" name="sku" class="input-small" />
+                    <strong>Nome:</strong> <input type="text" name="nome" class="input-small" />
+                    <strong>Marca:</strong> <input type="text" name="marca" class="input-small" />
+                    <div style="float:right;">
+                        <input class="btn btn-small" type="submit" value="Filtrar" />
+                    </div>
+                </form>
+
+            </p>
         </div>
         <div style="width: 100%; float: left;">
         <form action="{% url 'importarQuantidadeEstoque' %}" method="post" enctype="multipart/form-data">
@@ -35,7 +40,7 @@
                     <th>Estoque atual</th>
                     <th>Estoque empenhado</th>
                     <th>Estoque disponivel</th>
-                    <th>Quantidade a posicionar</th>
+                    <th>Quantidade a adicionar</th>
                     <th>Custo Unid.</th>
                     <th></th>
                  </tr>
@@ -43,6 +48,8 @@
             <tbody>
             {% for item in itens %}
                  <tr class="">
+                     <form action="{% url 'cmm' %}" method="POST">
+                         {% csrf_token %}
                         <td>{{ forloop.counter }}</td>
                         <td>{{ item.sku }}</td>
                         <td>{{ item.name }}</td>
@@ -53,15 +60,18 @@
                         <td>{{ item.estoque_empenhado|floatformat:0 }}</td>
                         <td>{{ item.estoque_disponivel|floatformat:0 }}</td>
                         <td><input type="text" name="qtd_a_posicionar" class="input-small" /></td>
-                        <td><input type="text" name="custo" class="input-small" /></td>
-                        <td><button class="btn btn-small" type="button">Gravar</button></td>
+                        <td><input type="text" name="cmm_novo" class="input-small" /></td>
+                         <input type="hidden" name="sku" value="{{ item.sku }}"/>
+                         <input type="hidden" name="cmm_antigo" value="{{ item.cmm }}"/>
+                        <td><input class="btn btn-small" type="submit" value="Gravar"></td>
+                     </form>
                  </tr>
             {% empty %}
                 <tr>Sem itens</tr>
             {% endfor %}
             </tbody>
         </table>
-        <hr>
+
         <div class="pagination">
             <span class="step-links">
                 {% if itens.has_previous %}

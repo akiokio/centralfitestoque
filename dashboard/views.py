@@ -235,31 +235,23 @@ def filtrarFaturamento(request):
         tabela.append(totalArr)
         return HttpResponse(simplejson.dumps(tabela))
 
-class cmm(ListView):
+class cmm(TemplateView):
     template_name = 'cmm.html'
-    model = itemObject
 
 
     def get(self, *args, **kwargs):
-        # context = super(cmm, self).get_context_data(**kwargs)
-        paginator = Paginator(itemObject.objects.all(), 25)
-        page = self.request.GET.get('page')
-        try:
-            itens = paginator.page(page)
-        except PageNotAnInteger:
-            # If page is not an integer, deliver first page.
-            itens = paginator.page(1)
-        except EmptyPage:
-            # If page is out of range (e.g. 9999), deliver last page of results.
-            itens = paginator.page(paginator.num_pages)
-
-        # context['itens'] = itens
-
-        return super(cmm, self).get(*args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        context = super(cmm, self).get_context_data(**kwargs)
+        context = self.get_context_data()
         itens = itemObject.objects.all().order_by('sku')
+
+        if self.request.GET.get('sku'):
+            itens = itens.filter(sku=self.request.GET.get('sku'))
+
+        if self.request.GET.get('nome'):
+            itens = itens.filter(name__contains=self.request.GET.get('nome'))
+
+        if self.request.GET.get('marca'):
+            itens = itens.filter(brand_name__contains=self.request.GET.get('marca'))
+
         paginator = Paginator(itens, 10)
         page = self.request.GET.get('page')
         try:
@@ -272,7 +264,25 @@ class cmm(ListView):
             itens = paginator.page(paginator.num_pages)
 
         context['itens'] = itens
+        return self.render_to_response(context)
+
+    def get_context_data(self, **kwargs):
+        context = super(cmm, self).get_context_data(**kwargs)
         return context
+
+    def post(self, *args, **kwargs):
+        print self.request.POST
+
+        produto = itemObject.objects.get(sku=self.request.POST.get('sku'))
+        if self.request.POST.get('qtd_a_posicionar'):
+            produto.estoque_atual += int(self.request.POST.get('qtd_a_posicionar'))
+            produto.estoque_disponivel += int(self.request.POST.get('qtd_a_posicionar'))
+        if self.request.POST.get('cmm_novo'):
+            produto.cmm = ((produto.cmm * produto.estoque_atual) + (float(self.request.POST.get('cmm_novo')) * float(self.request.POST.get('qtd_a_posicionar')))) \
+                          / (float(produto.estoque_atual) + float(self.request.POST.get('qtd_a_posicionar')))
+        print produto.cmm
+        produto.save()
+        return redirect(reverse('cmm'))
 
 def importarQuantidadeEstoque(request):
     if request.method == "POST":
@@ -288,6 +298,9 @@ def importarQuantidadeEstoque(request):
                         produto = itemNaBase.objects.get(sku=values[0])
                         print produto, produto.cost
                         produto.estoque_atual = values[1]
+                        #Litle hack for fist cmm
+                        produto.cmm = produto.cost
+                        produto.estoque_disponivel = values[1]
                         produto.save()
                 except Exception as e:
                     print e
