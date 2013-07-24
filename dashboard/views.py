@@ -251,8 +251,7 @@ class cmm(TemplateView):
 
         if self.request.GET.get('marca'):
             #Quando pegar a marca corretamente utilizar esta linha
-            #itens = itens.filter(brand_name__contains=self.request.GET.get('marca'))
-            itens = itens.filter(name__icontains=self.request.GET.get('marca'))
+            itens = itens.filter(brand_name__icontains=self.request.GET.get('marca'))
 
 
         paginator = Paginator(itens, 300)
@@ -328,8 +327,7 @@ class lista_estoque(TemplateView):
 
         if self.request.GET.get('marca'):
             #Quando pegar a marca corretamente utilizar esta linha
-            #itens = itens.filter(brand_name__contains=self.request.GET.get('marca'))
-            itens = itens.filter(name__icontains=self.request.GET.get('marca'))
+            itens = itens.filter(brand_name__icontains=self.request.GET.get('marca'))
 
 
         paginator = Paginator(itens, 300)
