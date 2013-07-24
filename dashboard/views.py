@@ -276,7 +276,7 @@ class cmm(TemplateView):
             produto.estoque_atual += int(self.request.POST.get('qtd_a_posicionar'))
             produto.estoque_disponivel += int(self.request.POST.get('qtd_a_posicionar'))
         if self.request.POST.get('cmm_novo'):
-            produto.cmm = ((produto.cmm * produto.estoque_atual) + (float(self.request.POST.get('cmm_novo')) * float(self.request.POST.get('qtd_a_posicionar')))) \
+            produto.cmm = ((produto.cmm * produto.estoque_atual) + (float(self.request.POST.get('cmm_novo').replace(',','.')) * float(self.request.POST.get('qtd_a_posicionar')))) \
                           / (float(produto.estoque_atual) + float(self.request.POST.get('qtd_a_posicionar')))
         produto.save()
         return redirect(reverse('cmm'))
@@ -293,11 +293,12 @@ def importarQuantidadeEstoque(request):
                 try:
                     if values[0] != 0:
                         produto = itemNaBase.objects.get(sku=values[0])
-                        print produto, produto.cost
                         produto.estoque_atual = values[1]
                         #Litle hack for fist cmm
+                        qtd_produtos_comprometidos = len(orderItem.objects.filter(item__sku=values[0]).filter(order__status='holded'))
                         produto.cmm = produto.cost
-                        produto.estoque_disponivel = values[1]
+                        produto.estoque_empenhado = qtd_produtos_comprometidos
+                        produto.estoque_disponivel = int(values[1]) - qtd_produtos_comprometidos
                         produto.save()
                 except Exception as e:
                     print e
