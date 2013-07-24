@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, include, url
-from salesReport.views import importAllProducts, importAllOrders,  exportar, importProductCost, atualizarStatusPedido, SingleOrderInfo, generateCsvFileCronTeste
+from salesReport.views import importAllProducts, importAllOrders,  exportar, importProductCost, atualizarStatusPedido, SingleOrderInfo, generateCsvFileCronTeste, update_brand
 from django.conf import settings
 from dashboard.views import home, importar, loginView, logoutView, Faturamento, filtrarFaturamento, cmm, importarQuantidadeEstoque, lista_estoque
 from django.contrib.auth.decorators import login_required
@@ -28,6 +28,7 @@ urlpatterns = patterns('',
     url(r'^importar/pedidos/$', importAllOrders, name='importarPedidos'),
     url(r'^importar/custos/$', importProductCost, name='atualizarProdutosCusto'),
     url(r'^atualizar/pedido/$', atualizarStatusPedido, name='atualizarPedidosBoleto'),
+    url(r'^atualizar/marca/$', update_brand, name='atualizarMarca'),
 
     url(r'^pedido/detalhes/(?P<order_id>[\w|\W]+)/$', SingleOrderInfo, name='singleOrderInfo'),
 

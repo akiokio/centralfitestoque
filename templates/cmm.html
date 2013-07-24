@@ -34,6 +34,7 @@
                     <th>Order</th>
                     <th>Código</th>
                     <th>Nome</th>
+                    <th>Marca</th>
                     <th>Vl. Venda</th>
                     <th>Vl. Promo</th>
                     <th>Custo Atual</th>
@@ -53,6 +54,7 @@
                         <td>{{ forloop.counter }}</td>
                         <td>{{ item.sku }}</td>
                         <td>{{ item.name }}</td>
+                        <td>{{ item.brand_name }}</td>
                         <td>{{ item.price|floatformat:2 }}</td>
                         <td>{{ item.specialPrice|floatformat:2 }}</td>
                         <td>{{ item.cmm|floatformat:2 }}</td>

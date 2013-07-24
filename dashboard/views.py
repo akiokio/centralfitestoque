@@ -255,7 +255,7 @@ class cmm(TemplateView):
             itens = itens.filter(name__icontains=self.request.GET.get('marca'))
 
 
-        paginator = Paginator(itens, 10)
+        paginator = Paginator(itens, 300)
         page = self.request.GET.get('page')
         try:
             itens = paginator.page(page)
@@ -332,7 +332,7 @@ class lista_estoque(TemplateView):
             itens = itens.filter(name__icontains=self.request.GET.get('marca'))
 
 
-        paginator = Paginator(itens, 10)
+        paginator = Paginator(itens, 300)
         page = self.request.GET.get('page')
         try:
             itens = paginator.page(page)

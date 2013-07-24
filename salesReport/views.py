@@ -13,6 +13,8 @@ from centralFitEstoque.settings import FRETE_ORIGEM
 from django.core.serializers import serialize
 from django.utils import simplejson
 from django.utils import timezone
+from django.shortcuts import redirect
+from django.core.urlresolvers import reverse
 
 def timeInUTC(dateString):
         dateReturn = datetime.strptime(dateString, "%Y-%m-%d %H:%M:%S").replace(tzinfo=timezone.utc)
@@ -40,7 +42,7 @@ def saveItemInDatabse(i):
         i['weight'] = 0
     #TODO Marca não inplementado no magento
     if not 'marca' in i:
-        i['marca'] = 'não informado'
+        i['marca'] = getBrand(i)
 
     if i['status'] == '1':
         i['status'] = True
@@ -277,8 +279,25 @@ def generateCSV(orderArray, dateStart, dateEnd, itemsHash, productList):
 
     return saveCSV(productList, dateStart, dateEnd)
 
-def getBrand(item, BRANDS_ARRAY):
+def getBrand(item):
+    BRANDS_ARRAY = []
+    for brand in brands.objects.all():
+        BRANDS_ARRAY.append(brand.name.encode('UTF-8'))
     itemDetail = item['name'].split('-')
+    if itemDetail[-1].strip().encode('UTF-8') not in BRANDS_ARRAY and len(itemDetail) >= 2:
+        #Case X-Pharma
+        testString = itemDetail[-2] + '-' + itemDetail[-1]
+        if testString.encode('utf-8').strip() == 'X-Pharma' or testString.encode('utf-8').strip() == 'X-pharma':
+            return testString.strip()
+        return itemDetail[-2].strip()
+    else:
+        return itemDetail[-1].strip()
+
+def getBrandFromModel(item):
+    BRANDS_ARRAY = []
+    for brand in brands.objects.all():
+        BRANDS_ARRAY.append(brand.name.encode('UTF-8'))
+    itemDetail = item.name.split('-')
     if itemDetail[-1].strip().encode('UTF-8') not in BRANDS_ARRAY and len(itemDetail) >= 2:
         #Case X-Pharma
         testString = itemDetail[-2] + '-' + itemDetail[-1]
@@ -313,9 +332,9 @@ def importOrdersSinceDay(request, dateStart, dateEnd):
         else:
             status = 'Disable'
         if product['special_price']:
-            productList.append([product['sku'], product['name'], getBrand(product, BRANDS_ARRAY), product['special_price'], 0, 0, 0, 0, 0, 0, status])
+            productList.append([product['sku'], product['name'], getBrand(product), product['special_price'], 0, 0, 0, 0, 0, 0, status])
         else:
-            productList.append([product['sku'], product['name'], getBrand(product, BRANDS_ARRAY), product['price'], 0, 0, 0, 0, 0, 0, status])
+            productList.append([product['sku'], product['name'], getBrand(product), product['price'], 0, 0, 0, 0, 0, 0, status])
 
     for order in orders:
         saveOrderInDatabase(order)
@@ -343,9 +362,9 @@ def exportar(request):
             else:
                 status = 'Disable'
             if product.specialPrice:
-                productList.append([product.sku, product.name, getBrand(itemDict, BRANDS_ARRAY), product.specialPrice, 0, 0, 0, 0, 0, 0, status])
+                productList.append([product.sku, product.name, getBrand(itemDict), product.specialPrice, 0, 0, 0, 0, 0, 0, status])
             else:
-                productList.append([product.sku, product.name, getBrand(itemDict, BRANDS_ARRAY), product.price, 0, 0, 0, 0, 0, 0, status])
+                productList.append([product.sku, product.name, getBrand(itemDict), product.price, 0, 0, 0, 0, 0, 0, status])
 
         dataInicial = datetime.strptime(request.POST.get('dataInicio'), '%d-%m-%Y')
         dataFinal = datetime.strptime(request.POST.get('dataFim') + ' 23:59:59', '%d-%m-%Y %H:%M:%S')
@@ -568,9 +587,9 @@ def generateCsvFileCron(dataInicial, dataFinal):
         else:
             status = 'Disable'
         if product.specialPrice:
-            productList.append([product.sku, product.name, getBrand(itemDict, BRANDS_ARRAY), product.specialPrice, 0, 0, 0, 0, 0, 0, status])
+            productList.append([product.sku, product.name, getBrand(itemDict), product.specialPrice, 0, 0, 0, 0, 0, 0, status])
         else:
-            productList.append([product.sku, product.name, getBrand(itemDict, BRANDS_ARRAY), product.price, 0, 0, 0, 0, 0, 0, status])
+            productList.append([product.sku, product.name, getBrand(itemDict), product.price, 0, 0, 0, 0, 0, 0, status])
 
     orders = orderNaBase.objects.filter(created_at__range=[dataInicial, dataFinal])
 
@@ -648,3 +667,9 @@ def generateCsvFileCronTeste(request):
     url_sales_report = generateCsvFileCron(dateInitInUtc, dateEndInUtc)
 
     return HttpResponse(simplejson.dumps({'status': 'success', 'url': url_sales_report}))
+
+def update_brand(request):
+    for product in itemObject.objects.all():
+        product.brand_name = getBrandFromModel(product)
+        product.save()
+    return redirect(reverse('importar'))
