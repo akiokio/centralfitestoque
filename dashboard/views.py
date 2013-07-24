@@ -241,7 +241,7 @@ class cmm(TemplateView):
 
     def get(self, *args, **kwargs):
         context = self.get_context_data()
-        itens = itemObject.objects.all().order_by('sku')
+        itens = itemObject.objects.all().filter(status=True).order_by('sku')
 
         if self.request.GET.get('sku'):
             itens = itens.filter(sku=self.request.GET.get('sku'))
@@ -271,8 +271,6 @@ class cmm(TemplateView):
         return context
 
     def post(self, *args, **kwargs):
-        print self.request.POST
-
         produto = itemObject.objects.get(sku=self.request.POST.get('sku'))
         if self.request.POST.get('qtd_a_posicionar'):
             produto.estoque_atual += int(self.request.POST.get('qtd_a_posicionar'))
@@ -280,7 +278,6 @@ class cmm(TemplateView):
         if self.request.POST.get('cmm_novo'):
             produto.cmm = ((produto.cmm * produto.estoque_atual) + (float(self.request.POST.get('cmm_novo')) * float(self.request.POST.get('qtd_a_posicionar')))) \
                           / (float(produto.estoque_atual) + float(self.request.POST.get('qtd_a_posicionar')))
-        print produto.cmm
         produto.save()
         return redirect(reverse('cmm'))
 
