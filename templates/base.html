@@ -19,6 +19,7 @@
           <li class="{% block contato_active %}{% endblock %}"><a href="{% url 'faturamento' %}">Faturamento</a></li>
           <li class="{% block importar_active %}{% endblock %}"><a href="{% url 'importar' %}">Importar</a></li>
           <li><a href="http://hom.centralfit.com.br:8080/admin/salesReport/order/">Lista Pedidos</a></li>
+          <li class="{% block lista_estoque_active %}{% endblock %}"><a href="{% url 'lista_estoque' %}">Lista Estoque</a></li>
           <li><a href="http://hom.centralfit.com.br:8080/admin/">Admin</a></li>
           <li class=""><a href="{% url 'logout' %}">Sair</a></li>
         </ul>
