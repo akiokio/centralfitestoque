@@ -250,7 +250,10 @@ class cmm(TemplateView):
             itens = itens.filter(name__contains=self.request.GET.get('nome'))
 
         if self.request.GET.get('marca'):
-            itens = itens.filter(brand_name__contains=self.request.GET.get('marca'))
+            #Quando pegar a marca corretamente utilizar esta linha
+            #itens = itens.filter(brand_name__contains=self.request.GET.get('marca'))
+            itens = itens.filter(brand__name=self.request.GET.get('marca'))
+
 
         paginator = Paginator(itens, 10)
         page = self.request.GET.get('page')
