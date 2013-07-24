@@ -272,12 +272,19 @@ class cmm(TemplateView):
 
     def post(self, *args, **kwargs):
         produto = itemObject.objects.get(sku=self.request.POST.get('sku'))
+
+        if self.request.POST.get('cmm_novo'):
+            print (produto.cmm * produto.estoque_atual)
+            print float(self.request.POST.get('cmm_novo').replace(',','.')) * float(self.request.POST.get('qtd_a_posicionar'))
+            print (float(produto.estoque_atual) + float(self.request.POST.get('qtd_a_posicionar')))
+
+            produto.cmm = ((produto.cmm * produto.estoque_atual) + (float(self.request.POST.get('cmm_novo').replace(',','.')) * float(self.request.POST.get('qtd_a_posicionar')))) \
+                          / (float(produto.estoque_atual) + float(self.request.POST.get('qtd_a_posicionar')))
+            print produto.cmm
+
         if self.request.POST.get('qtd_a_posicionar'):
             produto.estoque_atual += int(self.request.POST.get('qtd_a_posicionar'))
             produto.estoque_disponivel += int(self.request.POST.get('qtd_a_posicionar'))
-        if self.request.POST.get('cmm_novo'):
-            produto.cmm = ((produto.cmm * produto.estoque_atual) + (float(self.request.POST.get('cmm_novo').replace(',','.')) * float(self.request.POST.get('qtd_a_posicionar')))) \
-                          / (float(produto.estoque_atual) + float(self.request.POST.get('qtd_a_posicionar')))
         produto.save()
         return redirect(reverse('cmm'))
 
@@ -294,7 +301,7 @@ def importarQuantidadeEstoque(request):
                     if values[0] != 0:
                         produto = itemNaBase.objects.get(sku=values[0])
                         produto.estoque_atual = values[1]
-                        #Litle hack for fist cmm
+                        #Litle hack for fist data
                         qtd_produtos_comprometidos = len(orderItem.objects.filter(item__sku=values[0]).filter(order__status='holded'))
                         produto.cmm = produto.cost
                         produto.estoque_empenhado = qtd_produtos_comprometidos

@@ -10,7 +10,7 @@
     <file path="/estoque.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368237381039" ignored="false" />
     <file path="/models.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1374618381748" ignored="false" />
     <file path="/settings.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1374249639357" ignored="false" />
-    <file path="/views.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1374633032451" ignored="false" />
+    <file path="/views.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1374634556417" ignored="false" />
     <file path="/urls.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1374619673616" ignored="false" />
     <file path="/admin.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1374117232436" ignored="false" />
     <file path="/integration.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368240972748" ignored="false" />
@@ -78,7 +78,7 @@
       <file leaf-file-name="views.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/dashboard/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="278" column="122" selection-start="11473" selection-end="11473" vertical-scroll-proportion="0.45217392">
+            <state line="286" column="88" selection-start="11957" selection-end="11957" vertical-scroll-proportion="0.43652174">
               <folding>
                 <element signature="e#47#141#0" expanded="true" />
               </folding>
@@ -626,7 +626,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="231" />
+      <option name="time" value="233" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -746,7 +746,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dashboard/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="278" column="122" selection-start="11473" selection-end="11473" vertical-scroll-proportion="0.45217392">
+        <state line="286" column="88" selection-start="11957" selection-end="11957" vertical-scroll-proportion="0.43652174">
           <folding>
             <element signature="e#47#141#0" expanded="true" />
           </folding>
