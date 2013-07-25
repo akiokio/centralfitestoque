@@ -321,6 +321,13 @@ def importarQuantidadeEstoque(request):
     else:
         return HttpResponseForbidden()
 
+def custom_redirect(url_name, *args, **kwargs):
+    from django.core.urlresolvers import reverse
+    import urllib
+    url = reverse(url_name, args = args)
+    params = urllib.urlencode(kwargs)
+    return HttpResponseRedirect(url + "?%s" % params)
+
 class lista_estoque(TemplateView):
     template_name = 'lista_estoque.html'
 
@@ -329,6 +336,7 @@ class lista_estoque(TemplateView):
         context = self.get_context_data()
         itens = itemObject.objects.all().order_by('sku')
 
+        #filtros
         if self.request.GET.get('sku'):
             itens = itens.filter(sku=self.request.GET.get('sku'))
 
@@ -336,9 +344,9 @@ class lista_estoque(TemplateView):
             itens = itens.filter(name__icontains=self.request.GET.get('nome'))
 
         if self.request.GET.get('marca'):
-            #Quando pegar a marca corretamente utilizar esta linha
             itens = itens.filter(brand_name__icontains=self.request.GET.get('marca'))
 
+        #ordenacao
         if self.request.GET.get('order_by'):
             itens = itens.order_by(self.request.GET.get('order_by'))
         if self.request.GET.get('filter_by'):
@@ -375,9 +383,9 @@ class lista_estoque(TemplateView):
             produto.price = self.request.POST.get('price').replace(',', '.')
         if self.request.POST.get('specialPrice'):
             produto.specialPrice = self.request.POST.get('specialPrice').replace(',', '.')
-            produto.margem = 1 - (float(produto.cmm) - float(produto.specialPrice))
         if self.request.POST.get('cmm'):
             produto.cmm = self.request.POST.get('cmm').replace(',', '.')
-            produto.margem = 1 - (float(produto.cmm) - float(produto.specialPrice))
-        produto.save()
-        return redirect(reverse('lista_estoque'))
+            produto.margem = 1 - (float(produto.cmm) / float(produto.specialPrice))
+        produto.save()  
+        get_attr = self.request.META.get('HTTP_REFERER').split('?')[-1]
+        return HttpResponseRedirect(reverse('lista_estoque') + "?%s" % get_attr)

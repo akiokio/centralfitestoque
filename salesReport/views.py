@@ -674,3 +674,6 @@ def update_brand(request):
         product.brand_name = getBrandFromModel(product)
         product.save()
     return redirect(reverse('importar'))
+
+def removeOldHoldedOrdersFrom():
+    pass
