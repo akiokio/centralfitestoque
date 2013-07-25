@@ -297,12 +297,22 @@ def importarQuantidadeEstoque(request):
                 try:
                     if values[0] != 0:
                         produto = itemNaBase.objects.get(sku=values[0])
-                        produto.estoque_atual = values[1]
-                        #Litle hack for fist data
-                        qtd_produtos_comprometidos = len(orderItem.objects.filter(item__sku=values[0]).filter(order__status='holded'))
+
+                        # produto.price = values[2]
+                        produto.specialPrice = values[2]
+                        produto.estoque_atual = values[4]
+                        #o que estiver com estoque zero, deve ficar com custo zero tbm ok?
+                        if int(values[4]) == 0:
+                            produto.cost = 0
+                        else:
+                            produto.cost = values[3]
                         produto.cmm = produto.cost
+                        produto.margem = 1 - (float(produto.cost) / float(produto.specialPrice))
+
+                        dateMinus8 = datetime.today() - timedelta(days=8)
+                        qtd_produtos_comprometidos = len(orderItem.objects.filter(item__sku=values[0]).filter(order__status='holded').filter(created_at__gt=dateMinus8))
                         produto.estoque_empenhado = qtd_produtos_comprometidos
-                        produto.estoque_disponivel = int(values[1]) - qtd_produtos_comprometidos
+                        produto.estoque_disponivel = int(values[4]) - qtd_produtos_comprometidos
                         produto.save()
                 except Exception as e:
                     print e
@@ -329,6 +339,8 @@ class lista_estoque(TemplateView):
             #Quando pegar a marca corretamente utilizar esta linha
             itens = itens.filter(brand_name__icontains=self.request.GET.get('marca'))
 
+        if self.request.GET.get('order_by'):
+            itens = itens.order_by(self.request.GET.get('order_by'))
 
         paginator = Paginator(itens, 300)
         page = self.request.GET.get('page')
@@ -354,5 +366,11 @@ class lista_estoque(TemplateView):
         if self.request.POST.get('qtd_a_posicionar'):
             produto.estoque_atual = int(self.request.POST.get('qtd_a_posicionar'))
             produto.estoque_disponivel = int(self.request.POST.get('qtd_a_posicionar')) - len(orderItem.objects.filter(item__sku=produto.sku).filter(order__status='holded'))
-            produto.save()
+        if self.request.POST.get('price'):
+            produto.price = self.request.POST.get('price').replace(',', '.')
+        if self.request.POST.get('specialPrice'):
+            produto.specialPrice = self.request.POST.get('specialPrice').replace(',', '.')
+        if self.request.POST.get('cmm'):
+            produto.cmm = self.request.POST.get('cmm').replace(',', '.')
+        produto.save()
         return redirect(reverse('lista_estoque'))

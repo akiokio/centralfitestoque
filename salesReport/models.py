@@ -36,6 +36,7 @@ class item(models.Model):
     estoque_atual = models.IntegerField(null=True, blank=False)
     estoque_empenhado = models.IntegerField(null=True, blank=False)
     estoque_disponivel = models.IntegerField(null=True, blank=False)
+    margem = models.FloatField(null=True, blank=False)
 
     def __unicode__(self):
         return '%s - %s' % (self.product_id, self.name)

@@ -61,8 +61,8 @@
                         <td>{{ item.estoque_atual|floatformat:0 }}</td>
                         <td>{{ item.estoque_empenhado|floatformat:0 }}</td>
                         <td>{{ item.estoque_disponivel|floatformat:0 }}</td>
-                        <td><input type="text" name="qtd_a_posicionar" class="input-small" /></td>
-                        <td><input type="text" name="cmm_novo" class="input-small" /></td>
+                        <td><input type="text" name="qtd_a_posicionar" class="input-mini" /></td>
+                        <td><input type="text" name="cmm_novo" class="input-mini" /></td>
                          <input type="hidden" name="sku" value="{{ item.sku }}"/>
                          <input type="hidden" name="cmm_antigo" value="{{ item.cmm }}"/>
                         <td><input class="btn btn-small" type="submit" value="Gravar"></td>

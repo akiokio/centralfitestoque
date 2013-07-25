@@ -426,6 +426,7 @@ def importAllProducts(request):
         for brand in brands.objects.all():
             BRANDS_ARRAY.append(brand.name.encode('UTF-8'))
         for product in salesReport.getProductArray():
+            print '%s ; %s' % (product['sku'], product['special_price'])
             try:
                 item = item.objects.get(product['sku'])
             except Exception as e:
