@@ -341,6 +341,11 @@ class lista_estoque(TemplateView):
 
         if self.request.GET.get('order_by'):
             itens = itens.order_by(self.request.GET.get('order_by'))
+        if self.request.GET.get('filter_by'):
+            filter = {
+                self.request.GET.get('filter_by'): bool(self.request.GET.get('attribute'))
+            }
+            itens = itens.filter(**filter)
 
         paginator = Paginator(itens, 300)
         page = self.request.GET.get('page')
@@ -370,6 +375,7 @@ class lista_estoque(TemplateView):
             produto.price = self.request.POST.get('price').replace(',', '.')
         if self.request.POST.get('specialPrice'):
             produto.specialPrice = self.request.POST.get('specialPrice').replace(',', '.')
+            produto.margem = 1 - (float(produto.cmm) - float(produto.specialPrice))
         if self.request.POST.get('cmm'):
             produto.cmm = self.request.POST.get('cmm').replace(',', '.')
             produto.margem = 1 - (float(produto.cmm) - float(produto.specialPrice))
