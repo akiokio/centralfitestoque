@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ebd84075-4f20-4613-bc6e-2f01cb9657e6" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/cmm.html" afterPath="$PROJECT_DIR$/templates/cmm.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/lista_estoque.html" afterPath="$PROJECT_DIR$/templates/lista_estoque.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/salesReport/models.py" afterPath="$PROJECT_DIR$/salesReport/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dashboard/views.py" afterPath="$PROJECT_DIR$/dashboard/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/salesReport/views.py" afterPath="$PROJECT_DIR$/salesReport/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="centralFitEstoque.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -16,7 +10,7 @@
     <file path="/estoque.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368237381039" ignored="false" />
     <file path="/models.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1374778768891" ignored="false" />
     <file path="/settings.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1374249639357" ignored="false" />
-    <file path="/views.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1374780551936" ignored="false" />
+    <file path="/views.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1374781185514" ignored="false" />
     <file path="/urls.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1374695789998" ignored="false" />
     <file path="/admin.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1374117232436" ignored="false" />
     <file path="/integration.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368240972748" ignored="false" />
@@ -85,7 +79,7 @@
       <file leaf-file-name="views.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/dashboard/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="320" column="9" selection-start="13435" selection-end="13435" vertical-scroll-proportion="0.94584835">
+            <state line="374" column="83" selection-start="15767" selection-end="15767" vertical-scroll-proportion="0.7833935">
               <folding />
             </state>
           </provider>
@@ -94,7 +88,7 @@
       <file leaf-file-name="lista_estoque.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/lista_estoque.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="42" column="114" selection-start="1956" selection-end="1956" vertical-scroll-proportion="-3.125">
+            <state line="57" column="56" selection-start="2809" selection-end="2812" vertical-scroll-proportion="-12.5">
               <folding />
             </state>
           </provider>
@@ -790,14 +784,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/lista_estoque.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="114" selection-start="1956" selection-end="1956" vertical-scroll-proportion="-3.125">
+        <state line="57" column="56" selection-start="2809" selection-end="2812" vertical-scroll-proportion="-12.5">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dashboard/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="320" column="9" selection-start="13435" selection-end="13435" vertical-scroll-proportion="0.94584835">
+        <state line="374" column="83" selection-start="15767" selection-end="15767" vertical-scroll-proportion="0.7833935">
           <folding />
         </state>
       </provider>

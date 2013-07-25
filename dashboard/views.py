@@ -372,5 +372,6 @@ class lista_estoque(TemplateView):
             produto.specialPrice = self.request.POST.get('specialPrice').replace(',', '.')
         if self.request.POST.get('cmm'):
             produto.cmm = self.request.POST.get('cmm').replace(',', '.')
+            produto.margem = 1 - (float(produto.cmm) - float(produto.specialPrice))
         produto.save()
         return redirect(reverse('lista_estoque'))
