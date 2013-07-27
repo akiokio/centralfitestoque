@@ -676,4 +676,9 @@ def update_brand(request):
     return redirect(reverse('importar'))
 
 def removeOldHoldedOrdersFrom():
+    #tem que fazer uma rotina para tirar do estoque empenhado tb de 8 dias
+    pass
+
+def updateItemDetail():
+    #Atualizar diariamente os precos e o status dos produtos
     pass

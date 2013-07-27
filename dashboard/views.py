@@ -50,34 +50,44 @@ def logoutView(request):
 class home(TemplateView):
     template_name = 'index.html'
 
-    def get_context_data(self, **kwargs):
-        context = super(home, self).get_context_data(**kwargs)
-        dateRange = datetime.today() - timedelta(days=30) - timedelta(hours=3)
+    def get(self, *args, **kwargs):
+        context = self.get_context_data()
+        #Em caso dos filtros
+        if self.request.GET.get('dataInicio') and self.request.GET.get('dataFim'):
+            dateInicio = datetime.strptime(self.request.GET.get('dataInicio'), '%d-%m-%Y') - timedelta(days=1)
+            dateFim = datetime.strptime(self.request.GET.get('dataFim'), '%d-%m-%Y')
+        else:
+            dateInicio = datetime.today() - timedelta(days=30) - timedelta(hours=3)
+            dateFim = datetime.today()
+
         #Cria a tabela da dashboard limpa
         pedidoArray = []
-        today = date.today()
-        for day in range(0, 31):
+        qtd_linhas = dateFim.date() - dateInicio.date()
+        tempData = dateFim
+        for day in range(0, qtd_linhas.days):
             pedidoArray.append([
-                str(today.day) + '-' + str(today.month), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+                str(tempData.day) + '-' + str(tempData.month), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
             ])
-            today -= timedelta(days=1)
+            tempData -= timedelta(days=1)
         pedidoArray.append(['TOTAL', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
 
         #Preenche a tabela com os pedidos
-        for orderInPeriod in order.objects.filter(created_at__gt=dateRange):
+        for orderInPeriod in order.objects.filter(created_at__range=[dateInicio.date(), dateFim.date()]):
             #Ajuste de UTC para GMT-3
             orderInPeriod.created_at -= timedelta(hours=3)
-            diferencaDias = date.today() - orderInPeriod.created_at.date()
+            diferencaDias = dateFim.date() - orderInPeriod.created_at.date()
 
             #Soma a coluna de dias
             pedidoArray[diferencaDias.days][orderInPeriod.created_at.hour + 1] += 1
             pedidoArray[diferencaDias.days][25] += 1
+
             #Soma a coluna Totais
-            pedidoArray[31][orderInPeriod.created_at.hour + 1] += 1
-            pedidoArray[31][25] += 1
+            pedidoArray[-1][orderInPeriod.created_at.hour + 1] += 1
+            pedidoArray[-1][25] += 1
         context['tabelaPedidos'] = pedidoArray
         context['usuario'] = self.request.user
-        return context
+        return self.render_to_response(context)
+
 
 def getFaturamentoForDay(date, totalArr):
     inicioDoDia = date.replace(hour=0, minute=0, second=0) - timedelta(hours=3)
@@ -103,19 +113,8 @@ def getFaturamentoForDay(date, totalArr):
         return [today[0],0,0,0,0,0,0,0,0,0,0,0,0,0]
 
     for order in orders:
-        tmp_valorBrutoFaturado, tmp_receitaFrete, tmp_valorDesconto, tmp_custoProdutos, tmp_valorBonificado, \
-        tmp_valorBonificadoPedido, tmp_somatoriaProdutos, tmp_valorLiquidoProdutos, tmp_valorFrete, tmp_valorTaxaCartao = order.getBillingInfo()
-
-        valorBrutoFaturado += tmp_valorBrutoFaturado
-        receitaFrete += tmp_receitaFrete
-        valorDesconto += tmp_valorDesconto
-        valorBonificado += tmp_valorBonificado
-        valorLiquidoProdutos += tmp_valorLiquidoProdutos
-        custoProdutos += tmp_custoProdutos
-        valorFrete += tmp_valorFrete
-        valorTaxaCartao += tmp_valorTaxaCartao
-        somatoriaProdutos += tmp_somatoriaProdutos
-
+        valorBrutoFaturado, receitaFrete, valorDesconto, valorBonificado, valorBonificado, \
+        valorBonificadoPedido, somatoriaProdutos, valorLiquidoProdutos, valorFrete, valorTaxaCartao = order.getBillingInfo()
 
     margemBrutaSoProdutos = (1 - (custoProdutos / valorLiquidoProdutos)) * 100
     margemBrutaCartaoFrete = (1 - ((custoProdutos + valorFrete + valorTaxaCartao) / (valorLiquidoProdutos + receitaFrete))) * 100
@@ -241,8 +240,9 @@ class cmm(TemplateView):
 
     def get(self, *args, **kwargs):
         context = self.get_context_data()
-        itens = itemObject.objects.all().filter(status=True).order_by('sku')
+        itens = itemObject.objects.all().order_by('sku')
 
+        # #Filtros
         if self.request.GET.get('sku'):
             itens = itens.filter(sku=self.request.GET.get('sku'))
 
@@ -250,10 +250,19 @@ class cmm(TemplateView):
             itens = itens.filter(name__icontains=self.request.GET.get('nome'))
 
         if self.request.GET.get('marca'):
-            #Quando pegar a marca corretamente utilizar esta linha
             itens = itens.filter(brand_name__icontains=self.request.GET.get('marca'))
+        #Filter
+        if self.request.GET.get('filter_by'):
+            filter = {
+                self.request.GET.get('filter_by'): self.request.GET.get('attribute')
+            }
+            itens = itens.filter(**filter)
 
+        #ordenacao
+        if self.request.GET.get('order_by'):
+            itens = itens.order_by(self.request.GET.get('order_by'))
 
+        #paginacao
         paginator = Paginator(itens, 300)
         page = self.request.GET.get('page')
         try:
@@ -266,6 +275,7 @@ class cmm(TemplateView):
             itens = paginator.page(paginator.num_pages)
 
         context['itens'] = itens
+
         return self.render_to_response(context)
 
     def get_context_data(self, **kwargs):
@@ -283,7 +293,9 @@ class cmm(TemplateView):
             produto.estoque_atual += int(self.request.POST.get('qtd_a_posicionar'))
             produto.estoque_disponivel += int(self.request.POST.get('qtd_a_posicionar'))
         produto.save()
-        return redirect(reverse('cmm'))
+
+        get_attr = self.request.META.get('HTTP_REFERER').split('?')[-1]
+        return HttpResponseRedirect(reverse('cmm') + "?%s" % get_attr)
 
 def importarQuantidadeEstoque(request):
     if request.method == "POST":
@@ -320,13 +332,6 @@ def importarQuantidadeEstoque(request):
         return redirect(reverse('cmm'))
     else:
         return HttpResponseForbidden()
-
-def custom_redirect(url_name, *args, **kwargs):
-    from django.core.urlresolvers import reverse
-    import urllib
-    url = reverse(url_name, args = args)
-    params = urllib.urlencode(kwargs)
-    return HttpResponseRedirect(url + "?%s" % params)
 
 class lista_estoque(TemplateView):
     template_name = 'lista_estoque.html'
@@ -386,6 +391,7 @@ class lista_estoque(TemplateView):
         if self.request.POST.get('cmm'):
             produto.cmm = self.request.POST.get('cmm').replace(',', '.')
             produto.margem = 1 - (float(produto.cmm) / float(produto.specialPrice))
-        produto.save()  
+        produto.save()
+
         get_attr = self.request.META.get('HTTP_REFERER').split('?')[-1]
         return HttpResponseRedirect(reverse('lista_estoque') + "?%s" % get_attr)

@@ -8,12 +8,13 @@
             <h1>Dashboard</h1>
             <h4>Parametros de busca:</h4>
 
-            <p>
+            <p><form action="{% url 'home' %}" method="GET">
             Data de Inicio:
-            <input type="text" class="span2" value="Insira a data" id="dataInicio" data-date-format="dd-mm-yyyy" disabled="true">
+            <input type="text" class="span2" placeholder="Insira a data" id="dataInicio" name="dataInicio" data-date-format="dd-mm-yyyy">
             Data Fim:
-            <input type="text" class="span2" value="Insira a data" id="dataFim" data-date-format="dd-mm-yyyy" disabled="true"></p>
-
+            <input type="text" class="span2" placeholder="Insira a data" id="dataFim" name="dataFim" data-date-format="dd-mm-yyyy">
+            <input type="submit" value="Filtrar" class="btn" style="margin-top: -12px;"/>
+            </form></p>
         </div>
             <table class="table table-striped table-bordered table-hover">
                 <thead>
