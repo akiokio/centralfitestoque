@@ -108,7 +108,7 @@ class order(models.Model):
             #Para produtos com tipos especiais somar o custo somente dos produtos simples
             #Somente produtos simples são somados no variavel somatoria de produtos para calcular o # de produtos pedidos
             if item.productType == 'simple':
-                self.custoProdutos += item.item.cost * item.quantidade
+                self.custoProdutos += item.item.cmm * item.quantidade
             #Para o valor bonificado somar somente os produtos simples (filhos)
             if float(item.price) == 0.0 and item.is_child == False:
                 self.valorBonificado += item.item.cost
@@ -150,6 +150,7 @@ class orderItem(models.Model):
     price = models.FloatField()
     is_child = models.BooleanField(default=False)
     productType = models.CharField(max_length=155)
+    removido_estoque = models.BooleanField(default=False)
 
     item = models.ForeignKey(item)
     order = models.ForeignKey(order)

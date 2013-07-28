@@ -97,6 +97,7 @@ def saveOrderItemInDatabase(order, orderItemToSave):
         itemToSave = itemObject.objects.get(sku=int(orderItemToSave['sku']))
     except Exception as e:
         itemToSave = saveItemInDatabse(orderItemToSave)
+
     createdAt = timeInGMT(orderItemToSave['created_at'])
     updated_at = timeInGMT(orderItemToSave['updated_at'])
 
@@ -373,7 +374,6 @@ def exportar(request):
 
         for order in orders:
             if order.status == 'processing':
-                print order.orderitem_set.all()
                 for itemOrder in order.orderitem_set.all():
                     try:
                         productList[itemsHash.index(itemOrder.item.sku)][4] += 1
@@ -418,6 +418,7 @@ def exportar(request):
 
 def importAllProducts(request):
     if request.method == 'POST':
+        updateItemDetail()
         print('-- Start Product import')
         salesReport = Magento()
         salesReport.connect()
@@ -426,9 +427,8 @@ def importAllProducts(request):
         for brand in brands.objects.all():
             BRANDS_ARRAY.append(brand.name.encode('UTF-8'))
         for product in salesReport.getProductArray():
-            print '%s ; %s' % (product['sku'], product['special_price'])
             try:
-                item = item.objects.get(product['sku'])
+                item = item.objects.get(sku=product['sku'])
             except Exception as e:
                 saveItemInDatabse(product)
                 quantidadeImportada += 1
@@ -512,11 +512,9 @@ def importProductCost(request):
                 values = []
                 for col in range(s.ncols):
                     values.append(s.cell(row, col).value)
-                print
                 try:
                     if values[2] != 0:
                         produto = itemNaBase.objects.get(sku=values[2])
-                        print produto, produto.cost
                         produto.cost = values[4]
                         produto.save()
                         quantidadeAtualizada += 1
@@ -596,7 +594,6 @@ def generateCsvFileCron(dataInicial, dataFinal):
 
     for order in orders:
         if order.status == 'processing':
-            print order.orderitem_set.all()
             for itemOrder in order.orderitem_set.all():
                 try:
                     productList[itemsHash.index(itemOrder.item.sku)][4] += 1
@@ -675,10 +672,43 @@ def update_brand(request):
         product.save()
     return redirect(reverse('importar'))
 
-def removeOldHoldedOrdersFrom():
+def removeOldHoldedOrdersFrom(rangeInicio, rangeFim):
     #tem que fazer uma rotina para tirar do estoque empenhado tb de 8 dias
-    pass
+    data_fim = datetime.today() - timedelta(days=rangeFim)
+    data_inicio = datetime.today() - timedelta(days=rangeInicio)
+    pedidos_alterados =  0
+    orders = orderNaBase.objects.filter(created_at__range=[data_inicio, data_fim], status='holded')
+    for order in orders:
+        for item in order.orderitem_set.all():
+            if not item.removido_estoque:
+                item.item.estoque_empenhado -= item.quantidade
+                item.item.estoque_atual += item.quantidade
+                item.item.estoque_disponivel += item.quantidade
+                item.save()
+                pedidos_alterados += 1
+
+    return pedidos_alterados
+
 
 def updateItemDetail():
     #Atualizar diariamente os precos e o status dos produtos
-    pass
+    salesReport = Magento()
+    salesReport.connect()
+    quantidade_atualizada = 0
+    for product in salesReport.getProductArray():
+        atualizado = False
+        try:
+            item = itemNaBase.objects.get(sku=product['sku'])
+            if item.price != float(product['price']):
+                item.price = float(product['price'])
+                atualizado = True
+            if 'special_price' in product and item.specialPrice != float(product['special_price']):
+                item.specialPrice = float(product['special_price'])
+                atualizado = True
+            if atualizado:
+                item.save()
+                quantidade_atualizada += 1
+        except Exception as e:
+            saveItemInDatabse(product)
+
+    return quantidade_atualizada

@@ -242,7 +242,7 @@ class cmm(TemplateView):
         context = self.get_context_data()
         itens = itemObject.objects.all().order_by('sku')
 
-        # #Filtros
+        #Filtros
         if self.request.GET.get('sku'):
             itens = itens.filter(sku=self.request.GET.get('sku'))
 
@@ -251,16 +251,15 @@ class cmm(TemplateView):
 
         if self.request.GET.get('marca'):
             itens = itens.filter(brand_name__icontains=self.request.GET.get('marca'))
-        #Filter
-        if self.request.GET.get('filter_by'):
-            filter = {
-                self.request.GET.get('filter_by'): self.request.GET.get('attribute')
-            }
-            itens = itens.filter(**filter)
+        #Filter Only for status
+        if self.request.GET.get('status'):
+            itens = itens.filter(status=self.request.GET.get('status'))
 
         #ordenacao
         if self.request.GET.get('order_by'):
             itens = itens.order_by(self.request.GET.get('order_by'))
+
+        self.request.session['product_list'] = itens
 
         #paginacao
         paginator = Paginator(itens, 300)
@@ -341,7 +340,7 @@ class lista_estoque(TemplateView):
         context = self.get_context_data()
         itens = itemObject.objects.all().order_by('sku')
 
-        #filtros
+        #Filtros
         if self.request.GET.get('sku'):
             itens = itens.filter(sku=self.request.GET.get('sku'))
 
@@ -350,15 +349,15 @@ class lista_estoque(TemplateView):
 
         if self.request.GET.get('marca'):
             itens = itens.filter(brand_name__icontains=self.request.GET.get('marca'))
+        #Filter Only for status
+        if self.request.GET.get('status'):
+            itens = itens.filter(status=self.request.GET.get('status'))
 
         #ordenacao
         if self.request.GET.get('order_by'):
             itens = itens.order_by(self.request.GET.get('order_by'))
-        if self.request.GET.get('filter_by'):
-            filter = {
-                self.request.GET.get('filter_by'): bool(self.request.GET.get('attribute'))
-            }
-            itens = itens.filter(**filter)
+
+        self.request.session['product_list'] = itens
 
         paginator = Paginator(itens, 300)
         page = self.request.GET.get('page')
@@ -381,6 +380,8 @@ class lista_estoque(TemplateView):
     def post(self, *args, **kwargs):
         produto = itemObject.objects.get(sku=self.request.POST.get('sku'))
 
+
+
         if self.request.POST.get('qtd_a_posicionar'):
             produto.estoque_atual = int(self.request.POST.get('qtd_a_posicionar'))
             produto.estoque_disponivel = int(self.request.POST.get('qtd_a_posicionar')) - len(orderItem.objects.filter(item__sku=produto.sku).filter(order__status='holded'))
@@ -395,3 +396,41 @@ class lista_estoque(TemplateView):
 
         get_attr = self.request.META.get('HTTP_REFERER').split('?')[-1]
         return HttpResponseRedirect(reverse('lista_estoque') + "?%s" % get_attr)
+
+def exportar_lista_produto(request):
+    return generateXLS(request.session.get('product_list'))
+
+def generateXLS(modelData):
+    from datetime import datetime, date
+    from django.http import HttpResponse
+    import xlwt
+
+
+    book = xlwt.Workbook(encoding='utf8')
+    sheet = book.add_sheet('product_list')
+
+    default_style = xlwt.Style.default_style
+    datetime_style = xlwt.easyxf(num_format_str='dd/mm/yyyy hh:mm')
+    date_style = xlwt.easyxf(num_format_str='dd/mm/yyyy')
+
+    values_list = modelData.values_list('sku', 'name', 'specialPrice', 'cmm', 'estoque_atual')
+
+    #CABECALHO
+    headers = ['sku', 'name', 'specialPrice', 'cmm', 'estoque_atual']
+    values_list = [headers] + list(values_list)
+
+    for row, rowdata in enumerate(values_list):
+        for col, val in enumerate(rowdata):
+            if isinstance(val, datetime):
+                style = datetime_style
+            elif isinstance(val, date):
+                style = date_style
+            else:
+                style = default_style
+
+            sheet.write(row, col, val, style=style)
+
+    response = HttpResponse(mimetype='application/vnd.ms-excel')
+    response['Content-Disposition'] = 'attachment; filename=export.xls'
+    book.save(response)
+    return response

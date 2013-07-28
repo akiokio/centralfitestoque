@@ -5,7 +5,7 @@ from django_cron import CronJobBase, Schedule
 import datetime
 from django.core.mail import send_mail
 from centralFitEstoque.settings import LISTA_REMETENTES_EMAIL, RUN_EVERY_MINS
-from salesReport.views import timeInGMT, timeInUTC, updateLast7daysOrderStatus, importOrders, generateCsvFileCron
+from salesReport.views import timeInGMT, timeInUTC, updateLast7daysOrderStatus, importOrders, generateCsvFileCron, removeOldHoldedOrdersFrom, updateItemDetail
 
 class MyCronJob(CronJobBase):
     schedule = Schedule(run_every_mins=RUN_EVERY_MINS)
@@ -68,22 +68,38 @@ def periodic_task():
 
     #Update Last 7 days order status
     atualizado = updateLast7daysOrderStatus()
+    #Remove Old itens from reserved stock
+    pedidos_com_itens_liberados = removeOldHoldedOrdersFrom(30, 8)
+    #Atualiza os precos dos produtos se necessario
+    qtd_produtos_com_precos_atualizados = updateItemDetail()
 
     #Save fisic archive
     url_relatorio = generateCsvFileCron(dateInitInUtc, dateEndInUtc)
 
     fimJob = datetime.datetime.now()
     #Jobs is done, tell everyone
-    msgString = '''
+    msgString = u'''
                 Range Inicio: %s,
                 Range Fim: %s,
                 Pedidos importados: %s,
                 Pedidos na base: %s,
                 Pedidos com status atualizados: %s,
                 iniciado as: %s, finalizado as: %s,
-                url_relatorio: %s
+                url_relatorio: http://hom.centralfit.com.br:8080%s,
+                Pedidos com itens liberados do estoque: %s,
+                Quantidade de produtos com preços atualizados: %s
                 ''' % \
-                (dateInit, dateEnd, importado, naBase, atualizado, inicioJob, fimJob, url_relatorio)
+                (dateInit,
+                 dateEnd,
+                 importado,
+                 naBase,
+                 atualizado,
+                 inicioJob,
+                 fimJob,
+                 url_relatorio,
+                 pedidos_com_itens_liberados,
+                 qtd_produtos_com_precos_atualizados,
+                 )
 
     send_mail('WebAPP Estoque - Status Importacao de produtos', msgString, 'akio.xd@gmail.com',
             LISTA_REMETENTES_EMAIL, fail_silently=False)
