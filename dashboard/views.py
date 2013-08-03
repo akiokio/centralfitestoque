@@ -113,7 +113,7 @@ def getFaturamentoForDay(date, totalArr):
         return [today[0],0,0,0,0,0,0,0,0,0,0,0,0,0]
 
     for order in orders:
-        valorBrutoFaturado, receitaFrete, valorDesconto, valorBonificado, valorBonificado, \
+        valorBrutoFaturado, receitaFrete, valorDesconto, custoProdutos, valorBonificado, \
         valorBonificadoPedido, somatoriaProdutos, valorLiquidoProdutos, valorFrete, valorTaxaCartao = order.getBillingInfo()
 
     margemBrutaSoProdutos = (1 - (custoProdutos / valorLiquidoProdutos)) * 100

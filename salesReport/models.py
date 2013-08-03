@@ -111,7 +111,7 @@ class order(models.Model):
                 self.custoProdutos += item.item.cmm * item.quantidade
             #Para o valor bonificado somar somente os produtos simples (filhos)
             if float(item.price) == 0.0 and item.is_child == False:
-                self.valorBonificado += item.item.cost
+                self.valorBonificado += item.item.cmm
                 self.valorBonificadoPedido += item.item.cost
             if float(item.price) > 0.0:
                 #soma ao total de itens analisados, não leva em consideração brindes e produtos complexos(somatoria d produtos simples)
@@ -135,7 +135,7 @@ class order(models.Model):
         self.save()
 
     def getBillingInfo(self):
-        return self.valorBrutoFaturado, self.receitaFrete, self.valorDesconto, self.custoProdutos, self.valorBonificadoPedido, \
+        return self.valorBrutoFaturado, self.receitaFrete, self.valorDesconto, self.custoProdutos, self.valorBonificado, \
         self.valorBonificadoPedido, self.somatoriaProdutos, self.valorLiquidoProdutos, self.valorFrete, self.valorTaxaCartao
 
     def save(self, force_insert=False, force_update=False, using=None,
