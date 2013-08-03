@@ -27,169 +27,178 @@ def timeInGMT(dateString):
         return dateReturn
 
 def saveItemInDatabse(i):
-    if not 'cost' in i:
-        i['cost'] = 0
-
-    #Certo produtos não tem special_price
-    if not 'special_price' in i:
-        i['special_price'] = 0
-
-    #Certos produtos não envia o status
-    if not 'status' in i:
-        i['status'] = True
-    #Alguns produtos não tem weight
-    if not 'weight' in i:
-        i['weight'] = 0
-    #TODO Marca não inplementado no magento
-    if not 'marca' in i:
-        i['marca'] = getBrand(i)
-
-    if i['status'] == '1':
-        i['status'] = True
-    else:
-        i['status'] = False
-
     try:
-        newItem = itemObject.objects.filter(sku=i['sku'])
-        if len(newItem) == 0:
-            newItem = itemObject.objects.create(
-                    product_id=i['product_id'],
-                    sku=i['sku'],
-                    name=i['name'],
-                    cost=i['cost'],
-                    price=i['price'],
-                    specialPrice=i['special_price'],
-                    status=i['status'],
-                    weight=i['weight'],
-                    brand_name=i['marca'],
-                    )
+        if not 'cost' in i:
+            i['cost'] = 0
+
+        #Certo produtos não tem special_price
+        if not 'special_price' in i:
+            i['special_price'] = 0
+
+        #Certos produtos não envia o status
+        if not 'status' in i:
+            i['status'] = True
+        #Alguns produtos não tem weight
+        if not 'weight' in i:
+            i['weight'] = 0
+        #TODO Marca não inplementado no magento
+        if not 'marca' in i:
+            i['marca'] = getBrand(i)
+
+        if i['status'] == '1':
+            i['status'] = True
         else:
-            newItem = newItem[0]
+            i['status'] = False
 
-            newItem.status = i['status']
-            #Importacao de custo é manual
-            # newItem.cost = i['cost']
-            newItem.name = i['name']
-            newItem.price = i['price']
-            newItem.specialPrice = i['special_price']
-            newItem.weight = i['weight']
-            newItem.brand_name = i['marca']
-            newItem.save()
-        return newItem
+        try:
+            newItem = itemObject.objects.filter(sku=i['sku'])
+            if len(newItem) == 0:
+                newItem = itemObject.objects.create(
+                        product_id=i['product_id'],
+                        sku=i['sku'],
+                        name=i['name'],
+                        cost=i['cost'],
+                        price=i['price'],
+                        specialPrice=i['special_price'],
+                        status=i['status'],
+                        weight=i['weight'],
+                        brand_name=i['marca'],
+                        )
+            else:
+                newItem = newItem[0]
 
-    except Exception as e:
-        pass
+                newItem.status = i['status']
+                #Importacao de custo é manual
+                # newItem.cost = i['cost']
+                newItem.name = i['name']
+                newItem.price = i['price']
+                newItem.specialPrice = i['special_price']
+                newItem.weight = i['weight']
+                newItem.brand_name = i['marca']
+                newItem.save()
+            return newItem
+
+        except Exception as e:
+            pass
+    except:
+        saveItemInDatabse(i)
 
 
 def saveOrderStatusHistory(iteration, order):
-    iteration = status_history.objects.create(
+    return status_history.objects.create(
         comment=iteration['comment'],
         status=iteration['status'],
         entity_name=iteration['entity_name'],
         created_at=datetime.strptime(iteration['created_at'], '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone.utc),
         order=order,
     )
-    return iteration
+
 
 
 def saveOrderItemInDatabase(order, orderItemToSave):
     try:
-        itemToSave = itemObject.objects.get(sku=int(orderItemToSave['sku']))
-    except Exception as e:
-        itemToSave = saveItemInDatabse(orderItemToSave)
+        try:
+            itemToSave = itemObject.objects.get(sku=int(orderItemToSave['sku']))
+        except Exception as e:
+            itemToSave = saveItemInDatabse(orderItemToSave)
 
-    createdAt = timeInGMT(orderItemToSave['created_at'])
-    updated_at = timeInGMT(orderItemToSave['updated_at'])
+        createdAt = timeInGMT(orderItemToSave['created_at'])
+        updated_at = timeInGMT(orderItemToSave['updated_at'])
 
-    if orderItemToSave['parent_item_id'] != None:
-        is_child = orderItemToSave['parent_item_id']
-    else:
-        is_child = False
+        if orderItemToSave['parent_item_id'] != None:
+            is_child = orderItemToSave['parent_item_id']
+        else:
+            is_child = False
 
-    newOrderItem = orderItem.objects.create(
-        item=itemToSave,
-        order=order,
-        quantidade=float(orderItemToSave['qty_ordered']),
-        created_at=datetime.strptime(orderItemToSave['created_at'], '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone.utc),
-        updated_at=datetime.strptime(orderItemToSave['updated_at'], '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone.utc),
-        price=float(orderItemToSave['price']),
-        is_child=is_child,
-        productType=orderItemToSave['product_type'],
-    )
+        newOrderItem = orderItem.objects.create(
+            item=itemToSave,
+            order=order,
+            quantidade=float(orderItemToSave['qty_ordered']),
+            created_at=datetime.strptime(orderItemToSave['created_at'], '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone.utc),
+            updated_at=datetime.strptime(orderItemToSave['updated_at'], '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone.utc),
+            price=float(orderItemToSave['price']),
+            is_child=is_child,
+            productType=orderItemToSave['product_type'],
+        )
 
-    #Fix se estiver none os campos
-    if not itemToSave.estoque_disponivel:
-        itemToSave.estoque_disponivel = 0
-    if not itemToSave.estoque_empenhado:
-        itemToSave.estoque_empenhado = 0
-    if not itemToSave.estoque_atual:
-        itemToSave.estoque_atual = 0
+        #Fix se estiver none os campos
+        if not itemToSave.estoque_disponivel:
+            itemToSave.estoque_disponivel = 0
+        if not itemToSave.estoque_empenhado:
+            itemToSave.estoque_empenhado = 0
+        if not itemToSave.estoque_atual:
+            itemToSave.estoque_atual = 0
 
-    if order.status == 'holded':
-        itemToSave.estoque_empenhado += 1
-    elif order.status == 'processing' or order.status == 'complete' or order.status == 'complete2':
-        itemToSave.estoque_atual -= 1
+        if order.status == 'holded':
+            itemToSave.estoque_empenhado += 1
+        elif order.status == 'processing' or order.status == 'complete' or order.status == 'complete2':
+            itemToSave.estoque_atual -= 1
 
-    itemToSave.estoque_disponivel = itemToSave.estoque_atual - itemToSave.estoque_empenhado
-    itemToSave.save()
-    return newOrderItem
+        itemToSave.estoque_disponivel = itemToSave.estoque_atual - itemToSave.estoque_empenhado
+        itemToSave.save()
+        return newOrderItem
+    except:
+        saveOrderItemInDatabase(order, orderItemToSave)
 
 def saveOrderInDatabase(o):
-    print 'Saving Order: %s' % o['increment_id']
-    databaseOrder = order.objects.filter(increment_id=o['increment_id'])
-    if len(databaseOrder) > 0:
-        print('Order in database: %s' % databaseOrder[0].increment_id)
-        return databaseOrder[0]
-    else:
-        if len(o['payment']['additional_information']) > 0:
-            payment_method = o['payment']['additional_information']['PaymentMethod']
+    try:
+        print 'Saving Order: %s' % o['increment_id']
+        databaseOrder = order.objects.filter(increment_id=o['increment_id'])
+        if len(databaseOrder) > 0:
+            print('Order in database: %s' % databaseOrder[0].increment_id)
+            return databaseOrder[0]
         else:
-            payment_method = 'Sem Informacao'
-        pesoPedido = 0
-        for item in o['items']:
-            pesoPedido += float(item['weight'].replace(',', '.'))
-        shipping_amount_simulate = correios_frete_simples(FRETE_ORIGEM, o['billing_address']['postcode'], 30, 30, 30, pesoPedido)
-        if o['shipping_method']:
-            if o['shipping_method'].split('_')[2] == '41112':
-                shipping_amount_centralfit = float(shipping_amount_simulate['sedex']['valor'].replace(',', '.'))
+            if len(o['payment']['additional_information']) > 0:
+                payment_method = o['payment']['additional_information']['PaymentMethod']
             else:
-                shipping_amount_centralfit = float(shipping_amount_simulate['pac']['valor'].replace(',', '.'))
-        else:
-            shipping_amount_centralfit = 10
-        if not o['shipping_method']:
-            o['shipping_method'] = 'Envio Especial'
-        databaseOrder = order.objects.create(
-                                            increment_id=o['increment_id'],
-                                            created_at= datetime.strptime(o['created_at'], '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone.utc),
-                                            updated_at=datetime.strptime(o['updated_at'], '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone.utc),
-                                            is_active=True,
-                                            customer_id=o['customer_id'],
-                                            grand_total=o['base_grand_total'],
-                                            subtotal=o['base_subtotal'],
-                                            status=o['status'],
-                                            customer_email=o['customer_email'],
-                                            order_id=o['order_id'],
-                                            shipping_amount=o['shipping_amount'],
-                                            shipping_method=o['shipping_method'],
-                                            discount_amount=o['discount_amount'],
-                                            payment_method=payment_method,
-                                            shipping_address_postcode = o['shipping_address']['postcode'],
-                                            shipping_address_region = o['shipping_address']['region'],
-                                            shipping_address_street = o['shipping_address']['street'],
-                                            weight=o['weight'],
-                                            shipping_amount_centralfit=shipping_amount_centralfit
-                                            )
-        for itemInOrder in o['items']:
-            saveOrderItemInDatabase(databaseOrder, itemInOrder)
+                payment_method = 'Sem Informacao'
+            pesoPedido = 0
+            for item in o['items']:
+                pesoPedido += float(item['weight'].replace(',', '.'))
+            shipping_amount_simulate = correios_frete_simples(FRETE_ORIGEM, o['billing_address']['postcode'], 30, 30, 30, pesoPedido)
+            if o['shipping_method']:
+                if o['shipping_method'].split('_')[2] == '41112':
+                    shipping_amount_centralfit = float(shipping_amount_simulate['sedex']['valor'].replace(',', '.'))
+                else:
+                    shipping_amount_centralfit = float(shipping_amount_simulate['pac']['valor'].replace(',', '.'))
+            else:
+                shipping_amount_centralfit = 10
+            if not o['shipping_method']:
+                o['shipping_method'] = 'Envio Especial'
+            databaseOrder = order.objects.create(
+                                                increment_id=o['increment_id'],
+                                                created_at= datetime.strptime(o['created_at'], '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone.utc),
+                                                updated_at=datetime.strptime(o['updated_at'], '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone.utc),
+                                                is_active=True,
+                                                customer_id=o['customer_id'],
+                                                grand_total=o['base_grand_total'],
+                                                subtotal=o['base_subtotal'],
+                                                status=o['status'],
+                                                customer_email=o['customer_email'],
+                                                order_id=o['order_id'],
+                                                shipping_amount=o['shipping_amount'],
+                                                shipping_method=o['shipping_method'],
+                                                discount_amount=o['discount_amount'],
+                                                payment_method=payment_method,
+                                                shipping_address_postcode = o['shipping_address']['postcode'],
+                                                shipping_address_region = o['shipping_address']['region'],
+                                                shipping_address_street = o['shipping_address']['street'],
+                                                weight=o['weight'],
+                                                shipping_amount_centralfit=shipping_amount_centralfit
+                                                )
+            for itemInOrder in o['items']:
+                saveOrderItemInDatabase(databaseOrder, itemInOrder)
 
-        #Salvar o historico de iteracoes do pedido
-        for iteration in o['status_history']:
-            databaseIteration = saveOrderStatusHistory(iteration, databaseOrder)
+            #Salvar o historico de iteracoes do pedido
+            for iteration in o['status_history']:
+                databaseIteration = saveOrderStatusHistory(iteration, databaseOrder)
 
-        databaseOrder.generateBillingInformation()
-        databaseOrder.save()
+            databaseOrder.generateBillingInformation()
+            databaseOrder.save()
 
-        return databaseOrder
+            return databaseOrder
+    except:
+        saveOrderInDatabase(o)
 
 def getQtyHolded(item, dateEnd):
     dateStart = dateEnd - timedelta(days=7)
