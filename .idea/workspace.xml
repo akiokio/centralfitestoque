@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ebd84075-4f20-4613-bc6e-2f01cb9657e6" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/salesReport/correios.py" afterPath="$PROJECT_DIR$/salesReport/correios.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/salesReport/models.py" afterPath="$PROJECT_DIR$/salesReport/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dashboard/views.py" afterPath="$PROJECT_DIR$/dashboard/views.py" />
     </list>
     <ignored path="centralFitEstoque.iws" />
@@ -56,6 +58,7 @@
     <file path="$PROJECT_DIR$/../einstein_prototipo/src/einstein/mkt_eleitoral/tests/models_test.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1374791922162" ignored="false" />
     <file path="/tables.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1374881855006" ignored="false" />
     <file path="/extras.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1374885611911" ignored="false" />
+    <file path="/correios.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1375644066409" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,19 +85,19 @@
     <splitter split-orientation="horizontal" split-proportion="0.50765306">
       <split-first>
         <leaf>
-          <file leaf-file-name="views.py" pinned="false" current="true" current-in-tab="true">
+          <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/dashboard/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="96" column="50" selection-start="4514" selection-end="4514" vertical-scroll-proportion="0.14510278">
+                <state line="3" column="6" selection-start="148" selection-end="148" vertical-scroll-proportion="0.0">
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
+          <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/salesReport/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="190" column="21" selection-start="7980" selection-end="7980" vertical-scroll-proportion="0.0">
+                <state line="148" column="0" selection-start="5270" selection-end="5270" vertical-scroll-proportion="0.33221477">
                   <folding />
                 </state>
               </provider>
@@ -131,10 +134,19 @@
       </split-first>
       <split-second>
         <leaf>
-          <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="true">
+          <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/salesReport/models.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="81" column="0" selection-start="3492" selection-end="3492" vertical-scroll-proportion="-0.21160822">
+                <state line="23" column="25" selection-start="669" selection-end="669" vertical-scroll-proportion="0.0">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="correios.py" pinned="false" current="true" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/salesReport/correios.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="284" column="0" selection-start="12472" selection-end="12472" vertical-scroll-proportion="0.39418417">
                   <folding />
                 </state>
               </provider>
@@ -169,7 +181,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/salesReport/admin.py" />
         <option value="$PROJECT_DIR$/salesReport/helpers.py" />
         <option value="$PROJECT_DIR$/salesReport/tests.py" />
         <option value="$PROJECT_DIR$/templates/base.html" />
@@ -185,6 +196,7 @@
         <option value="$PROJECT_DIR$/salesReport/views.py" />
         <option value="$PROJECT_DIR$/salesReport/models.py" />
         <option value="$PROJECT_DIR$/dashboard/views.py" />
+        <option value="$PROJECT_DIR$/salesReport/correios.py" />
       </list>
     </option>
   </component>
@@ -561,8 +573,8 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2082658" sideWeight="0.43482795" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22042139" sideWeight="0.7609842" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.16488793" sideWeight="0.7361751" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" weight="0.312212" sideWeight="0.9605123" order="3" side_tool="false" content_ui="tabs" x="1920" y="280" width="1280" height="800" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16488793" sideWeight="0.76036865" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23963134" sideWeight="0.9605123" order="3" side_tool="false" content_ui="tabs" x="1920" y="280" width="1280" height="800" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23662885" sideWeight="0.28741497" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35676625" sideWeight="0.50041497" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26382488" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -635,15 +647,17 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="298" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/salesReport/correios.py</url>
+          <line>284</line>
+          <option name="timeStamp" value="298" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="299" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/env/lib/python2.7/site-packages/django/views/generic/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="85" column="0" selection-start="3085" selection-end="3085" vertical-scroll-proportion="0.33279744" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/lista_estoque.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="100" column="14" selection-start="4912" selection-end="5499" vertical-scroll-proportion="-21.583334" />
@@ -720,21 +734,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/salesReport/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="81" column="0" selection-start="3492" selection-end="3492" vertical-scroll-proportion="-0.21160822">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/salesReport/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="190" column="21" selection-start="7980" selection-end="7980" vertical-scroll-proportion="0.0">
+        <state line="23" column="25" selection-start="669" selection-end="669" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dashboard/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="96" column="50" selection-start="4514" selection-end="4514" vertical-scroll-proportion="0.14510278">
+        <state line="3" column="6" selection-start="148" selection-end="148" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/salesReport/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="148" column="0" selection-start="5270" selection-end="5270" vertical-scroll-proportion="0.33221477">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/salesReport/correios.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="284" column="0" selection-start="12472" selection-end="12472" vertical-scroll-proportion="0.39418417">
           <folding />
         </state>
       </provider>

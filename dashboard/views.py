@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 __author__ = 'akiokio'
 from django.http import HttpRequest, HttpResponse, HttpResponseForbidden, HttpResponseRedirect
-from salesReport.models import order as orderNaBase, orderItem, brands, item as itemNaBase
+from  salesReport.models import order as orderNaBase, orderItem, brands, item as itemNaBase
 from datetime import date, timedelta, datetime
 from salesReport.models import order, orderItem, item as itemObject
 from django.views.generic import TemplateView, FormView, CreateView, UpdateView, ListView, DetailView, DeleteView

@@ -281,7 +281,12 @@ def correios_frete_simples(cep_origem, cep_destino, comprimento, largura, altura
     v_metodos=','.join(v_metodos)
     cep_origem = digits_only(cep_origem)
     cep_destino = digits_only(cep_destino)
-    xml_correios = correios_frete(nCdEmpresa=codigo, sDsSenha=senha, nCdServico=v_metodos, sCepOrigem=cep_origem, sCepDestino=cep_destino, nVlPeso=peso, nCdFormato=1, nVlComprimento=comprimento, nVlAltura=altura, nVlLargura=largura, nVlDiametro=0, sCdMaoPropria='N', nVlValorDeclarado=0, sCdAvisoRecebimento='N', StrRetorno='XML')
+    xml_correios = None
+    while (xml_correios == None):
+        try:
+            xml_correios = correios_frete(nCdEmpresa=codigo, sDsSenha=senha, nCdServico=v_metodos, sCepOrigem=cep_origem, sCepDestino=cep_destino, nVlPeso=peso, nCdFormato=1, nVlComprimento=comprimento, nVlAltura=altura, nVlLargura=largura, nVlDiametro=0, sCdMaoPropria='N', nVlValorDeclarado=0, sCdAvisoRecebimento='N', StrRetorno='XML')
+        except:
+            pass
 
     # verifica se há dados da consulta aos correios
     if xml_correios is not None:
