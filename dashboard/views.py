@@ -94,14 +94,15 @@ def getFaturamentoForDay(date, totalArr):
     fimDoDia = date.replace(hour=23, minute=59, second=59) - timedelta(hours=3)
 
     orders = orderNaBase.objects.filter(updated_at__range=[inicioDoDia, fimDoDia]).filter(status__in=['complete', 'complete2'])
-    # orders = orderNaBase.objects.filter(created_at__range=[inicioDoDia, fimDoDia]).filter(status__in=['complete', 'complete2'])
-    today = str(date.day) + '-' + str(date.month),
+    today = str(date.day) + '-' + str(date.month)
+
 
     numeroDePedidos = len(orders)
     valorBrutoFaturado = 0
     receitaFrete = 0
     valorDesconto = 0
     valorBonificado = 0
+    valorBonificadoPedido = 0
     valorLiquidoProdutos = 0
     custoProdutos = 0
     valorFrete = 0
@@ -113,8 +114,16 @@ def getFaturamentoForDay(date, totalArr):
         return [today[0],0,0,0,0,0,0,0,0,0,0,0,0,0]
 
     for order in orders:
-        valorBrutoFaturado, receitaFrete, valorDesconto, custoProdutos, valorBonificado, \
-        valorBonificadoPedido, somatoriaProdutos, valorLiquidoProdutos, valorFrete, valorTaxaCartao = order.getBillingInfo()
+        valorBrutoFaturado += order.valorBrutoFaturado
+        receitaFrete += order.receitaFrete
+        valorDesconto += order.valorDesconto
+        custoProdutos += order.custoProdutos
+        valorBonificado += order.valorBonificado
+        valorBonificadoPedido += order.valorBonificadoPedido
+        somatoriaProdutos += order.somatoriaProdutos
+        valorLiquidoProdutos += order.valorLiquidoProdutos
+        valorFrete += order.valorFrete
+        valorTaxaCartao += order.valorTaxaCartao
 
     margemBrutaSoProdutos = (1 - (custoProdutos / valorLiquidoProdutos)) * 100
     margemBrutaCartaoFrete = (1 - ((custoProdutos + valorFrete + valorTaxaCartao) / (valorLiquidoProdutos + receitaFrete))) * 100
@@ -168,7 +177,8 @@ class Faturamento(TemplateView):
             today -= timedelta(days=1)
 
         #Finaliza linha de totais
-        totalArr[13] = totalArr[13] / float(totalArr[1])
+        if totalArr[1]:
+            totalArr[13] = totalArr[13] / float(totalArr[1])
          #Arredonda os valores
         totalArr[1] = round(totalArr[1], 2)
         totalArr[2] = round(totalArr[2], 2)

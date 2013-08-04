@@ -103,7 +103,6 @@ class order(models.Model):
         self.receitaFrete += float(self.shipping_amount)
         self.valorDesconto += (float(self.discount_amount) * (-1))
 
-        self.valorBonificadoPedido = 0
         for item in self.orderitem_set.all():
             #Para produtos com tipos especiais somar o custo somente dos produtos simples
             #Somente produtos simples são somados no variavel somatoria de produtos para calcular o # de produtos pedidos
@@ -112,12 +111,11 @@ class order(models.Model):
             #Para o valor bonificado somar somente os produtos simples (filhos)
             if float(item.price) == 0.0 and item.is_child == False:
                 self.valorBonificado += item.item.cmm
-                self.valorBonificadoPedido += item.item.cost
             if float(item.price) > 0.0:
                 #soma ao total de itens analisados, não leva em consideração brindes e produtos complexos(somatoria d produtos simples)
                 self.somatoriaProdutos += item.quantidade
 
-        self.valorLiquidoProdutos += float(self.grand_total) - float(self.shipping_amount) - self.valorBonificadoPedido
+        self.valorLiquidoProdutos += float(self.grand_total) - float(self.shipping_amount) - self.valorBonificado
         if float(self.shipping_amount) > 0.0:
             self.valorFrete += float(self.shipping_amount)
         else:
