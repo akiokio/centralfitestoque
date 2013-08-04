@@ -94,7 +94,7 @@ def getFaturamentoForDay(date, totalArr):
     fimDoDia = date.replace(hour=23, minute=59, second=59) - timedelta(hours=3)
 
     orders = orderNaBase.objects.filter(updated_at__range=[inicioDoDia, fimDoDia]).filter(status__in=['complete', 'complete2'])
-    today = str(date.day) + '-' + str(date.month)
+    today = str(date.day) + '-' + str(date.month),
 
 
     numeroDePedidos = len(orders)
