@@ -87,8 +87,6 @@ class order(models.Model):
         return '%s' % self.increment_id
 
     def generateBillingInformation(self):
-        if self.increment_id == '100011506':
-            print 'vai da merda 02'
         self.valorBrutoFaturado = 0
         self.receitaFrete = 0
         self.valorDesconto = 0
@@ -112,7 +110,9 @@ class order(models.Model):
             #Para produtos com tipos especiais somar o custo somente dos produtos simples
             #Somente produtos simples são somados no variavel somatoria de produtos para calcular o # de produtos pedidos
             if item.productType == 'simple':
-                self.custoProdutos += item.item.cmm * item.quantidade
+                #Fix caso o custo estive none ele vai ser zero
+                if not item.item.cmm:
+                    self.custoProdutos += item.item.cmm * item.quantidade
             #Para o valor bonificado somar somente os produtos simples (filhos)
             if float(item.price) == 0.0 and item.is_child == False:
                 self.valorBonificado += item.item.cmm

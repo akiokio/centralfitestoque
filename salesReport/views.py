@@ -156,6 +156,10 @@ def saveOrderInDatabase(o):
             shipping_amount_centralfit = 10
             o['shipping_method'] = 'Envio Especial'
 
+        if float(o['grand_total']) == 0.0:
+            o['grand_total'] = o['subtotal']
+            o['base_grand_total'] = o['subtotal']
+
         databaseOrder = orderNaBase(
                                             increment_id=o['increment_id'],
                                             created_at= datetime.strptime(o['created_at'], '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone.utc),
@@ -706,7 +710,7 @@ def updateItemDetail():
                 if item.price != float(product['price']):
                     item.price = float(product['price'])
                     atualizado = True
-                if 'special_price' in product and item.specialPrice != float(product['special_price']):
+                if 'special_price' in product and product['special_price'] and item.specialPrice != float(product['special_price']):
                     item.specialPrice = float(product['special_price'])
                     atualizado = True
                 if atualizado:
