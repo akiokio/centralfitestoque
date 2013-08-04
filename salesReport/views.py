@@ -156,7 +156,7 @@ def saveOrderInDatabase(o):
             shipping_amount_centralfit = 10
             o['shipping_method'] = 'Envio Especial'
 
-        databaseOrder = orderNaBase.objects.create(
+        databaseOrder = orderNaBase(
                                             increment_id=o['increment_id'],
                                             created_at= datetime.strptime(o['created_at'], '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone.utc),
                                             updated_at=datetime.strptime(o['updated_at'], '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone.utc),
@@ -183,8 +183,6 @@ def saveOrderInDatabase(o):
         #Salvar o historico de iteracoes do pedido
         for iteration in o['status_history']:
             databaseIteration = saveOrderStatusHistory(iteration, databaseOrder)
-
-        databaseOrder.generateBillingInformation()
         databaseOrder.save()
 
         return databaseOrder

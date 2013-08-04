@@ -67,18 +67,19 @@ class order(models.Model):
     weight = models.FloatField()
 
     #Dados Faturamento
-    valorBrutoFaturado = models.FloatField(null=True, blank=True)
-    receitaFrete = models.FloatField(null=True, blank=True)
-    valorDesconto = models.FloatField(null=True, blank=True)
-    valorBonificado = models.FloatField(null=True, blank=True)
-    valorBonificadoPedido = models.FloatField(null=True, blank=True)
-    custoProdutos = models.FloatField(null=True, blank=True)
-    somatoriaProdutos = models.FloatField(null=True, blank=True)
-    valorLiquidoProdutos = models.FloatField(null=True, blank=True)
-    valorFrete = models.FloatField(null=True, blank=True)
-    valorTaxaCartao = models.FloatField(null=True, blank=True)
-    margemBrutaSoProdutos = models.FloatField(null=True, blank=True)
-    margemBrutaCartaoFrete = models.FloatField(null=True, blank=True)
+    valorBrutoFaturado = models.FloatField()
+    receitaFrete = models.FloatField()
+    valorDesconto = models.FloatField()
+    valorBonificado = models.FloatField()
+    valorBonificadoPedido = models.FloatField()
+    custoProdutos = models.FloatField()
+    somatoriaProdutos = models.FloatField()
+    valorLiquidoProdutos = models.FloatField()
+    valorFrete = models.FloatField()
+    valorTaxaCartao = models.FloatField()
+    margemBrutaSoProdutos = models.FloatField()
+    margemBrutaCartaoFrete = models.FloatField()
+
 
     item = models.ManyToManyField(item, through='orderItem')
 
@@ -86,6 +87,8 @@ class order(models.Model):
         return '%s' % self.increment_id
 
     def generateBillingInformation(self):
+        if self.increment_id == '100011506':
+            print 'vai da merda 02'
         self.valorBrutoFaturado = 0
         self.receitaFrete = 0
         self.valorDesconto = 0
@@ -96,6 +99,8 @@ class order(models.Model):
         self.valorLiquidoProdutos = 0
         self.valorFrete = 0
         self.valorTaxaCartao = 0
+        self.margemBrutaSoProdutos = 0
+        self.margemBrutaCartaoFrete = 0
 
         self.valorBrutoFaturado += float(self.grand_total)
         if self.discount_amount != 0.0:
@@ -130,7 +135,6 @@ class order(models.Model):
             self.margemBrutaSoProdutos = (1 - (self.custoProdutos / self.valorLiquidoProdutos)) * 100
             self.margemBrutaCartaoFrete = (1 - ((self.custoProdutos + self.valorFrete + self.valorTaxaCartao) / (self.valorLiquidoProdutos + self.receitaFrete))) * 100
 
-        self.save()
 
     def getBillingInfo(self):
         return self.valorBrutoFaturado, self.receitaFrete, self.valorDesconto, self.custoProdutos, self.valorBonificado, \
@@ -138,6 +142,7 @@ class order(models.Model):
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
+        self.generateBillingInformation()
         super(order, self).save()
 
 
