@@ -113,7 +113,15 @@ def getFaturamentoForDay(date, totalArr):
     if len(orders) == 0:
         return [today[0],0,0,0,0,0,0,0,0,0,0,0,0,0]
 
+
     for order in orders:
+        #DEBUG RuSTICO
+        if date.day == 02:
+            custo = 0.0
+            for item in order.orderitem_set.all():
+                if item.productType == 'simple':
+                    custo += item.item.cmm * item.quantidade
+            print '%s ; %s ; %s ; %s' % (order.increment_id, order.grand_total, order.updated_at, custo)
         valorBrutoFaturado += order.valorBrutoFaturado
         receitaFrete += order.receitaFrete
         valorDesconto += order.valorDesconto
@@ -323,7 +331,7 @@ def importarQuantidadeEstoque(request):
                         produto.specialPrice = values[2]
                         produto.estoque_atual = values[4]
                         #o que estiver com estoque zero, deve ficar com custo zero tbm ok?
-                        if int(values[4]) == 0:
+                        if int(values[3]) == 0:
                             produto.cost = 0
                         else:
                             produto.cost = values[3]

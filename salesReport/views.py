@@ -82,6 +82,8 @@ def saveItemInDatabse(i):
 
 
 def saveOrderStatusHistory(iteration, order):
+    if not iteration['status']:
+        iteration['status'] = 'None'
     return status_history.objects.create(
         comment=iteration['comment'],
         status=iteration['status'],
@@ -549,6 +551,17 @@ def updateLast7daysOrderStatus():
         if new_order_info['status'] != orderToBeUpdated.status:
             print 'Order Updated %s !' % orderToBeUpdated.increment_id
             orderToBeUpdated.status = new_order_info['status']
+            orderToBeUpdated.updated_at = datetime.strptime(new_order_info['updated_at'], '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone.utc)
+            #salva novas iteracoes no histórico
+            for iteraction in new_order_info['status_history']:
+                ja_existe = False
+                for orderIteraction in orderToBeUpdated.status_history_set.all():
+                    if orderIteraction.created_at.strftime("%Y-%m-%d %H:%M:%S") == iteraction['created_at'] and orderIteraction.comment == iteraction['comment']:
+                        ja_existe = True
+                if not ja_existe:
+                    databaseIteration = saveOrderStatusHistory(iteraction, orderToBeUpdated)
+                    print 'Nova iteracao adicionada: %s - %s' % (databaseIteration.created_at, databaseIteration.comment)
+
             orderToBeUpdated.save()
             quantidadeAtualizada += 1
     return quantidadeAtualizada

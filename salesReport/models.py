@@ -3,7 +3,7 @@ from django.db import models
 
 class status_history(models.Model):
     comment = models.TextField(null=True, blank=True)
-    status = models.CharField(max_length=250, null=True, blank=True)
+    status = models.CharField(max_length=250)
     entity_name = models.CharField(max_length=250)
     created_at = models.DateTimeField()
     order = models.ForeignKey('order')
@@ -111,8 +111,9 @@ class order(models.Model):
             #Somente produtos simples são somados no variavel somatoria de produtos para calcular o # de produtos pedidos
             if item.productType == 'simple':
                 #Fix caso o custo estive none ele vai ser zero
-                if not item.item.cmm:
+                if item.item.cmm:
                     self.custoProdutos += item.item.cmm * item.quantidade
+
             #Para o valor bonificado somar somente os produtos simples (filhos)
             if float(item.price) == 0.0 and item.is_child == False:
                 self.valorBonificado += item.item.cmm
@@ -131,7 +132,7 @@ class order(models.Model):
         else:
             self.valorTaxaCartao += (float(self.grand_total) * 0.029)
 
-        if self.custoProdutos > 0.0:
+        if self.custoProdutos > 0.0 and self.valorLiquidoProdutos > 0.0:
             self.margemBrutaSoProdutos = (1 - (self.custoProdutos / self.valorLiquidoProdutos)) * 100
             self.margemBrutaCartaoFrete = (1 - ((self.custoProdutos + self.valorFrete + self.valorTaxaCartao) / (self.valorLiquidoProdutos + self.receitaFrete))) * 100
 
