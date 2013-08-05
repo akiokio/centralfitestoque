@@ -115,13 +115,6 @@ def getFaturamentoForDay(date, totalArr):
 
 
     for order in orders:
-        #DEBUG RuSTICO
-        if date.day == 02:
-            custo = 0.0
-            for item in order.orderitem_set.all():
-                if item.productType == 'simple':
-                    custo += item.item.cmm * item.quantidade
-            print '%s ; %s ; %s ; %s' % (order.increment_id, order.grand_total, order.updated_at, custo)
         valorBrutoFaturado += order.valorBrutoFaturado
         receitaFrete += order.receitaFrete
         valorDesconto += order.valorDesconto
