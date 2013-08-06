@@ -62,6 +62,11 @@ def saveItemInDatabse(i):
                     status=i['status'],
                     weight=i['weight'],
                     brand_name=i['marca'],
+                    cmm=0,
+                    estoque_atual=0,
+                    estoque_empenhado=0,
+                    estoque_disponivel=0,
+                    margem=0,
                     )
         else:
             newItem = newItem[0]
