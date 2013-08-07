@@ -551,7 +551,7 @@ def updateLast7daysOrderStatus():
     salesReport.connect()
     #call magento and update orderStatus
     for orderToBeUpdated in orders:
-        print 'trying update order %s' % orderToBeUpdated.increment_id
+        print u'trying update order %s' % orderToBeUpdated.increment_id
         new_order_info = salesReport.getSingleOrderInfo(orderToBeUpdated.increment_id)
         if new_order_info['status'] != orderToBeUpdated.status:
             print 'Order Updated %s !' % orderToBeUpdated.increment_id
@@ -565,7 +565,7 @@ def updateLast7daysOrderStatus():
                         ja_existe = True
                 if not ja_existe:
                     databaseIteration = saveOrderStatusHistory(iteraction, orderToBeUpdated)
-                    print 'Nova iteracao adicionada: %s - %s' % (databaseIteration.created_at, databaseIteration.comment)
+                    print u'Nova iteracao adicionada: %s - %s' % (databaseIteration.created_at, databaseIteration.comment)
 
             orderToBeUpdated.save()
             quantidadeAtualizada += 1
