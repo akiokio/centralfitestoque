@@ -565,7 +565,7 @@ def updateLast7daysOrderStatus():
                         ja_existe = True
                 if not ja_existe:
                     databaseIteration = saveOrderStatusHistory(iteraction, orderToBeUpdated)
-                    print u'Nova iteracao adicionada: %s - %s' % (databaseIteration.created_at, databaseIteration.comment)
+                    print u'Nova iteracao adicionada: %s - %s' % (databaseIteration.created_at, databaseIteration.status)
 
             orderToBeUpdated.save()
             quantidadeAtualizada += 1
