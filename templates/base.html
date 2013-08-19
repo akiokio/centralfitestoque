@@ -17,10 +17,11 @@
           <li class="{% block exportar_active %}{% endblock %}"><a href="{% url 'exportar' %}">Exportar</a></li>
           <li class="{% block cmm_active %}{% endblock %}"><a href="{% url 'cmm' %}">CMM</a></li>
           <li class="{% block contato_active %}{% endblock %}"><a href="{% url 'faturamento' %}">Faturamento</a></li>
+          <li class="{% block expedicao_active %}{% endblock %}"><a href="{% url 'expedicao' %}">Expedição</a></li>
           <li class="{% block importar_active %}{% endblock %}"><a href="{% url 'importar' %}">Importar</a></li>
-          <li><a href="http://hom.centralfit.com.br:8080/admin/salesReport/order/">Lista Pedidos</a></li>
+          <li><a href="/admin/salesReport/order/">Lista Pedidos</a></li>
           <li class="{% block lista_estoque_active %}{% endblock %}"><a href="{% url 'lista_estoque' %}">Lista Estoque</a></li>
-          <li><a href="http://hom.centralfit.com.br:8080/admin/">Admin</a></li>
+          <li><a href="/admin/">Admin</a></li>
           <li class=""><a href="{% url 'logout' %}">Sair</a></li>
         </ul>
          <a href="{% url 'home' %}"><img src="http://www.centralfit.com.br/skin/frontend/fortis/default/images/logo.png" alt="LogoCentralfit"/></a>

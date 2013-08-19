@@ -15,7 +15,12 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from xlrd import open_workbook
 from django.shortcuts import redirect
-
+from django.contrib import messages
+from zipfile import ZipFile
+import xml.etree.ElementTree as ET
+from xml_helper import XmlDictConfig, XmlListConfig
+from tempfile import TemporaryFile
+from xlwt import Workbook
 
 def loginView(request):
     if request.method == 'POST':
@@ -445,3 +450,83 @@ def generateXLS(modelData):
     response['Content-Disposition'] = 'attachment; filename=export.xls'
     book.save(response)
     return response
+
+
+class expedicao(TemplateView):
+    template_name = 'expedicao.html'
+
+
+    def get_context_data(self, **kwargs):
+        context = super(expedicao, self).get_context_data(**kwargs)
+        return context
+
+    def post(self, *args, **kwargs):
+        uploaded_file = self.request.FILES['docfile']
+
+        #Parse o xml e retorna uma lista de dicionarios das nfes
+        xmlDict = []
+        headerList = ['RAZAO SOCIAL REMETENTE', 'CNPJ REMETENTE', 'NOME DO ARQUIVO', 'CODIGO DE BARRAS',
+                      'CODIGO DO PACOTE', 'NUMERO DA NOTA', 'SERIE DA NOTA', 'DATA EMISSÃO', 'PESO BALANÇA',
+                      'PESO CUBADO', 'NATUREZA OPERACAO', 'CFOP NOTA', 'AD VALOREM', 'VALOR DA MERCADORIA',
+                      'VALOR TOTAL DA NOTA', 'ICMS', 'CODIGO PRODUTO CLIENTE', 'NOME DESTINATARIO', 'ENDERECO',
+                      'NUMERO', 'COMPLEMENTO', 'BAIRRO', 'CEP', 'CIDADE', 'ESTADO', 'E-MAIL', 'CPF / CNPJ', 'TELEFONE',
+                      'CELULAR', 'DICA DE ENTREGA']
+        root = ZipFile(uploaded_file, 'r')
+        for file in root.namelist():
+            xml_root = ET.fromstring(root.open(file).read().replace('http://www.portalfiscal.inf.br/nfe', ''))
+            xmlDict.append(XmlDictConfig(xml_root))
+
+        #Manipula as nfes gera um excel para o cliente fazer download
+        book = Workbook(encoding='utf-8')
+        sheet1 = book.add_sheet('ListaExpedicao')
+
+        for count, header in enumerate(headerList):
+            sheet1.write(0, count, header)
+
+        for count, nfe in enumerate(xmlDict):
+            count += 1
+            #Monta a tabela
+            sheet1.write(count, 0, nfe['NFe']['infNFe']['emit']['xNome'])
+            sheet1.write(count, 1, nfe['NFe']['infNFe']['emit']['CNPJ'])
+            sheet1.write(count, 2, nfe['NFe']['infNFe']['Id'])
+            sheet1.write(count, 3, '')
+            sheet1.write(count, 4, '')
+            sheet1.write(count, 5, nfe['NFe']['infNFe']['ide']['nNF'])
+            sheet1.write(count, 6, nfe['NFe']['infNFe']['ide']['serie'])
+            sheet1.write(count, 7, nfe['NFe']['infNFe']['ide']['dEmi'])
+            sheet1.write(count, 8, '')
+            sheet1.write(count, 9, '')
+            sheet1.write(count, 10, nfe['NFe']['infNFe']['ide']['natOp'])
+            sheet1.write(count, 11, nfe['NFe']['infNFe']['det']['prod']['CFOP'])
+            sheet1.write(count, 12, nfe['NFe']['infNFe']['total']['ICMSTot']['vTotTrib'])
+            sheet1.write(count, 13, nfe['NFe']['infNFe']['total']['ICMSTot']['vProd'])
+            sheet1.write(count, 14, nfe['NFe']['infNFe']['total']['ICMSTot']['vNF'])
+            sheet1.write(count, 15, nfe['NFe']['infNFe']['total']['ICMSTot']['vICMS'])
+            sheet1.write(count, 16, '')
+            sheet1.write(count, 17, nfe['NFe']['infNFe']['dest']['xNome'])
+            sheet1.write(count, 18, nfe['NFe']['infNFe']['dest']['enderDest']['xLgr'])
+            sheet1.write(count, 19, nfe['NFe']['infNFe']['dest']['enderDest']['nro'])
+            if 'xCpl' in nfe['NFe']['infNFe']['dest']['enderDest']:
+                sheet1.write(count, 20, nfe['NFe']['infNFe']['dest']['enderDest']['xCpl'])
+            else:
+                sheet1.write(count, 20, u'')
+            sheet1.write(count, 21, nfe['NFe']['infNFe']['dest']['enderDest']['xBairro'])
+            sheet1.write(count, 22, nfe['NFe']['infNFe']['dest']['enderDest']['CEP'])
+            sheet1.write(count, 23, nfe['NFe']['infNFe']['dest']['enderDest']['xMun'])
+            sheet1.write(count, 24, nfe['NFe']['infNFe']['dest']['enderDest']['UF'])
+            sheet1.write(count, 25, '')
+            if 'CPF' in nfe['NFe']['infNFe']['dest']:
+                sheet1.write(count, 26, nfe['NFe']['infNFe']['dest']['CPF'])
+            else:
+                sheet1.write(count, 26, nfe['NFe']['infNFe']['dest']['CNPJ'])
+            if 'fone' in nfe['NFe']['infNFe']['dest']['enderDest']:
+                sheet1.write(count, 27, nfe['NFe']['infNFe']['dest']['enderDest']['fone'])
+            else:
+                sheet1.write(count, 27, u'')
+            sheet1.write(count, 28, '')
+            sheet1.write(count, 29, '')
+
+        book.save('centralFitEstoque/media/expedicao/%s.xls' % (uploaded_file.name[:-4]))
+        messages.add_message(self.request, messages.INFO, "Arquivo Gerado com sucesso: %s.xls" % uploaded_file.name[:-4])
+        messages.add_message(self.request, messages.INFO, "Link para download: /media/expedicao/%s.xls" % uploaded_file.name[:-4])
+        return redirect(reverse('expedicao'))

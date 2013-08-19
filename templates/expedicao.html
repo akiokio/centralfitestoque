@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block expedicao_active_active %}active{% endblock %}
+{% block title %}Cfit App - Importar{% endblock %}
+
+{% block main_content %}
+    <div class="well">
+        <h4>Gerar Planilha Transportadora</h4>
+        <p class="helptext">Subir somente o arquivo de exportação em lote do TinyERP zipado</p>
+        <hr>
+        {% for message in messages %}
+            <div class="mensagem">{{ message }}</div>
+            <hr>
+        {% endfor %}
+        <form action="{% url 'expedicao' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="file" value="title" name="docfile" id="title" />
+                </p>
+                <p><input type="submit" class="btn" value="Upload" /></p>
+        </form>
+    </div>
+{% endblock %}
