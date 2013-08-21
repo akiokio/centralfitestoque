@@ -186,3 +186,5 @@ FRETE_ORIGEM = '05319000'
 CRON_CLASSES = [
     "salesReport.cron.MyCronJob",
 ]
+
+LISTA_REMETENTES_EMAIL = ['akio.xd@gmail.com']

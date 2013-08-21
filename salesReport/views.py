@@ -216,6 +216,15 @@ def getVMD30(item, dateMinus30, dateRangeEnd):
     vmd30 = round(float(len(totalInPeriod) / 30.0), 3)
     return vmd30
 
+def getVMD30ForDatabaseItem(item, dateMinus30, dateRangeEnd):
+    try:
+        totalInPeriod = orderItem.objects.filter(item__sku=item.sku).filter(created_at__range=[dateMinus30, dateRangeEnd]).exclude(order__status='canceled').exclude(order__status='holded')
+    except Exception as e:
+        print e
+        totalInPeriod = []
+    vmd30 = round(float(len(totalInPeriod) / 30.0), 3)
+    return vmd30
+
 
 def getVMD(item, dateRangeInDays):
     if dateRangeInDays.days == 0.0:
@@ -555,8 +564,26 @@ def updateLast7daysOrderStatus():
         new_order_info = salesReport.getSingleOrderInfo(orderToBeUpdated.increment_id)
         if new_order_info['status'] != orderToBeUpdated.status:
             print 'Order Updated %s !' % orderToBeUpdated.increment_id
+
+            #Atualiza o estoque
+            #Caso 2: De pedido holded -> canceled subtrai um no estoque compremetido
+            if orderToBeUpdated.status ==  'holded' and new_order_info['status'] == 'canceled':
+                for item in orderToBeUpdated.orderitem_set.all():
+                    item.item.estoque_empenhado -= item.quantidade
+                    item.item.estoque_disponivel = item.item.estoque_atual - item.item.estoque_empenhado
+                    item.item.save()
+
+            #Caso 1: De pedido processing -> canceled soma um no estoque disponivel
+            if orderToBeUpdated.status ==  'processing' and new_order_info['status'] == 'canceled':
+                for item in orderToBeUpdated.orderitem_set.all():
+                    item.item.estoque_atual += item.quantidade
+                    item.item.estoque_disponivel = item.item.estoque_atual - item.item.estoque_empenhado
+                    item.item.save()
+
+
             orderToBeUpdated.status = new_order_info['status']
             orderToBeUpdated.updated_at = datetime.strptime(new_order_info['updated_at'], '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone.utc)
+
             #salva novas iteracoes no histórico
             for iteraction in new_order_info['status_history']:
                 ja_existe = False
@@ -738,3 +765,11 @@ def updateItemDetail():
                 saveItemInDatabse(product)
 
     return quantidade_atualizada
+
+def updateVMDCron():
+    dateInit = datetime.datetime.today().replace(hour=0, minute=0, second=0) - datetime.timedelta(hours=3)
+    dateEnd = datetime.datetime.today().replace(hour=23, minute=59, second=59) - datetime.timedelta(days=30) - datetime.timedelta(hours=3)
+
+    for item in itemObject.objects.all():
+        item.vmd = getVMD30ForDatabaseItem(item, dateEnd, dateInit)
+        item.save()
