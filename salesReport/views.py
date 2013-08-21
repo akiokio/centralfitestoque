@@ -50,6 +50,17 @@ def saveItemInDatabse(i):
         i['status'] = False
 
     try:
+        marca = brands.objects.get(name=i['marca'])
+
+    except Exception as e:
+        print e
+        marca = brands.objects.create(name=i['marca'][:100], meta_dias_estoque=0)
+
+    dateInit = datetime.today().replace(hour=0, minute=0, second=0) - timedelta(hours=3)
+    dateEnd = datetime.today().replace(hour=23, minute=59, second=59) - timedelta(days=30) - timedelta(hours=3)
+    vmd = getVMD30(i, dateEnd, dateInit)
+
+    try:
         newItem = itemObject.objects.filter(sku=i['sku'])
         if len(newItem) == 0:
             newItem = itemObject.objects.create(
@@ -67,6 +78,8 @@ def saveItemInDatabse(i):
                     estoque_empenhado=0,
                     estoque_disponivel=0,
                     margem=0,
+                    brand=marca,
+                    vmd=vmd
                     )
         else:
             newItem = newItem[0]

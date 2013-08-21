@@ -8,6 +8,18 @@ register = template.Library()
 def subtract(value, arg):
     return value - arg
 
+@register.filter
+def multiply(value, arg):
+    return value * arg
+
+@register.filter
+def divide(value, arg):
+    return value / arg
+
+@register.filter
+def sum(value, arg):
+    return value + arg
+
 @register.simple_tag
 def url_replace(request, field, value):
     dict_ = request.GET.copy()

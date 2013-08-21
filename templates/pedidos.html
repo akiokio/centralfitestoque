@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block pedido_active %}active{% endblock %}
+{% block title %}Cfit App - CMM{% endblock %}
+{% load extras %}
+
+{% block main_content %}
+    <div class='well'>
+        <h4>Tabela Planejamento de Pedidos</h4>
+
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+                 <tr>
+                    <th><a href="?{% url_replace request 'order_by' 'sku' %}">Código</a></th>
+                    <th><a href="?{% url_replace request 'order_by' 'name' %}">Nome</a></th>
+                    <th><a href="?{% url_replace request 'order_by' 'brand_name' %}">Marca</a></th>
+                    <th><a href="?{% url_replace request 'order_by' 'estoque_disponivel' %}">Estoque disponivel</a></th>
+                    <th><a href="?{% url_replace request 'order_by' 'cmm' %}">CMM</a></th>
+                    <th><a href="?{% url_replace request 'order_by' 'vmd' %}">VMD</a></th>
+                    <th><a href="?{% url_replace request 'order_by' '' %}">Quantidade Excedente/Faltante</a></th>
+                 </tr>
+            </thead>
+            <tbody>
+            {% for item in itens %}
+                 <tr class="">
+                     <form action="{% url 'cmm' %}" method="POST">
+                         {% csrf_token %}
+                        <td>{{ item.sku }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.brand_name }}</td>
+                        <td>{{ item.estoque_disponivel|floatformat:0 }}</td>
+                        <td>R$ {{ item.cmm|floatformat:2 }}</td>
+                        <td>{{ item.vmd|floatformat:3 }}</td>
+                         {% if item.vmd > 0 %}
+                            <td>{{ item.estoque_disponivel|divide:item.vmd|subtract:item.brand.meta_dias_estoque }}</td>
+                         {% else %}
+                             <td></td>
+                         {% endif %}
+
+                     </form>
+                 </tr>
+            {% empty %}
+                <tr>Sem itens</tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="pagination">
+            <span class="step-links">
+                {% if itens.has_previous %}
+                    <a href="?{% url_replace request 'page' itens.previous_page_number %}">Anterior</a>
+                {% endif %}
+
+                <span class="current">
+                    Página {{ itens.number }} de {{ itens.paginator.num_pages }}.
+                </span>
+
+                {% if itens.has_next %}
+                    <a href="?{% url_replace request 'page' itens.next_page_number %}">Próximo</a>
+                {% endif %}
+            </span>
+        </div>
+
+    </div>
+{% endblock %}

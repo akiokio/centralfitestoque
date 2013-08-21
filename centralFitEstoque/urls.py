@@ -1,7 +1,9 @@
 from django.conf.urls import patterns, include, url
-from salesReport.views import importAllProducts, importAllOrders,  exportar, importProductCost, atualizarStatusPedido, SingleOrderInfo, generateCsvFileCronTeste, update_brand
+from salesReport.views import importAllProducts, importAllOrders,  exportar, importProductCost, atualizarStatusPedido,\
+    SingleOrderInfo, generateCsvFileCronTeste, update_brand
 from django.conf import settings
-from dashboard.views import home, importar, loginView, logoutView, Faturamento, filtrarFaturamento, cmm, importarQuantidadeEstoque, lista_estoque, exportar_lista_produto, expedicao
+from dashboard.views import home, importar, loginView, logoutView, Faturamento, filtrarFaturamento, cmm,\
+    importarQuantidadeEstoque, lista_estoque, exportar_lista_produto, expedicao, pedidos
 from django.contrib.auth.decorators import login_required
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib import admin
@@ -24,6 +26,8 @@ urlpatterns = patterns('',
     url(r'^listaestoque/$', login_required(lista_estoque.as_view()), name='lista_estoque'),
     url(r'^faturamento/$', login_required(Faturamento.as_view()), name='faturamento'),
     url(r'^importar/$', login_required(importar), name='importar'),
+    url(r'^pedidos/$', login_required(pedidos.as_view()), name='pedidos'),
+
     url(r'^expedicao/$', login_required(expedicao.as_view()), name='expedicao'),
     url(r'^importar/produtos/$', importAllProducts, name='importarProdutos'),
     url(r'^importar/pedidos/$', importAllOrders, name='importarPedidos'),

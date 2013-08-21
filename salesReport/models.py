@@ -13,6 +13,7 @@ class status_history(models.Model):
 
 class brands(models.Model):
     name = models.CharField(max_length=100, primary_key=True, unique=True)
+    meta_dias_estoque = models.PositiveIntegerField(default=0)
 
     def __unicode__(self):
         return self.name

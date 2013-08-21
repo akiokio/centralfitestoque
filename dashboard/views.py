@@ -530,3 +530,39 @@ class expedicao(TemplateView):
         messages.add_message(self.request, messages.INFO, "Arquivo Gerado com sucesso: %s.xls" % uploaded_file.name[:-4])
         messages.add_message(self.request, messages.INFO, "Link para download: /media/expedicao/%s.xls" % uploaded_file.name[:-4])
         return redirect(reverse('expedicao'))
+
+class pedidos(TemplateView):
+    template_name = 'pedidos.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(pedidos, self).get_context_data(**kwargs)
+        return context
+
+    def get(self, *args, **kwargs):
+        context = self.get_context_data()
+        itens = itemObject.objects.all().order_by('sku')
+
+        #ordenacao
+        if self.request.GET.get('order_by'):
+            itens = itens.order_by(self.request.GET.get('order_by'))
+
+        self.request.session['product_list'] = itens
+
+        #paginacao
+        paginator = Paginator(itens, 50)
+        page = self.request.GET.get('page')
+        try:
+            itens = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            itens = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            itens = paginator.page(paginator.num_pages)
+
+        context['itens'] = itens
+
+        #Pega as marcas para calculos futuros
+        context['brands'] = brands.objects.all()
+
+        return self.render_to_response(context)
