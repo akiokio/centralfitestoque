@@ -266,7 +266,7 @@ class cmm(TemplateView):
             itens = itens.filter(name__icontains=self.request.GET.get('nome'))
 
         if self.request.GET.get('marca'):
-            itens = itens.filter(brand_name__icontains=self.request.GET.get('marca'))
+            itens = itens.filter(brand__name__icontains=self.request.GET.get('marca'))
         #Filter Only for status
         if self.request.GET.get('status'):
             itens = itens.filter(status=self.request.GET.get('status'))
@@ -364,7 +364,7 @@ class lista_estoque(TemplateView):
             itens = itens.filter(name__icontains=self.request.GET.get('nome'))
 
         if self.request.GET.get('marca'):
-            itens = itens.filter(brand_name__icontains=self.request.GET.get('marca'))
+            itens = itens.filter(brand__name__icontains=self.request.GET.get('marca'))
         #Filter Only for status
         if self.request.GET.get('status'):
             itens = itens.filter(status=self.request.GET.get('status'))
@@ -548,7 +548,7 @@ class pedidos(TemplateView):
 
         #Filtros
         if self.request.GET.get('marca'):
-            itens = itens.filter(brand_name__icontains=self.request.GET.get('marca'))
+            itens = itens.filter(brand__name__icontains=self.request.GET.get('marca'))
 
         self.request.session['product_list'] = itens
 

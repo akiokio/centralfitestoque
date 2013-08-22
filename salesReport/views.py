@@ -40,21 +40,19 @@ def saveItemInDatabse(i):
     #Alguns produtos não tem weight
     if not 'weight' in i:
         i['weight'] = 0
-    #TODO Marca não inplementado no magento
-    if not 'marca' in i:
-        i['marca'] = getBrand(i)
 
     if i['status'] == '1':
         i['status'] = True
     else:
         i['status'] = False
 
-    try:
-        marca = brands.objects.get(name=i['marca'])
-
-    except Exception as e:
-        print e
-        marca = brands.objects.create(name=i['marca'][:100], meta_dias_estoque=0)
+    if i['marca'] != None:
+        try:
+            marca = brands.objects.get(name=i['marca'])
+        except Exception as e:
+            marca = brands.objects.create(name=i['marca'], meta_dias_estoque=1)
+    else:
+        marca = None
 
     dateInit = datetime.today().replace(hour=0, minute=0, second=0) - timedelta(hours=3)
     dateEnd = datetime.today().replace(hour=23, minute=59, second=59) - timedelta(days=30) - timedelta(hours=3)
@@ -72,7 +70,6 @@ def saveItemInDatabse(i):
                     specialPrice=i['special_price'],
                     status=i['status'],
                     weight=i['weight'],
-                    brand_name=i['marca'],
                     cmm=0,
                     estoque_atual=0,
                     estoque_empenhado=0,
@@ -81,18 +78,6 @@ def saveItemInDatabse(i):
                     brand=marca,
                     vmd=vmd
                     )
-        else:
-            newItem = newItem[0]
-
-            newItem.status = i['status']
-            #Importacao de custo é manual
-            # newItem.cost = i['cost']
-            newItem.name = i['name']
-            newItem.price = i['price']
-            newItem.specialPrice = i['special_price']
-            newItem.weight = i['weight']
-            newItem.brand_name = i['marca']
-            newItem.save()
         return newItem
 
     except Exception as e:
@@ -206,7 +191,7 @@ def saveOrderInDatabase(o):
 
         #Salvar o historico de iteracoes do pedido
         for iteration in o['status_history']:
-            databaseIteration = saveOrderStatusHistory(iteration, databaseOrder)
+            saveOrderStatusHistory(iteration, databaseOrder)
         databaseOrder.save()
 
         return databaseOrder
@@ -314,20 +299,6 @@ def getBrand(item):
     for brand in brands.objects.all():
         BRANDS_ARRAY.append(brand.name.encode('UTF-8'))
     itemDetail = item['name'].split('-')
-    if itemDetail[-1].strip().encode('UTF-8') not in BRANDS_ARRAY and len(itemDetail) >= 2:
-        #Case X-Pharma
-        testString = itemDetail[-2] + '-' + itemDetail[-1]
-        if testString.encode('utf-8').strip() == 'X-Pharma' or testString.encode('utf-8').strip() == 'X-pharma':
-            return testString.strip()
-        return itemDetail[-2].strip()
-    else:
-        return itemDetail[-1].strip()
-
-def getBrandFromModel(item):
-    BRANDS_ARRAY = []
-    for brand in brands.objects.all():
-        BRANDS_ARRAY.append(brand.name.encode('UTF-8'))
-    itemDetail = item.name.split('-')
     if itemDetail[-1].strip().encode('UTF-8') not in BRANDS_ARRAY and len(itemDetail) >= 2:
         #Case X-Pharma
         testString = itemDetail[-2] + '-' + itemDetail[-1]
@@ -469,7 +440,7 @@ def importAllProducts(request):
                     quantidadeImportada += 1
         return render_to_response('importar.html',
                           {
-                              'status': 'importacaoSucesso',
+                              'status': '',
                               'quantidadeImportada': quantidadeImportada
                           },
                           context_instance=RequestContext(request))
@@ -731,9 +702,16 @@ def generateCsvFileCronTeste(request):
     return HttpResponse(simplejson.dumps({'status': 'success', 'url': url_sales_report}))
 
 def update_brand(request):
-    for product in itemObject.objects.all():
-        product.brand_name = getBrandFromModel(product)
-        product.save()
+    salesReport = Magento()
+    salesReport.connect()
+    quantidadeImportada = 0
+    for product in salesReport.getProductArray():
+        if RepresentsInt(product['sku']):
+            exist = itemObject.objects.filter(sku=product['sku'])
+            if len(exist) == 0:
+                saveItemInDatabse(product)
+                quantidadeImportada += 1
+
     return redirect(reverse('importar'))
 
 def removeOldHoldedOrdersFrom(rangeInicio, rangeFim):

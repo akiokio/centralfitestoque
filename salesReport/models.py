@@ -31,7 +31,6 @@ class item(models.Model):
     price = models.FloatField()
     specialPrice = models.FloatField(null=True, blank=True)
     brand = models.ForeignKey(brands, null=True, blank=True)
-    brand_name = models.CharField(max_length=255, null=True, blank=True)
     status = models.BooleanField()
     cmm = models.FloatField(null=True, blank=False)
     estoque_atual = models.IntegerField(null=True, blank=False)
