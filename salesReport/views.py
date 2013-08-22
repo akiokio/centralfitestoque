@@ -780,8 +780,8 @@ def updateItemDetail():
     return quantidade_atualizada
 
 def updateVMDCron():
-    dateInit = datetime.datetime.today().replace(hour=0, minute=0, second=0) - datetime.timedelta(hours=3)
-    dateEnd = datetime.datetime.today().replace(hour=23, minute=59, second=59) - datetime.timedelta(days=30) - datetime.timedelta(hours=3)
+    dateInit = datetime.today().replace(hour=0, minute=0, second=0) - timedelta(hours=3)
+    dateEnd = datetime.today().replace(hour=23, minute=59, second=59) - timedelta(days=30) - timedelta(hours=3)
 
     for item in itemObject.objects.all():
         item.vmd = getVMD30ForDatabaseItem(item, dateEnd, dateInit)
