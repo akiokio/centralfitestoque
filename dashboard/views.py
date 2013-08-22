@@ -546,6 +546,10 @@ class pedidos(TemplateView):
         if self.request.GET.get('order_by'):
             itens = itens.order_by(self.request.GET.get('order_by'))
 
+        #Filtros
+        if self.request.GET.get('marca'):
+            itens = itens.filter(brand_name__icontains=self.request.GET.get('marca'))
+
         self.request.session['product_list'] = itens
 
         #paginacao

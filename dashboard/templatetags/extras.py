@@ -20,6 +20,10 @@ def divide(value, arg):
 def sum(value, arg):
     return value + arg
 
+@register.filter
+def remove_minus_sign(value):
+    return str(value).replace('-', '')
+
 @register.simple_tag
 def url_replace(request, field, value):
     dict_ = request.GET.copy()
