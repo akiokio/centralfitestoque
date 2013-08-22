@@ -31,20 +31,15 @@ class Command(NoArgsCommand):
 
                 if not 'marca' in item:
                     item['marca'] = getBrand(item)
+
                 try:
                     marca = brands.objects.get(name=item['marca'][:100])
-
                 except Exception as e:
                     print e
                     marca = brands.objects.create(name=item['marca'][:100], meta_dias_estoque=1)
 
-
-                if not database_item.vmd:
-                    database_item.vmd = 0
-
                 database_item.brand = marca
                 database_item.save()
-                print database_item.name, database_item.brand, marca
 
         dateInit = datetime.datetime.today().replace(hour=0, minute=0, second=0) - datetime.timedelta(hours=3)
         dateEnd = datetime.datetime.today().replace(hour=23, minute=59, second=59) - datetime.timedelta(days=30) - datetime.timedelta(hours=3)

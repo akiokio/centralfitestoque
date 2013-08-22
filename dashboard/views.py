@@ -560,6 +560,11 @@ class pedidos(TemplateView):
             # If page is out of range (e.g. 9999), deliver last page of results.
             itens = paginator.page(paginator.num_pages)
 
+        #Calcula a quantidade de itens que tem que comprar ou que esta faltando
+        #para que o estoque atenda a meta estimada para a marca
+        for i in itens:
+            i.qtd_excedente_faltante = i.estoque_disponivel - (i.vmd * i.brand.meta_dias_estoque)
+
         context['itens'] = itens
 
         #Pega as marcas para calculos futuros

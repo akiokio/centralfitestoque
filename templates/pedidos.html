@@ -31,7 +31,7 @@
                         <td>R$ {{ item.cmm|floatformat:2 }}</td>
                         <td>{{ item.vmd|floatformat:3 }}</td>
                          {% if item.vmd > 0 %}
-                            <td>{{ item.estoque_disponivel|divide:item.vmd|subtract:item.brand.meta_dias_estoque }}</td>
+                            <td>{{ item.qtd_excedente_faltante }}</td>
                          {% else %}
                              <td></td>
                          {% endif %}
