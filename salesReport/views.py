@@ -46,7 +46,7 @@ def saveItemInDatabse(i):
     else:
         i['status'] = False
 
-    if i['marca'] != None:
+    if 'marca' in i and i['marca'] != None:
         try:
             marca = brands.objects.get(name=i['marca'])
         except Exception as e:
@@ -70,7 +70,7 @@ def saveItemInDatabse(i):
                     specialPrice=i['special_price'],
                     status=i['status'],
                     weight=i['weight'],
-                    cmm=0,
+                    cmm=i['cost'],
                     estoque_atual=0,
                     estoque_empenhado=0,
                     estoque_disponivel=0,
@@ -81,7 +81,7 @@ def saveItemInDatabse(i):
         return newItem
 
     except Exception as e:
-        pass
+        print e
 
 
 def saveOrderStatusHistory(iteration, order):
@@ -606,24 +606,26 @@ def atualizarStatusPedido(request):
 def generateCsvFileCron(dataInicial, dataFinal):
     itemsHash = []
     productList = []
-    BRANDS_ARRAY = []
-
-    for brand in brands.objects.all():
-        BRANDS_ARRAY.append(brand.name.encode('UTF-8'))
 
     for product in itemObject.objects.all():
         itemsHash.append(product.sku)
-        itemDict = {
-            'name': product.name
-        }
+
+        print '..........'
+        print type(product.brand)
+        print product.brand
+
+        if not product.brand:
+            print 'Entrei %s' % product.brand.name
+            product.brand.name = u'Não associou a marca'
+
         if product.status:
             status = 'Enable'
         else:
             status = 'Disable'
         if product.specialPrice:
-            productList.append([product.sku, product.name, getBrand(itemDict), product.specialPrice, 0, 0, 0, 0, 0, 0, status])
+            productList.append([product.sku, product.name, product.brand.name, product.specialPrice, 0, 0, 0, 0, 0, 0, status])
         else:
-            productList.append([product.sku, product.name, getBrand(itemDict), product.price, 0, 0, 0, 0, 0, 0, status])
+            productList.append([product.sku, product.name, product.brand.name, product.price, 0, 0, 0, 0, 0, 0, status])
 
     orders = orderNaBase.objects.filter(created_at__range=[dataInicial, dataFinal])
 

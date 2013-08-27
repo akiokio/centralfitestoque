@@ -61,5 +61,6 @@ def periodic_task():
                  qtd_produtos_com_precos_atualizados,
                  )
 
+    print 'Enviando Email'
     send_mail('WebAPP Estoque - Status Importacao de produtos', msgString, 'akio.xd@gmail.com',
             LISTA_REMETENTES_EMAIL, fail_silently=False)

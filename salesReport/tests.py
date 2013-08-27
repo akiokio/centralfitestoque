@@ -9,7 +9,9 @@ Replace this with more appropriate tests for your application.
 from django.test import TestCase
 from salesReport.models import item as modelItem, orderItem as modelOrderItem, order as modelOrder, brands as modelBrands
 from salesReport.views import saveItemInDatabse, saveOrderInDatabase, saveOrderItemInDatabase, getVMD, getVMD30, extractOrderInfoFromMagento
-from salesReport.helpers import simple_order, simple_product, simple_item_in_order, test_order_01, item_test_order_01, simple_order_canceled
+from salesReport.helpers import simple_order, simple_product, simple_item_in_order, test_order_01, item_test_order_01, simple_order_canceled ,\
+    pedido_faturamento_pedido_pedido_com_brinde_01, pedido_faturamento_pedido_pedido_com_brinde_02, periodo_faturamento_pedido_pedido_com_cupom_de_desconto,\
+    pedido_faturamento_pedido_pedido_com_frete_a_pagar
 # from salesReport.factory import brandFactory, itemFactory
 import datetime
 from dashboard.views import getFaturamentoForDay
@@ -105,8 +107,8 @@ class salesReportTestCase(TestCase):
         created_order = saveOrderInDatabase(simple_order)
     
         item = ['2290', 'Campo1', 'Campo2', 'Campo3', 10, 5, 0, 1, 0, 0]
-        dateMinus30 = datetime.datetime.today() - datetime.timedelta(days=30)
-        dateRangeEnd = datetime.datetime.today()
+        dateMinus30 = datetime.datetime(2013, 6, 30) - datetime.timedelta(days=30)
+        dateRangeEnd = datetime.datetime(2013, 6, 30)
         vmd30 = getVMD30(item, dateMinus30, dateRangeEnd)
 
         self.assertEqual(0.067, vmd30)
@@ -127,6 +129,22 @@ class salesReportTestCase(TestCase):
         self.assertEqual(0.0, vmd30)
 
 class faturamentoTestCase(TestCase):
+    """
+        0 - Dia consultado
+        1 # Pedidos
+        2 Vlr Bruto faturado
+        3 Receita Frete
+        4 Vlr Desconto
+        5 Vlr Bonificado
+        6 Vlr Liquido Produto
+        7 Custo Produtos
+        8 Vlr Frete	'
+        9 Vlr Taxa Cartão
+        10 Margem bruta (Produtos)
+        11 Margem bruta (Cartão + Frete)
+        12 Tkt Médio
+        13 # Produtos pedido
+    """
     def setUp(self):
         pass
 
@@ -142,51 +160,57 @@ class faturamentoTestCase(TestCase):
         array_esperado = ['1-7', 1, 151.41, 46.51, 10, 0, 94.9, 64.3, 46.51, 2.00, 32.24, 20.22, 94.9, 1.0]
         date = datetime.datetime.strptime('01/07/2013', '%d/%m/%Y')
 
-        faturamento_array = getFaturamentoForDay(date, [])
+        faturamento_array = getFaturamentoForDay(date, [0,0,0,0,0,0,0,0,0,0,0,0,0,0])
 
         self.assertEqual(array_esperado, faturamento_array)
 
     def test_faturamento_pedido_pedido_com_frete_a_pagar(self):
         #cria o pedido
-        order = saveOrderInDatabase(extractOrderInfoFromMagento('100011676'))
-        array_esperado = ['3-7', 1, 30.86, 6.96, 0, 0, 23.9, 13, 6.96, 0.89, 47.2, 33.7, 23.9, 1.0]
+        order = saveOrderInDatabase(pedido_faturamento_pedido_pedido_com_frete_a_pagar)
+        array_esperado = ['3-7', 1, 30.86, 6.96, 0, 0, 23.9, 12.5, 6.96, 0.89, 47.7, 33.7, 23.9, 1.0]
         date = datetime.datetime.strptime('03/07/2013', '%d/%m/%Y')
 
-        faturamento_array = getFaturamentoForDay(date, [])
+        faturamento_array = getFaturamentoForDay(date, [0,0,0,0,0,0,0,0,0,0,0,0,0,0])
 
         self.assertEqual(array_esperado, faturamento_array)
 
     def test_faturamento_pedido_pedido_com_brinde_01(self):
         #cria o pedido
-        order = saveOrderInDatabase(extractOrderInfoFromMagento('100011681'))
-        array_esperado = ['4-7', 1, 159.7, 0, 0, 0, 159.7, 108, 19.4, 4.63, 32.7, 17.6, 159.7, 3.0]
+        order = saveOrderInDatabase(pedido_faturamento_pedido_pedido_com_brinde_01)
+        array_esperado = ['4-7', 1, 159.7, 0, 0, 2.1, 157.6, 100.5, 19.4, 4.63, 36.23, 20.99, 157.6, 3.0]
         date = datetime.datetime.strptime('04/07/2013', '%d/%m/%Y')
 
-        faturamento_array = getFaturamentoForDay(date, [])
+        faturamento_array = getFaturamentoForDay(date, [0,0,0,0,0,0,0,0,0,0,0,0,0,0])
 
         self.assertEqual(array_esperado, faturamento_array)
 
     def test_faturamento_pedido_pedido_com_brinde_02(self):
         #cria o pedido
-        order = saveOrderInDatabase(extractOrderInfoFromMagento('100011538'))
-        array_esperado = ['2-7', 1, 294.0, 0, 0, 0, 294.9, 172, 21, 8.55, 41.7, 31.7, 294.9, 1.0]
+        order = saveOrderInDatabase(pedido_faturamento_pedido_pedido_com_brinde_02)
+        array_esperado = ['2-7', 1, 294.9, 0, 0, 0, 294.9, 183.22, 21, 8.55, 37.87, 27.85, 294.9, 1.0]
         date = datetime.datetime.strptime('02/07/2013', '%d/%m/%Y')
 
-        faturamento_array = getFaturamentoForDay(date, [])
+        faturamento_array = getFaturamentoForDay(date, [0,0,0,0,0,0,0,0,0,0,0,0,0,0])
 
         self.assertEqual(array_esperado, faturamento_array)
 
     def test_faturamento_pedido_pedido_com_cupom_de_desconto(self):
         #cria o pedido
-        order = saveOrderInDatabase(extractOrderInfoFromMagento('100011474'))
-        array_esperado = ['3-7', 1, 169.9, 0, 16.99, 0, 152.91, 110, 28.1, 4.43, 27.9, 6.6, 152.91, 1.0]
+        order = saveOrderInDatabase(periodo_faturamento_pedido_pedido_com_cupom_de_desconto)
+        array_esperado = ['3-7', 1, 169.9, 0, 16.99, 0, 152.91, 109.3, 28.1, 4.43, 28.52, 7.24, 152.91, 1.0]
         date = datetime.datetime.strptime('03/07/2013', '%d/%m/%Y')
 
-        faturamento_array = getFaturamentoForDay(date, [])
+        faturamento_array = getFaturamentoForDay(date, [0,0,0,0,0,0,0,0,0,0,0,0,0,0])
 
         self.assertEqual(array_esperado, faturamento_array)
 
 
+class ExportTestCase(TestCase):
+    def setUp(self):
+        pass
+
+    def export_csv_report(self):
+        print 'Executing: export csv test'
 
 
 
