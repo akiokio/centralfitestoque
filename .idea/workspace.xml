@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ebd84075-4f20-4613-bc6e-2f01cb9657e6" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/cmm.html" afterPath="$PROJECT_DIR$/templates/cmm.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/pedidos.html" afterPath="$PROJECT_DIR$/templates/pedidos.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/salesReport/models.py" afterPath="$PROJECT_DIR$/salesReport/models.py" />
     </list>
     <ignored path="centralFitEstoque.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -109,10 +108,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pedidos.html" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="pedidos.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/pedidos.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="47" column="42" selection-start="2103" selection-end="2103" vertical-scroll-proportion="0.47263682">
+            <state line="47" column="42" selection-start="2103" selection-end="2103" vertical-scroll-proportion="-11.875">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="models.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/salesReport/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="95" column="38" selection-start="3885" selection-end="3885" vertical-scroll-proportion="0.13875598">
               <folding />
             </state>
           </provider>
@@ -174,13 +182,13 @@
         <option value="$PROJECT_DIR$/centralFitEstoque/local.py" />
         <option value="$PROJECT_DIR$/centralFitEstoque/local_settings.py" />
         <option value="$PROJECT_DIR$/centralFitEstoque/settings.py" />
-        <option value="$PROJECT_DIR$/salesReport/models.py" />
         <option value="$PROJECT_DIR$/salesReport/helpers.py" />
         <option value="$PROJECT_DIR$/salesReport/tests.py" />
         <option value="$PROJECT_DIR$/centralFitEstoque/urls.py" />
         <option value="$PROJECT_DIR$/salesReport/views.py" />
         <option value="$PROJECT_DIR$/templates/cmm.html" />
         <option value="$PROJECT_DIR$/templates/pedidos.html" />
+        <option value="$PROJECT_DIR$/salesReport/models.py" />
       </list>
     </option>
   </component>
@@ -735,13 +743,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/salesReport/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="109" column="45" selection-start="4445" selection-end="4445" vertical-scroll-proportion="0.9505766">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/salesReport/cron.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="33" column="17" selection-start="1519" selection-end="1532" vertical-scroll-proportion="0.0">
@@ -783,7 +784,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/pedidos.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="42" selection-start="2103" selection-end="2103" vertical-scroll-proportion="0.47263682">
+        <state line="47" column="42" selection-start="2103" selection-end="2103" vertical-scroll-proportion="-11.875">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/salesReport/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="95" column="38" selection-start="3885" selection-end="3885" vertical-scroll-proportion="0.13875598">
           <folding />
         </state>
       </provider>

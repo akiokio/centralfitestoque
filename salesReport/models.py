@@ -116,7 +116,7 @@ class order(models.Model):
                     self.custoProdutos += item.item.cmm * item.quantidade
 
             #Para o valor bonificado somar somente os produtos simples (filhos)
-            if float(item.price) == 0.0 and item.is_child == False:
+            if float(item.price) == 0.0 and item.is_child == False and item.item.cmm:
                 self.valorBonificado += item.item.cmm
             if float(item.price) > 0.0:
                 #soma ao total de itens analisados, não leva em consideração brindes e produtos complexos(somatoria d produtos simples)
