@@ -4,8 +4,6 @@
     <list default="true" id="ebd84075-4f20-4613-bc6e-2f01cb9657e6" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/cmm.html" afterPath="$PROJECT_DIR$/templates/cmm.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/pedidos.html" afterPath="$PROJECT_DIR$/templates/pedidos.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/centralFitEstoque/urls.py" afterPath="$PROJECT_DIR$/centralFitEstoque/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/salesReport/views.py" afterPath="$PROJECT_DIR$/salesReport/views.py" />
     </list>
     <ignored path="centralFitEstoque.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -53,7 +51,7 @@
     <file path="/cron.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1377288540516" ignored="false" />
     <file path="/local_settings.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1377299322282" ignored="false" />
     <file path="/commom.css" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1374098405540" ignored="false" />
-    <file path="/cmm.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1377707578045" ignored="false" />
+    <file path="/cmm.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1377707633997" ignored="false" />
     <file path="/lista_estoque.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1374973382600" ignored="false" />
     <file path="/models_test.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1374791920533" ignored="false" />
     <file path="$PROJECT_DIR$/../einstein_prototipo/src/einstein/mkt_eleitoral/tests/models_test.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1374791922162" ignored="false" />
@@ -63,7 +61,7 @@
     <file path="/expedicao.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1376940506198" ignored="false" />
     <file path="/fragment.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1376947692487" ignored="false" />
     <file path="/Python Console" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1377706197967" ignored="false" />
-    <file path="/pedidos.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1377707573484" ignored="false" />
+    <file path="/pedidos.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1377707645765" ignored="false" />
     <file path="/update_product_brand.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1377128197200" ignored="false" />
     <file path="/*.regexp" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1377127338216" ignored="false" />
     <file path="/a.dummy" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1377299055263" ignored="false" />
@@ -102,19 +100,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="cmm.html" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="cmm.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/cmm.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="70" column="43" selection-start="4015" selection-end="4015" vertical-scroll-proportion="0.3482587">
+            <state line="49" column="74" selection-start="2648" selection-end="2648" vertical-scroll-proportion="-1.875">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pedidos.html" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="pedidos.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/pedidos.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="47" column="43" selection-start="2110" selection-end="2110" vertical-scroll-proportion="-11.875">
+            <state line="47" column="42" selection-start="2103" selection-end="2103" vertical-scroll-proportion="0.47263682">
               <folding />
             </state>
           </provider>
@@ -181,8 +179,8 @@
         <option value="$PROJECT_DIR$/salesReport/tests.py" />
         <option value="$PROJECT_DIR$/centralFitEstoque/urls.py" />
         <option value="$PROJECT_DIR$/salesReport/views.py" />
-        <option value="$PROJECT_DIR$/templates/pedidos.html" />
         <option value="$PROJECT_DIR$/templates/cmm.html" />
+        <option value="$PROJECT_DIR$/templates/pedidos.html" />
       </list>
     </option>
   </component>
@@ -776,16 +774,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/pedidos.html">
+    <entry file="file://$PROJECT_DIR$/templates/cmm.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="43" selection-start="2110" selection-end="2110" vertical-scroll-proportion="-11.875">
+        <state line="49" column="74" selection-start="2648" selection-end="2648" vertical-scroll-proportion="-1.875">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/cmm.html">
+    <entry file="file://$PROJECT_DIR$/templates/pedidos.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="70" column="43" selection-start="4015" selection-end="4015" vertical-scroll-proportion="0.3482587">
+        <state line="47" column="42" selection-start="2103" selection-end="2103" vertical-scroll-proportion="0.47263682">
           <folding />
         </state>
       </provider>

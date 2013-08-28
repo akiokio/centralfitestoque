@@ -30,7 +30,7 @@
                  <tr>
                     <th><a href="?{% url_replace request 'order_by' 'sku' %}">Código</a></th>
                     <th><a href="?{% url_replace request 'order_by' 'name' %}">Nome</a></th>
-                    <th><a href="?{% url_replace request 'order_by' 'brand__name' %}">Marca</a></th>
+                    <th><a href="?{% url_replace request 'order_by' 'brand' %}">Marca</a></th>
                     <th><a href="?{% url_replace request 'order_by' 'estoque_disponivel' %}">Estoque disponivel</a></th>
                     <th><a href="?{% url_replace request 'order_by' 'cmm' %}">CMM</a></th>
                     <th><a href="?{% url_replace request 'order_by' 'vmd' %}">VMD</a></th>
@@ -45,7 +45,7 @@
                          {% csrf_token %}
                         <td>{{ item.sku }}</td>
                         <td>{{ item.name }}</td>
-                        <td>{{ item.brand__name }}</td>
+                        <td>{{ item.brand.name }}</td>
                         <td>{{ item.estoque_disponivel|floatformat:0 }}</td>
                         <td>R$ {{ item.cmm|floatformat:2 }}</td>
                         <td>{{ item.vmd|floatformat:3 }}</td>
