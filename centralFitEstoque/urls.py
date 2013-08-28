@@ -44,9 +44,6 @@ urlpatterns = patterns('',
 
     url(r'^login/$', loginView, name="login"),
     url(r'^logout/$', logoutView, name="logout"),
-
-
-    url(r'^test/$', generateCsvFileCronTeste, name="test"),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += staticfiles_urlpatterns()

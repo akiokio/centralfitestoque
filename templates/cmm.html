@@ -47,7 +47,7 @@
                     <th><a href="">Order</a></th>
                     <th><a href="?{% url_replace request 'order_by' 'sku' %}">Código</a></th>
                     <th><a href="?{% url_replace request 'order_by' 'name' %}">Nome</a></th>
-                    <th><a href="?{% url_replace request 'order_by' 'brand_name' %}">Marca</a></th>
+                    <th><a href="?{% url_replace request 'order_by' 'brand__name' %}">Marca</a></th>
                     <th><a href="?{% url_replace request 'order_by' 'price' %}">Vl. Venda</a></th>
                     <th><a href="?{% url_replace request 'order_by' 'specialPrice' %}">Vl. Promo</a></th>
                     <th><a href="?{% url_replace request 'order_by' 'cmm' %}">Custo Atual</a></th>
@@ -68,7 +68,7 @@
                         <td>{{ forloop.counter }}</td>
                         <td>{{ item.sku }}</td>
                         <td>{{ item.name }}</td>
-                        <td>{{ item.brand_name }}</td>
+                        <td>{{ item.brand__name }}</td>
                         <td>{{ item.price|floatformat:2 }}</td>
                         <td>{{ item.specialPrice|floatformat:2 }}</td>
                         <td>{{ item.cmm|floatformat:2 }}</td>

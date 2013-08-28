@@ -512,7 +512,7 @@ def importProductCost(request):
 
         file = request.FILES['docfile']
         path = default_storage.save('tabelaCustoProduto.xlsx', ContentFile(file.read()))
-        wb = open_workbook(MEDIA_ROOT + path)
+        wb = open_workbook(MEDIA_ROOT + '/' + path)
         for s in wb.sheets():
             for row in range(s.nrows):
                 values = []
