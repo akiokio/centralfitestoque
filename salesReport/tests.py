@@ -167,7 +167,7 @@ class faturamentoTestCase(TestCase):
     def test_faturamento_pedido_pedido_com_frete_a_pagar(self):
         #cria o pedido
         order = saveOrderInDatabase(pedido_faturamento_pedido_pedido_com_frete_a_pagar)
-        array_esperado = ['3-7', 1, 30.86, 6.96, 0, 0, 23.9, 12.5, 6.96, 0.89, 47.7, 33.7, 23.9, 1.0]
+        array_esperado = ['3-7', 1, 30.86, 6.96, 0, 0, 23.9, 12.5, 6.96, 0.89, 47.7, 34.04, 23.9, 1.0]
         date = datetime.datetime.strptime('03/07/2013', '%d/%m/%Y')
 
         faturamento_array = getFaturamentoForDay(date, [0,0,0,0,0,0,0,0,0,0,0,0,0,0])

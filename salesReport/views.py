@@ -610,22 +610,24 @@ def generateCsvFileCron(dataInicial, dataFinal):
     for product in itemObject.objects.all():
         itemsHash.append(product.sku)
 
-        print '..........'
-        print type(product.brand)
-        print product.brand
-
         if not product.brand:
-            print 'Entrei %s' % product.brand.name
-            product.brand.name = u'Não associou a marca'
+            marca = u'Não associou a marca'
+        else:
+            marca = product.brand.name
+
 
         if product.status:
             status = 'Enable'
         else:
             status = 'Disable'
+
         if product.specialPrice:
-            productList.append([product.sku, product.name, product.brand.name, product.specialPrice, 0, 0, 0, 0, 0, 0, status])
+            price = product.specialPrice
+
         else:
-            productList.append([product.sku, product.name, product.brand.name, product.price, 0, 0, 0, 0, 0, 0, status])
+            price = product.price
+
+        productList.append([product.sku, product.name, marca, price, 0, 0, 0, 0, 0, 0, status])
 
     orders = orderNaBase.objects.filter(created_at__range=[dataInicial, dataFinal])
 
@@ -766,3 +768,4 @@ def updateVMDCron():
     for item in itemObject.objects.all():
         item.vmd = getVMD30ForDatabaseItem(item, dateEnd, dateInit)
         item.save()
+
