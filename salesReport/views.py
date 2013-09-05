@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.http import HttpRequest, HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from salesReport.pymagento import Magento
-import csv
+import csv, math
 from datetime import date, timedelta, datetime
 from .models import order as orderNaBase, orderItem, brands,  item as itemObject, status_history, csvReport as reportFile
 from django.shortcuts import render_to_response
@@ -133,6 +133,15 @@ def saveOrderItemInDatabase(order, orderItemToSave):
         itemToSave.estoque_atual -= 1
 
     itemToSave.estoque_disponivel = itemToSave.estoque_atual - itemToSave.estoque_empenhado
+
+    if itemToSave.brand:
+        if (itemToSave.estoque_disponivel - (itemToSave.vmd * itemToSave.brand.meta_dias_estoque)) >= 0:
+            itemToSave.quantidade_excedente = itemToSave.estoque_disponivel - (itemToSave.vmd * itemToSave.brand.meta_dias_estoque)
+            itemToSave.quantidade_faltante = 0
+        else:
+            itemToSave.quantidade_faltante = math.ceil(itemToSave.estoque_disponivel - (itemToSave.vmd * itemToSave.brand.meta_dias_estoque))
+            itemToSave.quantidade_excedente = 0
+
     itemToSave.save()
     return newOrderItem
 

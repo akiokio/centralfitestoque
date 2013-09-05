@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 __author__ = 'akiokio'
 from django.http import HttpRequest, HttpResponse, HttpResponseForbidden, HttpResponseRedirect
-from  salesReport.models import order as orderNaBase, orderItem, brands, item as itemNaBase
+from salesReport.models import order as orderNaBase, orderItem, brands, item as itemNaBase
 from datetime import date, timedelta, datetime
 from salesReport.models import order, orderItem, item as itemObject
 from django.views.generic import TemplateView, FormView, CreateView, UpdateView, ListView, DetailView, DeleteView
@@ -21,6 +21,7 @@ import xml.etree.ElementTree as ET
 from xml_helper import XmlDictConfig, XmlListConfig
 from tempfile import TemporaryFile
 from xlwt import Workbook
+import math
 
 def loginView(request):
     if request.method == 'POST':
@@ -550,7 +551,16 @@ class pedidos(TemplateView):
         if self.request.GET.get('marca'):
             itens = itens.filter(brand__name__icontains=self.request.GET.get('marca'))
 
-        self.request.session['product_list'] = itens
+        if self.request.GET.get('sku'):
+            itens = itens.filter(sku=self.request.GET.get('sku'))
+
+        if self.request.GET.get('nome'):
+            itens = itens.filter(name__icontains=self.request.GET.get('nome'))
+
+        #Filter Only for status
+        if self.request.GET.get('status'):
+            itens = itens.filter(status=self.request.GET.get('status'))
+
 
         #paginacao
         paginator = Paginator(itens, 50)
@@ -564,14 +574,8 @@ class pedidos(TemplateView):
             # If page is out of range (e.g. 9999), deliver last page of results.
             itens = paginator.page(paginator.num_pages)
 
-        #Calcula a quantidade de itens que tem que comprar ou que esta faltando
-        #para que o estoque atenda a meta estimada para a marca
-        for i in itens:
-            i.qtd_excedente_faltante = i.estoque_disponivel - (i.vmd * i.brand.meta_dias_estoque)
-
         context['itens'] = itens
 
-        #Pega as marcas para calculos futuros
         context['brands'] = brands.objects.all()
 
         return self.render_to_response(context)

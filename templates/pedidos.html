@@ -19,6 +19,13 @@
                         {% endfor %}
                     </select>
 
+                    <strong>Sku:</strong> <input type="text" name="sku" class="input-small" />
+                    <strong>Nome:</strong> <input type="text" name="nome" class="input-small" />
+                    <strong>Status:</strong> <select name="status" class="">
+                        <option value="1">Habilitado</option>
+                        <option value="0">Desabilitado</option>
+                    </select>
+
                     <input class="btn" type="submit" value="Filtrar" />
                 </form>
 
@@ -34,32 +41,23 @@
                     <th><a href="?{% url_replace request 'order_by' 'estoque_disponivel' %}">Estoque disponivel</a></th>
                     <th><a href="?{% url_replace request 'order_by' 'cmm' %}">CMM</a></th>
                     <th><a href="?{% url_replace request 'order_by' 'vmd' %}">VMD</a></th>
-                    <th><a href="?{% url_replace request 'order_by' '' %}">Quantidade Excedente</a></th>
-                    <th><a href="?{% url_replace request 'order_by' '' %}">Quantidade Faltante</a></th>
+                    <th><a href="?{% url_replace request 'order_by' 'quantidade_excedente' %}">Quantidade Excedente</a></th>
+                    <th><a href="?{% url_replace request 'order_by' 'quantidade_faltante' %}">Quantidade Faltante</a></th>
                  </tr>
             </thead>
             <tbody>
             {% for item in itens %}
                  <tr class="">
                      <form action="{% url 'pedidos' %}" method="POST">
-                         {% csrf_token %}
+                        {% csrf_token %}
                         <td>{{ item.sku }}</td>
                         <td>{{ item.name }}</td>
                         <td>{{ item.brand.name }}</td>
                         <td>{{ item.estoque_disponivel|floatformat:0 }}</td>
                         <td>R$ {{ item.cmm|floatformat:2 }}</td>
                         <td>{{ item.vmd|floatformat:3 }}</td>
-                         {% if item.qtd_excedente_faltante > 0 %}
-                            <td>{{ item.qtd_excedente_faltante }}</td>
-                         {% else %}
-                             <td></td>
-                         {% endif %}
-                        {% if item.qtd_excedente_faltante < 0 %}
-                            <td>{{ item.qtd_excedente_faltante|remove_minus_sign }}</td>
-                         {% else %}
-                             <td></td>
-                         {% endif %}
-
+                        <td>{{ item.quantidade_excedente|floatformat:3 }}</td>
+                        <td>{{ item.quantidade_faltante|remove_minus_sign }}</td>
                      </form>
                  </tr>
             {% empty %}
