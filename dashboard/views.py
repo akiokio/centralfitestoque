@@ -374,6 +374,7 @@ class lista_estoque(TemplateView):
         if self.request.GET.get('order_by'):
             itens = itens.order_by(self.request.GET.get('order_by'))
 
+        #Lista para possivel exportacao
         self.request.session['product_list'] = itens
 
         paginator = Paginator(itens, 300)
@@ -398,7 +399,6 @@ class lista_estoque(TemplateView):
         produto = itemObject.objects.get(sku=self.request.POST.get('sku'))
 
 
-
         if self.request.POST.get('qtd_a_posicionar'):
             produto.estoque_atual = int(self.request.POST.get('qtd_a_posicionar'))
             produto.estoque_disponivel = int(self.request.POST.get('qtd_a_posicionar')) - len(orderItem.objects.filter(item__sku=produto.sku).filter(order__status='holded'))
@@ -415,9 +415,12 @@ class lista_estoque(TemplateView):
         return HttpResponseRedirect(reverse('lista_estoque') + "?%s" % get_attr)
 
 def exportar_lista_produto(request):
-    return generateXLS(request.session.get('product_list'))
+    return generateXLS(request.session.get('product_list'), 'lista_produto')
 
-def generateXLS(modelData):
+def exportar_lista_produto_fornecedor(request):
+    return generateXLS(request.session.get('product_list'), 'exportar_lista_produto_fornecedor')
+
+def generateXLS(modelData, type):
     from datetime import datetime, date
     from django.http import HttpResponse
     import xlwt
@@ -430,10 +433,18 @@ def generateXLS(modelData):
     datetime_style = xlwt.easyxf(num_format_str='dd/mm/yyyy hh:mm')
     date_style = xlwt.easyxf(num_format_str='dd/mm/yyyy')
 
-    values_list = modelData.values_list('sku', 'name', 'specialPrice', 'cmm', 'estoque_atual')
+    # Add the header type
+    # TODO make headers and values_list dinamicaly
+    if type == 'lista_produto':
+        headers = ['sku', 'name', 'specialPrice', 'cmm', 'estoque_atual']
+        values_list = modelData.values_list('sku', 'name', 'specialPrice', 'cmm', 'estoque_atual')
+    elif type == 'exportar_lista_produto_fornecedor':
+        headers = ['sku', 'name', 'brand__name', 'estoque_disponivel', 'cmm', 'vmd', 'margem', 'quantidade_excedente', 'quantidade_faltante']
+        values_list = modelData.values_list('sku', 'name', 'brand__name', 'estoque_disponivel', 'cmm', 'vmd', 'margem', 'quantidade_excedente', 'quantidade_faltante')
+    else:
+        headers = []
+        values_list = modelData.values_list()
 
-    #CABECALHO
-    headers = ['sku', 'name', 'specialPrice', 'cmm', 'estoque_atual']
     values_list = [headers] + list(values_list)
 
     for row, rowdata in enumerate(values_list):
@@ -561,6 +572,8 @@ class pedidos(TemplateView):
         if self.request.GET.get('status'):
             itens = itens.filter(status=self.request.GET.get('status'))
 
+        #Lista para possivel exportacao
+        self.request.session['product_list'] = itens
 
         #paginacao
         paginator = Paginator(itens, 50)

@@ -29,6 +29,10 @@
                     <input class="btn" type="submit" value="Filtrar" />
                 </form>
 
+                <form action="{% url 'exportar_lista_produto_fornecedor' %}">
+                    <input class="btn" type="submit" value="Exportar lista filtrada" />
+                </form>
+
             </p>
         </div>
 
@@ -41,6 +45,7 @@
                     <th><a href="?{% url_replace request 'order_by' 'estoque_disponivel' %}">Estoque disponivel</a></th>
                     <th><a href="?{% url_replace request 'order_by' 'cmm' %}">CMM</a></th>
                     <th><a href="?{% url_replace request 'order_by' 'vmd' %}">VMD</a></th>
+                    <th><a href="?{% url_replace request 'order_by' 'margem' %}">Margem</a></th>
                     <th><a href="?{% url_replace request 'order_by' 'quantidade_excedente' %}">Quantidade Excedente</a></th>
                     <th><a href="?{% url_replace request 'order_by' 'quantidade_faltante' %}">Quantidade Faltante</a></th>
                  </tr>
@@ -56,8 +61,9 @@
                         <td>{{ item.estoque_disponivel|floatformat:0 }}</td>
                         <td>R$ {{ item.cmm|floatformat:2 }}</td>
                         <td>{{ item.vmd|floatformat:3 }}</td>
-                        <td>{{ item.quantidade_excedente|floatformat:3 }}</td>
-                        <td>{{ item.quantidade_faltante|remove_minus_sign }}</td>
+                        <td>{{ item.margem|floatformat:2 }}</td>
+                        <td>{% if item.quantidade_excedente %} {{ item.quantidade_excedente|floatformat:3 }}{% endif %}</td>
+                        <td>{% if item.quantidade_faltante %} {{ item.quantidade_faltante|remove_minus_sign }}{% endif %}</td>
                      </form>
                  </tr>
             {% empty %}
