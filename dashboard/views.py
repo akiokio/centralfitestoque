@@ -568,7 +568,6 @@ class pedidos(TemplateView):
         if self.request.GET.get('nome'):
             itens = itens.filter(name__icontains=self.request.GET.get('nome'))
 
-        #Filter Only for status
         if self.request.GET.get('status'):
             itens = itens.filter(status=self.request.GET.get('status'))
 

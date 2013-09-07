@@ -38,8 +38,8 @@ class item(models.Model):
     estoque_disponivel = models.IntegerField(null=True, blank=False)
     margem = models.FloatField(null=True, blank=False)
     vmd = models.FloatField(null=True, blank=False)
-    quantidade_excedente = models.FloatField(null=True, blank=False)
-    quantidade_faltante = models.FloatField(null=True, blank=False)
+    quantidade_excedente = models.IntegerField(null=True, blank=False)
+    quantidade_faltante = models.IntegerField(null=True, blank=False)
 
     def __unicode__(self):
         return '%s - %s' % (self.product_id, self.name)

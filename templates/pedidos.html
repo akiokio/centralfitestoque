@@ -62,7 +62,7 @@
                         <td>R$ {{ item.cmm|floatformat:2 }}</td>
                         <td>{{ item.vmd|floatformat:3 }}</td>
                         <td>{{ item.margem|floatformat:2 }}</td>
-                        <td>{% if item.quantidade_excedente %} {{ item.quantidade_excedente|floatformat:3 }}{% endif %}</td>
+                        <td>{% if item.quantidade_excedente %} {{ item.quantidade_excedente }}{% endif %}</td>
                         <td>{% if item.quantidade_faltante %} {{ item.quantidade_faltante|remove_minus_sign }}{% endif %}</td>
                      </form>
                  </tr>
