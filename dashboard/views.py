@@ -2,7 +2,7 @@
 __author__ = 'akiokio'
 from django.http import HttpRequest, HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from salesReport.models import order as orderNaBase, orderItem, brands, item as itemNaBase
-from datetime import date, timedelta, datetime
+import datetime
 from salesReport.models import order, orderItem, item as itemObject
 from django.views.generic import TemplateView, FormView, CreateView, UpdateView, ListView, DetailView, DeleteView
 from django.shortcuts import render_to_response
@@ -60,11 +60,11 @@ class home(TemplateView):
         context = self.get_context_data()
         #Em caso dos filtros
         if self.request.GET.get('dataInicio') and self.request.GET.get('dataFim'):
-            dateInicio = datetime.strptime(self.request.GET.get('dataInicio'), '%d-%m-%Y') - timedelta(days=1)
-            dateFim = datetime.strptime(self.request.GET.get('dataFim'), '%d-%m-%Y')
+            dateInicio = datetime.datetime.strptime(self.request.GET.get('dataInicio'), '%d-%m-%Y') - datetime.timedelta(days=1)
+            dateFim = datetime.datetime.strptime(self.request.GET.get('dataFim'), '%d-%m-%Y')
         else:
-            dateInicio = datetime.today() - timedelta(days=30) - timedelta(hours=3)
-            dateFim = datetime.today()
+            dateInicio = datetime.datetime.today() - datetime.timedelta(days=30) - datetime.timedelta(hours=3)
+            dateFim = datetime.datetime.today()
 
         #Cria a tabela da dashboard limpa
         pedidoArray = []
@@ -74,13 +74,13 @@ class home(TemplateView):
             pedidoArray.append([
                 str(tempData.day) + '-' + str(tempData.month), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
             ])
-            tempData -= timedelta(days=1)
+            tempData -= datetime.timedelta(days=1)
         pedidoArray.append(['TOTAL', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
 
         #Preenche a tabela com os pedidos
         for orderInPeriod in order.objects.filter(created_at__range=[dateInicio.date(), dateFim.date()]):
             #Ajuste de UTC para GMT-3
-            orderInPeriod.created_at -= timedelta(hours=3)
+            orderInPeriod.created_at -= datetime.timedelta(hours=3)
             diferencaDias = dateFim.date() - orderInPeriod.created_at.date()
 
             #Soma a coluna de dias
@@ -96,8 +96,8 @@ class home(TemplateView):
 
 
 def getFaturamentoForDay(date, totalArr):
-    inicioDoDia = date.replace(hour=0, minute=0, second=0) - timedelta(hours=3)
-    fimDoDia = date.replace(hour=23, minute=59, second=59) - timedelta(hours=3)
+    inicioDoDia = date.replace(hour=0, minute=0, second=0) - datetime.timedelta(hours=3)
+    fimDoDia = date.replace(hour=23, minute=59, second=59) - datetime.timedelta(hours=3)
 
     orders = orderNaBase.objects.filter(updated_at__range=[inicioDoDia, fimDoDia]).filter(status__in=['complete', 'complete2'])
     today = str(date.day) + '-' + str(date.month),
@@ -177,11 +177,11 @@ class Faturamento(TemplateView):
         tabela = []
         totalArr = ['TOTAL',0,0,0,0,0,0,0,0,0,0,0,0,0]
 
-        today = datetime.now()
+        today = datetime.datetime.now()
         #range define a quantidade de dia que a tabela deve ter
         for day in range(0, 90):
             tabela.append(getFaturamentoForDay(today, totalArr))
-            today -= timedelta(days=1)
+            today -= datetime.timedelta(days=1)
 
         #Finaliza linha de totais
         if totalArr[1]:
@@ -213,9 +213,9 @@ def importar(request):
 def daterange(start_date, end_date):
     dateRange = end_date - start_date
     if dateRange.days == 0:
-            dateRange += timedelta(days=1)
+            dateRange += datetime.timedelta(days=1)
     for n in range(int (dateRange.days)):
-        yield start_date + timedelta(n)
+        yield start_date + datetime.timedelta(n)
 
 @csrf_exempt
 def filtrarFaturamento(request):
@@ -223,9 +223,9 @@ def filtrarFaturamento(request):
         tabela = []
         totalArr = ['TOTAL',0,0,0,0,0,0,0,0,0,0,0,0,0]
 
-        dataInicio = datetime.strptime(request.POST.get('dataInicio'), '%d-%m-%Y')
-        dataFim = datetime.strptime(request.POST.get('dataFim'), '%d-%m-%Y')
-        dataFim += timedelta(days=1)
+        dataInicio = datetime.datetime.strptime(request.POST.get('dataInicio'), '%d-%m-%Y')
+        dataFim = datetime.datetime.strptime(request.POST.get('dataFim'), '%d-%m-%Y')
+        dataFim += datetime.timedelta(days=1)
 
         for single_date in daterange(dataInicio, dataFim):
             print single_date
@@ -337,7 +337,7 @@ def importarQuantidadeEstoque(request):
                         produto.cmm = produto.cost
                         produto.margem = 1 - (float(produto.cost) / float(produto.specialPrice))
 
-                        dateMinus8 = datetime.today() - timedelta(days=8)
+                        dateMinus8 = datetime.datetime.today() - datetime.timedelta(days=8)
                         qtd_produtos_comprometidos = len(orderItem.objects.filter(item__sku=values[0]).filter(order__status='holded').filter(created_at__gt=dateMinus8))
                         produto.estoque_empenhado = qtd_produtos_comprometidos
                         produto.estoque_disponivel = int(values[4]) - qtd_produtos_comprometidos
@@ -421,7 +421,6 @@ def exportar_lista_produto_fornecedor(request):
     return generateXLS(request.session.get('product_list'), 'exportar_lista_produto_fornecedor')
 
 def generateXLS(modelData, type):
-    from datetime import datetime, date
     from django.http import HttpResponse
     import xlwt
 
@@ -449,9 +448,9 @@ def generateXLS(modelData, type):
 
     for row, rowdata in enumerate(values_list):
         for col, val in enumerate(rowdata):
-            if isinstance(val, datetime):
+            if isinstance(val, datetime.datetime):
                 style = datetime_style
-            elif isinstance(val, date):
+            elif isinstance(val, datetime.date):
                 style = date_style
             else:
                 style = default_style
@@ -588,6 +587,69 @@ class pedidos(TemplateView):
 
         context['itens'] = itens
 
+        context['brands'] = brands.objects.all()
+
+        return self.render_to_response(context)
+
+class abc(TemplateView):
+    template_name = 'abc.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(abc, self).get_context_data(**kwargs)
+        return context
+
+    def get(self, *args, **kwargs):
+        context = self.get_context_data()
+        itens = sorted(itemObject.objects.all(), key=lambda a: a.valor_faturado_do_dia, reverse=True)
+        total_itens_na_base = len(itens)
+
+        total_faturado_no_dia = 0
+        pedido_no_periodo = order.objects.filter(created_at__range=[datetime.datetime.today().replace(hour=0, minute=0, second=0) - datetime.timedelta(days=30) - datetime.timedelta(hours=3), datetime.datetime.today().replace(hour=23, minute=59, second=59) - datetime.timedelta(hours=3)])
+        for pedido in pedido_no_periodo:
+            total_faturado_no_dia += pedido.grand_total
+
+        for count, item in enumerate(itens):
+            percentage = (float(count) / float(total_itens_na_base)) * 100
+            if percentage <= 65.00:
+                item.abc_letter = "A"
+            elif percentage > 65.00 and percentage <= 90.00:
+                item.abc_letter = "B"
+            elif percentage > 90.00:
+                item.abc_letter = "C"
+
+        #ordenacao
+        if self.request.GET.get('order_by'):
+            itens = itens.order_by(self.request.GET.get('order_by'))
+
+        #Filtros
+        if self.request.GET.get('marca'):
+            itens = itens.filter(brand__name__icontains=self.request.GET.get('marca'))
+
+        if self.request.GET.get('sku'):
+            itens = itens.filter(sku=self.request.GET.get('sku'))
+
+        if self.request.GET.get('nome'):
+            itens = itens.filter(name__icontains=self.request.GET.get('nome'))
+
+        if self.request.GET.get('status'):
+            itens = itens.filter(status=self.request.GET.get('status'))
+
+
+        #paginacao
+        paginator = Paginator(itens, 50)
+        page = self.request.GET.get('page')
+        try:
+            itens = paginator.page(page)
+        except PageNotAnInteger:
+            # If page is not an integer, deliver first page.
+            itens = paginator.page(1)
+        except EmptyPage:
+            # If page is out of range (e.g. 9999), deliver last page of results.
+            itens = paginator.page(paginator.num_pages)
+
+
+        context['itens'] = itens
+        context['total_faturado_no_dia'] = total_faturado_no_dia
         context['brands'] = brands.objects.all()
 
         return self.render_to_response(context)

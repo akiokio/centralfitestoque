@@ -142,6 +142,11 @@ def saveOrderItemInDatabase(order, orderItemToSave):
             itemToSave.quantidade_faltante = math.ceil(itemToSave.estoque_disponivel - (itemToSave.vmd * itemToSave.brand.meta_dias_estoque))
             itemToSave.quantidade_excedente = 0
 
+    #Update the vmd
+    dateInit = datetime.today().replace(hour=0, minute=0, second=0) - timedelta(hours=3)
+    dateEnd = datetime.today().replace(hour=23, minute=59, second=59) - timedelta(days=30) - timedelta(hours=3)
+    itemToSave.vmd = getVMD30ForDatabaseItem(itemToSave, dateEnd, dateInit)
+
     itemToSave.save()
     return newOrderItem
 

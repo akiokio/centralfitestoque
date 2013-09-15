@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block cmm_active %}active{% endblock %}
+{% block title %}Cfit App - CMM{% endblock %}
+{% load extras %}
+
+{% block main_content %}
+    <div class=''>
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+                 <tr>
+                    <th><a href="?{% url_replace request 'order_by' 'sku' %}">Código</a></th>
+                    <th><a href="?{% url_replace request 'order_by' 'name' %}">Nome</a></th>
+                    <th><a href="?{% url_replace request 'order_by' 'brand' %}">Marca</a></th>
+                    <th><a href="">Valor de faturamento médio por dia</a></th>
+                    <th><a href="">Valor ABC</a></th>
+                 </tr>
+            </thead>
+            <tbody>
+            {% for item in itens %}
+                 <tr class="">
+                     <form action="{% url 'cmm' %}" method="POST">
+                         {% csrf_token %}
+                        <td>{{ item.sku }}</td>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.brand.name }}</td>
+                        <td>{{ item.valor_faturado_do_dia }}</td>
+                        <td>{{ item.abc_letter }}</td>
+                     </form>
+                 </tr>
+            {% empty %}
+                <tr>Sem itens</tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="pagination">
+            <span class="step-links">
+                {% if itens.has_previous %}
+                    <a href="?{% url_replace request 'page' itens.previous_page_number %}">Anterior</a>
+                {% endif %}
+
+                <span class="current">
+                    Página {{ itens.number }} de {{ itens.paginator.num_pages }}.
+                </span>
+
+                {% if itens.has_next %}
+                    <a href="?{% url_replace request 'page' itens.next_page_number %}">Próximo</a>
+                {% endif %}
+            </span>
+        </div>
+
+    </div>
+{% endblock %}

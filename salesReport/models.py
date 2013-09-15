@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.db import models
+import datetime
 
 class status_history(models.Model):
     comment = models.TextField(null=True, blank=True)
@@ -40,6 +41,22 @@ class item(models.Model):
     vmd = models.FloatField(null=True, blank=False)
     quantidade_excedente = models.IntegerField(null=True, blank=False)
     quantidade_faltante = models.IntegerField(null=True, blank=False)
+
+    @property
+    def valor_faturado_do_dia(self):
+        valor_produto = self.specialPrice if self.specialPrice else self.price
+        return self.vmd * valor_produto
+
+    @property
+    def valor_abc(self):
+        total_faturado_no_dia = 0
+        pedido_no_periodo = order.objects.filter(created_at__range=[datetime.datetime.today().replace(hour=0, minute=0, second=0) - datetime.timedelta(days=30) - datetime.timedelta(hours=3), datetime.datetime.today().replace(hour=23, minute=59, second=59) - datetime.timedelta(hours=3)])
+        for pedido in pedido_no_periodo:
+            total_faturado_no_dia += pedido.grand_total
+
+        valor_produto = self.specialPrice if self.specialPrice else self.price
+
+        return (self.vmd * valor_produto) / total_faturado_no_dia
 
     def __unicode__(self):
         return '%s - %s' % (self.product_id, self.name)

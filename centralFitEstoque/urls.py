@@ -3,7 +3,8 @@ from salesReport.views import importAllProducts, importAllOrders,  exportar, imp
     SingleOrderInfo, generateCsvFileCronTeste, update_brand
 from django.conf import settings
 from dashboard.views import home, importar, loginView, logoutView, Faturamento, filtrarFaturamento, cmm,\
-    importarQuantidadeEstoque, lista_estoque, exportar_lista_produto, expedicao, pedidos, exportar_lista_produto_fornecedor
+    importarQuantidadeEstoque, lista_estoque, exportar_lista_produto, expedicao, pedidos, exportar_lista_produto_fornecedor, \
+    abc
 from django.contrib.auth.decorators import login_required
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib import admin
@@ -23,6 +24,7 @@ urlpatterns = patterns('',
 
     url(r'^exportar/$', login_required(exportar), name='exportar'),
     url(r'^cmm/$', login_required(cmm.as_view()), name='cmm'),
+    url(r'^abc/$', login_required(abc.as_view()), name='abc'),
     url(r'^listaestoque/$', login_required(lista_estoque.as_view()), name='lista_estoque'),
     url(r'^faturamento/$', login_required(Faturamento.as_view()), name='faturamento'),
     url(r'^importar/$', login_required(importar), name='importar'),

@@ -206,11 +206,41 @@ class faturamentoTestCase(TestCase):
 
 
 class ExportTestCase(TestCase):
+    """
+        TODO
+
+    """
     def setUp(self):
         pass
 
     def export_csv_report(self):
         print 'Executing: export csv test'
+
+class CurvaABCTestCase(TestCase):
+    """
+        Test get abc values
+        Valor total faturado no dia: R$ 152.61
+        item vmd: 0.333
+        item price = 169.9
+    """
+
+    def setUp(self):
+        order = saveOrderInDatabase(periodo_faturamento_pedido_pedido_com_cupom_de_desconto)
+        order.created_at = datetime.datetime.now() - datetime.timedelta(days=1)
+        order.save()
+
+        item = modelItem.objects.get(sku='2375')
+        item.vmd = 0.333
+        item.save()
+
+    def test_abc_value_for_product_must_be_037(self):
+        item = modelItem.objects.get(sku='2375')
+        self.assertEqual(0.37, round(item.valor_abc, 2))
+
+    def test_total_sell_for_product_must_be_56_57(self):
+        item = modelItem.objects.get(sku='2375')
+        self.assertEqual(56.58, round(item.valor_faturado_do_dia, 2))
+
 
 
 
