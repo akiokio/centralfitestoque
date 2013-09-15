@@ -600,7 +600,8 @@ class abc(TemplateView):
 
     def get(self, *args, **kwargs):
         context = self.get_context_data()
-        itens = sorted(itemObject.objects.all(), key=lambda a: a.valor_faturado_do_dia, reverse=True)
+        # itens = sorted(itemObject.objects.all(), key=lambda a: a.valor_faturado_do_dia, reverse=True)
+        itens = itemObject.objects.all().order_by('-valor_faturado_do_dia')
         total_itens_na_base = len(itens)
 
         total_faturado_no_dia = 0

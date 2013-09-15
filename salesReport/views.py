@@ -58,6 +58,9 @@ def saveItemInDatabse(i):
     dateEnd = datetime.today().replace(hour=23, minute=59, second=59) - timedelta(days=30) - timedelta(hours=3)
     vmd = getVMD30(i, dateEnd, dateInit)
 
+    valor_produto = i['special_price'] if 'special_price' in i else i['price']
+    valor_faturado_do_dia = vmd * float(valor_produto)
+
     try:
         newItem = itemObject.objects.filter(sku=i['sku'])
         if len(newItem) == 0:
@@ -76,7 +79,8 @@ def saveItemInDatabse(i):
                     estoque_disponivel=0,
                     margem=0,
                     brand=marca,
-                    vmd=vmd
+                    vmd=vmd,
+                    valor_faturado_do_dia=valor_faturado_do_dia,
                     )
         return newItem
 
@@ -146,6 +150,10 @@ def saveOrderItemInDatabase(order, orderItemToSave):
     dateInit = datetime.today().replace(hour=0, minute=0, second=0) - timedelta(hours=3)
     dateEnd = datetime.today().replace(hour=23, minute=59, second=59) - timedelta(days=30) - timedelta(hours=3)
     itemToSave.vmd = getVMD30ForDatabaseItem(itemToSave, dateEnd, dateInit)
+
+    #Update the valor_faturado_do_dia
+    preco_item = itemToSave.specialPrice if itemToSave.specialPrice else itemToSave.price
+    itemToSave.valor_faturado_do_dia = itemToSave.vmd * float(preco_item)
 
     itemToSave.save()
     return newOrderItem
@@ -758,7 +766,7 @@ def updateItemDetail():
     for product in salesReport.getProductArray():
         atualizado = False
         if RepresentsInt(product['sku']):
-            item = itemObject.objects.filter(sku=product['sku'])
+            item = itemObject.objects.filter(product_id=product['product_id'])
             if len(item) > 0:
                 item = item[0]
                 if item.price != float(product['price']):
@@ -783,3 +791,9 @@ def updateVMDCron():
         item.vmd = getVMD30ForDatabaseItem(item, dateEnd, dateInit)
         item.save()
 
+def updateVlrFaturadoDiaCron():
+
+    for item in itemObject.objects.all():
+        valor_produto = item.specialPrice if item.specialPrice else item.price
+        item.valor_faturado_do_dia = item.vmd * valor_produto
+        item.save()

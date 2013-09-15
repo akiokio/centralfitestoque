@@ -41,25 +41,27 @@ class item(models.Model):
     vmd = models.FloatField(null=True, blank=False)
     quantidade_excedente = models.IntegerField(null=True, blank=False)
     quantidade_faltante = models.IntegerField(null=True, blank=False)
-
-    @property
-    def valor_faturado_do_dia(self):
-        valor_produto = self.specialPrice if self.specialPrice else self.price
-        return self.vmd * valor_produto
-
-    @property
-    def valor_abc(self):
-        total_faturado_no_dia = 0
-        pedido_no_periodo = order.objects.filter(created_at__range=[datetime.datetime.today().replace(hour=0, minute=0, second=0) - datetime.timedelta(days=30) - datetime.timedelta(hours=3), datetime.datetime.today().replace(hour=23, minute=59, second=59) - datetime.timedelta(hours=3)])
-        for pedido in pedido_no_periodo:
-            total_faturado_no_dia += pedido.grand_total
-
-        valor_produto = self.specialPrice if self.specialPrice else self.price
-
-        return (self.vmd * valor_produto) / total_faturado_no_dia
+    valor_faturado_do_dia = models.FloatField(null=True, blank=False)
 
     def __unicode__(self):
         return '%s - %s' % (self.product_id, self.name)
+
+    def update_valor_faturado_do_dia(self):
+        preco_item = self.specialPrice if self.specialPrice else self.price
+        self.valor_faturado_do_dia = self.vmd * preco_item
+        self.save()
+
+    def update_vmd(self):
+        dateInit = datetime.datetime.today().replace(hour=0, minute=0, second=0) - datetime.timedelta(hours=3)
+        dateEnd = datetime.datetime.today().replace(hour=23, minute=59, second=59) - datetime.timedelta(days=30) - datetime.timedelta(hours=3)
+        try:
+            totalInPeriod = orderItem.objects.filter(item__sku=self.sku).filter(created_at__range=[dateInit, dateEnd]).exclude(order__status='canceled').exclude(order__status='holded')
+        except Exception as e:
+            print e
+            totalInPeriod = []
+        self.vmd = round(float(len(totalInPeriod) / 30.0), 3)
+        self.save()
+
 
 class order(models.Model):
     increment_id = models.BigIntegerField(primary_key=True)

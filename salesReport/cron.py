@@ -5,7 +5,8 @@ from django_cron import CronJobBase, Schedule
 import datetime
 from django.core.mail import send_mail
 from centralFitEstoque.settings import LISTA_REMETENTES_EMAIL
-from salesReport.views import timeInGMT, timeInUTC, updateLast7daysOrderStatus, importOrders, generateCsvFileCron, removeOldHoldedOrdersFrom, updateItemDetail, getVMD30ForDatabaseItem, updateVMDCron
+from salesReport.views import timeInGMT, timeInUTC, updateLast7daysOrderStatus, importOrders, generateCsvFileCron,\
+    removeOldHoldedOrdersFrom, updateItemDetail, getVMD30ForDatabaseItem, updateVMDCron, updateVlrFaturadoDiaCron
 from salesReport.models import item as product
 
 @cronjobs.register
@@ -29,9 +30,12 @@ def periodic_task():
     #Remove Old itens from reserved stock
     pedidos_com_itens_liberados = removeOldHoldedOrdersFrom(30, 8)
     #Atualiza os precos dos produtos se necessario
+    print('calling updateItemDetail')
     qtd_produtos_com_precos_atualizados = updateItemDetail()
     #Atualiza o VMD de todos os itens
     updateVMDCron()
+    #Atualiza o VMD de todos os itens
+    updateVlrFaturadoDiaCron()
 
     #Save fisic archive
     url_relatorio = generateCsvFileCron(dateInitInUtc, dateEndInUtc)
