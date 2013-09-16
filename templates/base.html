@@ -11,66 +11,67 @@
 </head>
 <body>
     <div class="container-fluid">
-     <div class="masthead">
-        <ul class="nav nav-pills pull-right">
-          <li class="{% block home_active %}{% endblock %}"><a href="{% url 'home' %}">Home</a></li>
-          <li><a href="/admin/">Admin</a></li>
+        <div class="row-fluid">
+            <div class="span12">
+                <ul class="nav nav-pills pull-right">
+                  <li class="{% block home_active %}{% endblock %}"><a href="{% url 'home' %}">Home</a></li>
+                  <li class="{% block resumo_active %}{% endblock %}"><a href="{% url 'resumo' %}">Resumo</a></li>
+                  <li><a href="/admin/">Admin</a></li>
 
-          <li class="dropdown">
-            <a class="dropdown-toggle"
-               data-toggle="dropdown"
-               href="#">
-                Importar/Exportar
-                <b class="caret"></b>
-              </a>
-            <ul class="dropdown-menu">
-              <li class="{% block importar_active %}{% endblock %}"><a href="{% url 'importar' %}">Importar</a></li>
-              <li class="{% block exportar_active %}{% endblock %}"><a href="{% url 'exportar' %}">Exportar</a></li>
-            </ul>
-          </li>
-          <li class="dropdown">
-            <a class="dropdown-toggle"
-               data-toggle="dropdown"
-               href="#">
-                Planejamento
-                <b class="caret"></b>
-              </a>
-            <ul class="dropdown-menu">
-              <li class="{% block abc_active %}{% endblock %}"><a href="{% url 'abc' %}">Curva ABC</a></li>
-              <li class="{% block cmm_active %}{% endblock %}"><a href="{% url 'cmm' %}">CMM</a></li>
-              <li class="{% block contato_active %}{% endblock %}"><a href="{% url 'faturamento' %}">Faturamento</a></li>
-              <li class="{% block expedicao_active %}{% endblock %}"><a href="{% url 'expedicao' %}">Expedição</a></li>
-              <li class="{% block pedido_active %}{% endblock %}"><a href="{% url 'pedidos' %}">Pedidos - Fornecedores</a></li>
-            </ul>
-          </li>
-          <li class="dropdown">
-            <a class="dropdown-toggle"
-               data-toggle="dropdown"
-               href="#">
-                Listas
-                <b class="caret"></b>
-              </a>
-            <ul class="dropdown-menu">
-             <li><a href="/admin/salesReport/order/">Lista Pedidos</a></li>
-             <li class="{% block lista_estoque_active %}{% endblock %}"><a href="{% url 'lista_estoque' %}">Lista Estoque</a></li>
-            </ul>
-          </li>
-          <li class=""><a href="{% url 'logout' %}">Sair</a></li>
-        </ul>
-         <a href="{% url 'home' %}"><img src="http://www.centralfit.com.br/skin/frontend/fortis/default/images/logo.png" alt="LogoCentralfit"/></a>
-        <h6 class="muted">{% if usuario %}Olá, {{ usuario }}{% endif %}</h6>
-     </div>
+                  <li class="dropdown">
+                    <a class="dropdown-toggle"
+                       data-toggle="dropdown"
+                       href="#">
+                        Importar/Exportar
+                        <b class="caret"></b>
+                      </a>
+                    <ul class="dropdown-menu">
+                      <li class="{% block importar_active %}{% endblock %}"><a href="{% url 'importar' %}">Importar</a></li>
+                      <li class="{% block exportar_active %}{% endblock %}"><a href="{% url 'exportar' %}">Exportar</a></li>
+                    </ul>
+                  </li>
+                  <li class="dropdown">
+                    <a class="dropdown-toggle"
+                       data-toggle="dropdown"
+                       href="#">
+                        Planejamento
+                        <b class="caret"></b>
+                      </a>
+                    <ul class="dropdown-menu">
+                      <li class="{% block abc_active %}{% endblock %}"><a href="{% url 'abc' %}">Curva ABC</a></li>
+                      <li class="{% block cmm_active %}{% endblock %}"><a href="{% url 'cmm' %}">CMM</a></li>
+                      <li class="{% block contato_active %}{% endblock %}"><a href="{% url 'faturamento' %}">Faturamento</a></li>
+                      <li class="{% block expedicao_active %}{% endblock %}"><a href="{% url 'expedicao' %}">Expedição</a></li>
+                      <li class="{% block pedido_active %}{% endblock %}"><a href="{% url 'pedidos' %}">Pedidos - Fornecedores</a></li>
+                    </ul>
+                  </li>
+                  <li class="dropdown">
+                    <a class="dropdown-toggle"
+                       data-toggle="dropdown"
+                       href="#">
+                        Listas
+                        <b class="caret"></b>
+                      </a>
+                    <ul class="dropdown-menu">
+                     <li><a href="/admin/salesReport/order/">Lista Pedidos</a></li>
+                     <li class="{% block lista_estoque_active %}{% endblock %}"><a href="{% url 'lista_estoque' %}">Lista Estoque</a></li>
+                    </ul>
+                  </li>
+                  <li class=""><a href="{% url 'logout' %}">Sair</a></li>
+                </ul>
+                <a href="{% url 'home' %}"><img src="http://www.centralfit.com.br/skin/frontend/fortis/default/images/logo.png" alt="LogoCentralfit"/></a>
+                <h6 class="muted">{% if usuario %}Olá, {{ usuario }}{% endif %}</h6>
+                <hr>
 
-    <hr>
-    {% block main_content %}
 
-    {% endblock %}
-    <hr>
+                {% block main_content %}
 
-    <div class="footer">
-        <p>&copy; Centralfit 2013</p>
-    </div>
+                {% endblock %}
 
+                <hr>
+                <p>&copy; Centralfit 2013</p>
+
+        </div>
     </div>
 
     <script src="http://code.jquery.com/jquery.js"></script>

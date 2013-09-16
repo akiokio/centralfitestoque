@@ -654,3 +654,50 @@ class abc(TemplateView):
         context['brands'] = brands.objects.all()
 
         return self.render_to_response(context)
+
+class resumo(TemplateView):
+    template_name = 'resumo.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(resumo, self).get_context_data(**kwargs)
+        return context
+
+    def get(self, *args, **kwargs):
+        context = self.get_context_data()
+        itens = itemObject.objects.all()
+
+        #Filtros
+        if self.request.GET.get('marca'):
+            itens = itens.filter(brand__name__icontains=self.request.GET.get('marca'))
+            context['marca_selecionada'] = self.request.GET.get('marca')
+
+        custo_total_estoque = 0
+        valor_excedente_estoque = 0
+        valor_faltante = 0
+        estoque_em_dias = 0
+
+        for item in itens:
+            #fix para quantidades que tem none como campo
+            aux_quantidade_excedente = item.quantidade_excedente if item.quantidade_excedente else 0
+            aux_quantidade_faltante = item.quantidade_faltante if item.quantidade_faltante else 0
+            aux_cmm = item.cmm if item.cmm else 0
+            aux_vmd = item.vmd if item.vmd else 0
+
+            custo_total_estoque += item.estoque_atual * aux_cmm
+            valor_excedente_estoque += aux_quantidade_excedente * aux_cmm
+            valor_faltante += aux_quantidade_faltante * aux_cmm
+            estoque_em_dias += aux_cmm * aux_vmd
+
+        if estoque_em_dias > 0:
+            estoque_em_dias = custo_total_estoque / estoque_em_dias
+
+
+        context['custo_total_estoque'] = custo_total_estoque
+        context['valor_excedente_estoque'] = valor_excedente_estoque
+        context['valor_faltante'] = valor_faltante
+        context['estoque_em_dias'] = estoque_em_dias
+
+        context['brands'] = brands.objects.all()
+
+
+        return self.render_to_response(context)

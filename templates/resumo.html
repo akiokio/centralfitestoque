@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block cmm_active %}active{% endblock %}
+{% block title %}Cfit App - CMM{% endblock %}
+{% load extras %}
+
+{% block main_content %}
+    <div class="row-fluid">
+        <div class="well span12">
+
+            <form action="{% url 'resumo' %}" method="GET">
+                    <strong>Filtro personalizado por marca: </strong>
+
+                    <select type="text" name="marca" class="">
+                        {% for brand in brands %}
+                            <option value="{{ brand }}">{{ brand }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <button class="btn" type="submit">Filtrar</button>
+            </form>
+
+            <hr>
+
+            <div class="span12">
+                <strong>Resumo do estoque atual {% if marca_selecionada %}da marca <span class="text-success"><em>{{ marca_selecionada }}</em></span>{% endif %}</strong>
+            </div>
+            <div class="span6">
+                Custo total do estoque: R$ {{ custo_total_estoque|floatformat:2 }}
+            </div>
+            <div class="span6">
+                Valor Excedente de estoque: R$  {{ valor_excedente_estoque|floatformat:2 }}
+            </div>
+            <div class="span6">
+                Valor Faltante (Valor a ser comprado): R$  {{ valor_faltante|floatformat:2 }}
+            </div>
+            <div class="span6">
+                Estoque em dias: {{ estoque_em_dias|floatformat:0 }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
