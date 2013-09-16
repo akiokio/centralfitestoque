@@ -697,7 +697,7 @@ class resumo(TemplateView):
         context['valor_faltante'] = valor_faltante
         context['estoque_em_dias'] = estoque_em_dias
 
-        context['brands'] = brands.objects.all()
+        context['brands'] = brands.objects.all().order_by('name')
 
 
         return self.render_to_response(context)
