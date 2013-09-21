@@ -58,7 +58,11 @@ def saveItemInDatabse(i):
     dateEnd = datetime.today().replace(hour=23, minute=59, second=59) - timedelta(days=30) - timedelta(hours=3)
     vmd = getVMD30(i, dateEnd, dateInit)
 
-    valor_produto = i['special_price'] if 'special_price' in i else i['price']
+    if 'special_price' in i and i['special_price'] != None:
+        valor_produto = i['special_price']
+    else:
+        valor_produto = i['price']
+
     valor_faturado_do_dia = vmd * float(valor_produto)
 
     try:

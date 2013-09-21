@@ -8,7 +8,7 @@ Replace this with more appropriate tests for your application.
 
 from django.test import TestCase
 from salesReport.models import item as modelItem, orderItem as modelOrderItem, order as modelOrder, brands as modelBrands
-from salesReport.views import saveItemInDatabse, saveOrderInDatabase, saveOrderItemInDatabase, getVMD, getVMD30, extractOrderInfoFromMagento, getVMD30ForDatabaseItem
+from salesReport.views import saveItemInDatabse, saveOrderInDatabase, saveOrderItemInDatabase, getVMD, getVMD30, extractOrderInfoFromMagento, getVMD30ForDatabaseItem, updateItemDetail
 from salesReport.helpers import simple_order, simple_product, simple_item_in_order, test_order_01, item_test_order_01, simple_order_canceled ,\
     pedido_faturamento_pedido_pedido_com_brinde_01, pedido_faturamento_pedido_pedido_com_brinde_02, periodo_faturamento_pedido_pedido_com_cupom_de_desconto,\
     pedido_faturamento_pedido_pedido_com_frete_a_pagar
@@ -215,6 +215,12 @@ class ExportTestCase(TestCase):
 
     def export_csv_report(self):
         print 'Executing: export csv test'
+
+
+class UpdateItemTestCase(TestCase):
+
+    def test_update_item_detail(self):
+        quantidade_atualizada = updateItemDetail()
 
 
 
