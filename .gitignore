@@ -5,3 +5,4 @@ env/*
 .idea/*
 media/*
 *.sql
+centralFitEstoque/media/csv_report/

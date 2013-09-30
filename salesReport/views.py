@@ -66,7 +66,7 @@ def saveItemInDatabse(i):
     valor_faturado_do_dia = vmd * float(valor_produto)
 
     try:
-        newItem = itemObject.objects.filter(sku=i['sku'])
+        newItem = itemObject.objects.filter(product_id=i['product_id'])
         if len(newItem) == 0:
             newItem = itemObject.objects.create(
                     product_id=i['product_id'],
@@ -86,7 +86,9 @@ def saveItemInDatabse(i):
                     vmd=vmd,
                     valor_faturado_do_dia=valor_faturado_do_dia,
                     )
-        return newItem
+            return newItem
+        else:
+            return newItem[0]
 
     except Exception as e:
         print e
@@ -143,11 +145,12 @@ def saveOrderItemInDatabase(order, orderItemToSave):
     itemToSave.estoque_disponivel = itemToSave.estoque_atual - itemToSave.estoque_empenhado
 
     if itemToSave.brand:
-        if (itemToSave.estoque_disponivel - (itemToSave.vmd * itemToSave.brand.meta_dias_estoque)) >= 0:
-            itemToSave.quantidade_excedente = itemToSave.estoque_disponivel - (itemToSave.vmd * itemToSave.brand.meta_dias_estoque)
+        fator_quantidade = (itemToSave.vmd * itemToSave.brand.meta_dias_estoque) - itemToSave.estoque_disponivel
+        if (fator_quantidade) >= 0:
+            itemToSave.quantidade_excedente = math.ceil(fator_quantidade)
             itemToSave.quantidade_faltante = 0
         else:
-            itemToSave.quantidade_faltante = math.ceil(itemToSave.estoque_disponivel - (itemToSave.vmd * itemToSave.brand.meta_dias_estoque))
+            itemToSave.quantidade_faltante = math.ceil(fator_quantidade)
             itemToSave.quantidade_excedente = 0
 
     #Update the vmd

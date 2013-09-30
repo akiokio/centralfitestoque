@@ -2,82 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ebd84075-4f20-4613-bc6e-2f01cb9657e6" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/centralFitEstoque.iml" afterPath="$PROJECT_DIR$/.idea/centralFitEstoque.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/centralFitEstoque/settings.py" afterPath="$PROJECT_DIR$/centralFitEstoque/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/salesReport/tests.py" afterPath="$PROJECT_DIR$/salesReport/tests.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/pedidos.html" afterPath="$PROJECT_DIR$/templates/pedidos.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/salesReport/views.py" afterPath="$PROJECT_DIR$/salesReport/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="centralFitEstoque.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="$PROJECT_DIR$/estoque.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368237383694" ignored="false" />
-    <file path="/estoque.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368237381039" ignored="false" />
-    <file path="/models.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1379212292557" ignored="false" />
-    <file path="/settings.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1377139125842" ignored="false" />
-    <file path="/views.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1379783253913" ignored="false" />
-    <file path="/urls.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1379203361710" ignored="false" />
-    <file path="/admin.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1378497815431" ignored="false" />
-    <file path="/integration.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368240972748" ignored="false" />
-    <file path="/pymagento.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1372384070724" ignored="false" />
-    <file path="/changelog.txt" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1369670795010" ignored="false" />
-    <file path="/.gitignore" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368393935270" ignored="false" />
-    <file path="$PROJECT_DIR$/../einstein/src/einstein/mkt_eleitoral/views.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368725217195" ignored="false" />
-    <file path="$PROJECT_DIR$/../einstein/src/einstein/einstein/static/js/section/eleitor.js" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368723824440" ignored="false" />
-    <file path="/eleitor.js" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368723817728" ignored="false" />
-    <file path="/eleitor_list.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368722508381" ignored="false" />
-    <file path="$PROJECT_DIR$/../einstein/src/einstein/templates/eleitor_list.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368723878224" ignored="false" />
-    <file path="$PROJECT_DIR$/../einstein_prototipo/src/einstein/mkt_eleitoral/views.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1368981057041" ignored="false" />
-    <file path="/index.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1374853711545" ignored="false" />
-    <file path="/base.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1379296148434" ignored="false" />
-    <file path="/commom.js" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1374102349238" ignored="false" />
-    <file path="/importar.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1378341601506" ignored="false" />
-    <file path="/login.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1374075174041" ignored="false" />
-    <file path="/Dummy.txt" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1379779242771" ignored="false" />
-    <file path="/exportar.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1372022515524" ignored="false" />
-    <file path="/faturamento.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1374104568297" ignored="false" />
-    <file path="$PROJECT_DIR$/../GraoGourmet/source/graogourmet/src/graogourmet/cliente/templates/minha_conta/cadastro/index.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1372105119260" ignored="false" />
-    <file path="$PROJECT_DIR$/../GraoGourmet/source/graogourmet/src/graogourmet/principal/templates/planos/assinatura/index.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1372108174379" ignored="false" />
-    <file path="$PROJECT_DIR$/../GraoGourmet/source/graogourmet/src/graogourmet/principal/templates/planos/presente/conclusao/index.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1372108174379" ignored="false" />
-    <file path="$PROJECT_DIR$/../GraoGourmet/source/graogourmet/src/graogourmet/principal/templates/planos/pessoal/conclusao/index.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1372108174379" ignored="false" />
-    <file path="$PROJECT_DIR$/../GraoGourmet/source/graogourmet/src/graogourmet/principal/templates/index.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1372108192478" ignored="false" />
-    <file path="$PROJECT_DIR$/../GraoGourmet/source/graogourmet/src/graogourmet/principal/templates/planos/presente/selecione/index.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1372108174379" ignored="false" />
-    <file path="$PROJECT_DIR$/../GraoGourmet/source/graogourmet/src/graogourmet/principal/templates/planos/presente/confirmacao/index.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1372108174379" ignored="false" />
-    <file path="$PROJECT_DIR$/../GraoGourmet/source/graogourmet/src/graogourmet/principal/templates/planos/pessoal/selecione/index.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1372108174379" ignored="false" />
-    <file path="$PROJECT_DIR$/../GraoGourmet/source/graogourmet/src/graogourmet/principal/templates/nossos_cafes/nossos_cafes/index.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1372108174379" ignored="false" />
-    <file path="$PROJECT_DIR$/../GraoGourmet/source/graogourmet/src/graogourmet/principal/templates/planos/pessoal/confirmacao/index.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1372108174379" ignored="false" />
-    <file path="$PROJECT_DIR$/../GraoGourmet/source/graogourmet/src/graogourmet/principal/templates/nossos_cafes/nossos_cafes_interna/index.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1372108174379" ignored="false" />
-    <file path="$PROJECT_DIR$/../GraoGourmet/source/graogourmet/src/graogourmet/venda/views.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1372109596841" ignored="false" />
-    <file path="$PROJECT_DIR$/../GraoGourmet/source/graogourmet/env/lib/python2.7/site-packages/cep/__init__.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1372109829375" ignored="false" />
-    <file path="/factory.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1372560736320" ignored="false" />
-    <file path="/tests.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1379779968460" ignored="false" />
-    <file path="/helpers.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1377643171910" ignored="false" />
-    <file path="/cron.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1379213759623" ignored="false" />
-    <file path="/local_settings.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1377299322282" ignored="false" />
-    <file path="/commom.css" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1374098405540" ignored="false" />
-    <file path="/cmm.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1377707633997" ignored="false" />
-    <file path="/lista_estoque.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1374973382600" ignored="false" />
-    <file path="/models_test.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1374791920533" ignored="false" />
-    <file path="$PROJECT_DIR$/../einstein_prototipo/src/einstein/mkt_eleitoral/tests/models_test.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1374791922162" ignored="false" />
-    <file path="/tables.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1374881855006" ignored="false" />
-    <file path="/extras.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1379208745438" ignored="false" />
-    <file path="/correios.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1375644066409" ignored="false" />
-    <file path="/expedicao.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1376940506198" ignored="false" />
-    <file path="/fragment.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1379780923492" ignored="false" />
-    <file path="/Python Console" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1379783590545" ignored="false" />
-    <file path="/pedidos.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1378512035614" ignored="false" />
-    <file path="/update_product_brand.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1377128197200" ignored="false" />
-    <file path="/*.regexp" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1377127338216" ignored="false" />
-    <file path="/a.dummy" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1379213877064" ignored="false" />
-    <file path="$PROJECT_DIR$/../GraoGourmet/source/graogourmet/src/graogourmet/venda/models.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1378500059618" ignored="false" />
-    <file path="$PROJECT_DIR$/../GraoGourmet/source/graogourmet/src/graogourmet/graogourmet/settings.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1378496896815" ignored="false" />
-    <file path="$PROJECT_DIR$/../GraoGourmet/source/graogourmet/src/graogourmet/principal/views.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1378501412235" ignored="false" />
-    <file path="$PROJECT_DIR$/../GraoGourmet/source/graogourmet/src/graogourmet/catalogo/models.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1378496896815" ignored="false" />
-    <file path="$PROJECT_DIR$/../GraoGourmet/source/graogourmet/src/graogourmet/venda/admin.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1378497819158" ignored="false" />
-    <file path="$PROJECT_DIR$/../GraoGourmet/source/graogourmet/src/graogourmet/principal/templatetags/helpers.py" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1378498488283" ignored="false" />
-    <file path="/abc.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1379210314638" ignored="false" />
-    <file path="/resumo.html" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1379297404587" ignored="false" />
-    <file path="/dummy.xml" changelist="ebd84075-4f20-4613-bc6e-2f01cb9657e6" time="1379295924702" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,6 +19,9 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/centralFitEstoque$Test__salesReport_UpdateItemTestCase_test_update_item_detail.coverage" NAME="Test: salesReport.UpdateItemTestCase.test_update_item_detail Coverage Results" MODIFIED="1380497083291" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+  </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
@@ -107,10 +44,8 @@
           <file leaf-file-name="views.py" pinned="false" current="true" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/salesReport/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="63" column="34" selection-start="2286" selection-end="2286" vertical-scroll-proportion="0.23688394">
-                  <folding>
-                    <element signature="e#24#118#0" expanded="true" />
-                  </folding>
+                <state line="149" column="73" selection-start="5413" selection-end="5413" vertical-scroll-proportion="0.28308207" vertical-offset="1841" max-vertical-offset="11940">
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -118,10 +53,8 @@
           <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/salesReport/models.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="25" column="6" selection-start="706" selection-end="706" vertical-scroll-proportion="0.0">
-                  <folding>
-                    <element signature="e#24#52#0" expanded="true" />
-                  </folding>
+                <state line="138" column="20" selection-start="5966" selection-end="5966" vertical-scroll-proportion="0.0" vertical-offset="1638" max-vertical-offset="2985">
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -129,10 +62,8 @@
           <file leaf-file-name="tests.py" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/salesReport/tests.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="222" column="0" selection-start="8125" selection-end="8125" vertical-scroll-proportion="0.0">
-                  <folding>
-                    <element signature="e#208#240#0" expanded="true" />
-                  </folding>
+                <state line="222" column="0" selection-start="8125" selection-end="8125" vertical-scroll-proportion="0.0" vertical-offset="3330" max-vertical-offset="3525">
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -140,7 +71,7 @@
           <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/dashboard/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="699" column="63" selection-start="29465" selection-end="29465" vertical-scroll-proportion="0.0">
+                <state line="699" column="63" selection-start="29465" selection-end="29465" vertical-scroll-proportion="0.0" vertical-offset="7833" max-vertical-offset="10305">
                   <folding />
                 </state>
               </provider>
@@ -149,7 +80,7 @@
           <file leaf-file-name="cron.py" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/salesReport/cron.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="33" column="58" selection-start="1527" selection-end="1543" vertical-scroll-proportion="0.0">
+                <state line="33" column="58" selection-start="1527" selection-end="1543" vertical-scroll-proportion="0.0" vertical-offset="495" max-vertical-offset="1125">
                   <folding />
                 </state>
               </provider>
@@ -159,19 +90,19 @@
       </split-first>
       <split-second>
         <leaf>
-          <file leaf-file-name="resumo.html" pinned="false" current="false" current-in-tab="true">
+          <file leaf-file-name="resumo.html" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/templates/resumo.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="24" column="148" selection-start="902" selection-end="902" vertical-scroll-proportion="0.59504133">
+                <state line="24" column="148" selection-start="902" selection-end="902" vertical-scroll-proportion="-15.0" vertical-offset="0" max-vertical-offset="690">
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="pedidos.html" pinned="false" current="false" current-in-tab="false">
+          <file leaf-file-name="pedidos.html" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/templates/pedidos.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="29" column="23" selection-start="331" selection-end="1204" vertical-scroll-proportion="0.0">
+                <state line="16" column="41" selection-start="529" selection-end="529" vertical-scroll-proportion="0.39267015" vertical-offset="15" max-vertical-offset="1470">
                   <folding />
                 </state>
               </provider>
@@ -201,7 +132,6 @@
         <option value="$PROJECT_DIR$/salesReport/admin.py" />
         <option value="$PROJECT_DIR$/templates/importar.html" />
         <option value="$PROJECT_DIR$/templates/cmm.html" />
-        <option value="$PROJECT_DIR$/templates/pedidos.html" />
         <option value="$PROJECT_DIR$/dashboard/templatetags/extras.py" />
         <option value="$PROJECT_DIR$/templates/abc.html" />
         <option value="$PROJECT_DIR$/salesReport/models.py" />
@@ -212,15 +142,15 @@
         <option value="$PROJECT_DIR$/dashboard/views.py" />
         <option value="$PROJECT_DIR$/centralFitEstoque/settings.py" />
         <option value="$PROJECT_DIR$/salesReport/tests.py" />
+        <option value="$PROJECT_DIR$/templates/pedidos.html" />
         <option value="$PROJECT_DIR$/salesReport/views.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-2" />
     <option name="y" value="22" />
     <option name="width" value="1920" />
-    <option name="height" value="1058" />
+    <option name="height" value="988" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -360,9 +290,6 @@
     <option name="myPythonConsoleState">
       <PyConsoleSettings />
     </option>
-    <option name="myDjangoConsoleState">
-      <PyConsoleSettings />
-    </option>
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -371,7 +298,7 @@
       <recent name="$PROJECT_DIR$/centralFitEstoque/static" />
     </key>
   </component>
-  <component name="RunManager" selected="Django tests.Test: salesReport.UpdateItemTestCase.test_update_item_detail">
+  <component name="RunManager" selected="Django server.centralFitEstoque">
     <configuration default="false" name="Test: salesReport.UpdateItemTestCase.test_update_item_detail" type="DjangoTestsConfigurationType" factoryName="Django tests" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -391,7 +318,9 @@
       <option name="USE_OPTIONS" value="true" />
       <option name="OPTIONS" value="salesReport" />
       <RunnerSettings RunnerId="PyDebugRunner" />
+      <RunnerSettings RunnerId="PythonRunner" />
       <ConfigurationWrapper RunnerId="PyDebugRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
       <method />
     </configuration>
     <configuration default="true" type="DjangoTestsConfigurationType" factoryName="Django tests">
@@ -495,20 +424,6 @@
       <option name="TEST_TYPE" value="TEST_SCRIPT" />
       <option name="PATTERN" value="" />
       <option name="USE_PATTERN" value="false" />
-      <method />
-    </configuration>
-    <configuration default="true" type="JavascriptDebugSession" factoryName="Remote" singleton="true">
-      <JSRemoteDebuggerConfigurationSettings>
-        <option name="engineId" value="embedded" />
-        <option name="fileUrl" />
-      </JSRemoteDebuggerConfigurationSettings>
-      <method />
-    </configuration>
-    <configuration default="true" type="JavascriptDebugSession" factoryName="Local" singleton="true">
-      <JSDebuggerConfigurationSettings>
-        <option name="engineId" value="embedded" />
-        <option name="fileUrl" />
-      </JSDebuggerConfigurationSettings>
       <method />
     </configuration>
     <configuration default="true" type="com.intellij.persistence.run.ConsoleRunConfigurationType" factoryName="Query Language Console">
@@ -636,18 +551,19 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-2" y="22" width="1920" height="1058" extended-state="0" />
-    <editor active="false" />
+    <frame x="0" y="22" width="1920" height="988" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2082658" sideWeight="0.43482795" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22042139" sideWeight="0.7609842" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.09978655" sideWeight="0.71428573" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2857143" sideWeight="0.9605123" order="3" side_tool="false" content_ui="tabs" x="1920" y="280" width="1280" height="800" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.100520834" sideWeight="0.7144457" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28555432" sideWeight="0.9605123" order="3" side_tool="false" content_ui="tabs" x="1920" y="280" width="1280" height="800" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23662885" sideWeight="0.28741497" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35676625" sideWeight="0.50041497" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26652452" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.26651737" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32949308" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -662,180 +578,123 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
-    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
-    <option name="CHECK_NEW_TODO" value="true" />
     <option name="myTodoPanelSettings">
-      <value>
-        <are-packages-shown value="false" />
-        <are-modules-shown value="false" />
-        <flatten-packages value="false" />
-        <is-autoscroll-to-source value="false" />
-      </value>
+      <TodoPanelSettings />
     </option>
-    <option name="PERFORM_UPDATE_IN_BACKGROUND" value="true" />
-    <option name="PERFORM_COMMIT_IN_BACKGROUND" value="true" />
-    <option name="PERFORM_EDIT_IN_BACKGROUND" value="true" />
-    <option name="PERFORM_CHECKOUT_IN_BACKGROUND" value="true" />
-    <option name="PERFORM_ADD_REMOVE_IN_BACKGROUND" value="true" />
-    <option name="PERFORM_ROLLBACK_IN_BACKGROUND" value="false" />
-    <option name="CHECK_LOCALLY_CHANGED_CONFLICTS_IN_BACKGROUND" value="false" />
-    <option name="CHANGED_ON_SERVER_INTERVAL" value="60" />
-    <option name="SHOW_ONLY_CHANGED_IN_SELECTION_DIFF" value="true" />
-    <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="true" />
-    <option name="DEFAULT_PATCH_EXTENSION" value="patch" />
-    <option name="SHORT_DIFF_HORIZONTALLY" value="true" />
-    <option name="SHORT_DIFF_EXTRA_LINES" value="2" />
-    <option name="SOFT_WRAPS_IN_SHORT_DIFF" value="true" />
-    <option name="INCLUDE_TEXT_INTO_PATCH" value="false" />
-    <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
-    <option name="SHOW_FILE_HISTORY_DETAILS" value="true" />
-    <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="true" />
-    <option name="SHOW_DIRTY_RECURSIVELY" value="false" />
-    <option name="LIMIT_HISTORY" value="true" />
-    <option name="MAXIMUM_HISTORY_ROWS" value="1000" />
-    <option name="UPDATE_FILTER_SCOPE_NAME" />
-    <option name="USE_COMMIT_MESSAGE_MARGIN" value="false" />
-    <option name="COMMIT_MESSAGE_MARGIN_SIZE" value="72" />
-    <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
-    <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
-    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" />
-    <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
-    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
-    <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
-    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="false" />
-    <option name="REFORMAT_BEFORE_FILE_COMMIT" value="false" />
-    <option name="FILE_HISTORY_DIALOG_COMMENTS_SPLITTER_PROPORTION" value="0.8" />
-    <option name="FILE_HISTORY_DIALOG_SPLITTER_PROPORTION" value="0.5" />
-    <option name="ACTIVE_VCS_NAME" />
-    <option name="UPDATE_GROUP_BY_PACKAGES" value="false" />
-    <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
-    <option name="UPDATE_FILTER_BY_SCOPE" value="false" />
-    <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
-    <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="414" />
+      <option name="time" value="417" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="20" selection-start="349" selection-end="349" vertical-scroll-proportion="-0.4876033">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/expedicao.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/exportar.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/faturamento.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/lista_estoque.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.5206612">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.5206612" vertical-offset="0" max-vertical-offset="0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/cmm.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="23" selection-start="326" selection-end="1078" vertical-scroll-proportion="0.49586776">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/pedidos.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="23" selection-start="331" selection-end="1204" vertical-scroll-proportion="0.0">
+        <state line="22" column="23" selection-start="326" selection-end="1078" vertical-scroll-proportion="0.49586776" vertical-offset="0" max-vertical-offset="0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/centralFitEstoque/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="27" selection-start="457" selection-end="457" vertical-scroll-proportion="-0.76506954">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/resumo.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="148" selection-start="902" selection-end="902" vertical-scroll-proportion="0.59504133">
+        <state line="19" column="27" selection-start="457" selection-end="457" vertical-scroll-proportion="-0.76506954" vertical-offset="0" max-vertical-offset="0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/centralFitEstoque/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="20" selection-start="280" selection-end="285" vertical-scroll-proportion="0.024038462">
+        <state line="4" column="20" selection-start="280" selection-end="285" vertical-scroll-proportion="0.024038462" vertical-offset="0" max-vertical-offset="0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dashboard/tests.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/salesReport/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="6" selection-start="706" selection-end="706" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#24#52#0" expanded="true" />
-          </folding>
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/salesReport/cron.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="58" selection-start="1527" selection-end="1543" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dashboard/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="699" column="63" selection-start="29465" selection-end="29465" vertical-scroll-proportion="0.0">
+        <state line="33" column="58" selection-start="1527" selection-end="1543" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/salesReport/tests.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="222" column="0" selection-start="8125" selection-end="8125" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="e#208#240#0" expanded="true" />
-          </folding>
+        <state line="222" column="0" selection-start="8125" selection-end="8125" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/resumo.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="148" selection-start="902" selection-end="902" vertical-scroll-proportion="-15.0" vertical-offset="0" max-vertical-offset="690">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dashboard/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="699" column="63" selection-start="29465" selection-end="29465" vertical-scroll-proportion="0.0" vertical-offset="7833" max-vertical-offset="10305">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/env/lib/python2.7/site-packages/django/db/transaction.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="222" column="0" selection-start="6959" selection-end="6959" vertical-scroll-proportion="0.0" vertical-offset="3097" max-vertical-offset="4620">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/env/lib/python2.7/site-packages/django/core/handlers/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="114" column="0" selection-start="4779" selection-end="4779" vertical-scroll-proportion="0.33275262" vertical-offset="1309" max-vertical-offset="4020">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/salesReport/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="138" column="20" selection-start="5966" selection-end="5966" vertical-scroll-proportion="0.0" vertical-offset="1638" max-vertical-offset="2985">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/pedidos.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="41" selection-start="529" selection-end="529" vertical-scroll-proportion="0.39267015" vertical-offset="15" max-vertical-offset="1470">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/salesReport/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="63" column="34" selection-start="2286" selection-end="2286" vertical-scroll-proportion="0.23688394">
-          <folding>
-            <element signature="e#24#118#0" expanded="true" />
-          </folding>
+        <state line="149" column="73" selection-start="5413" selection-end="5413" vertical-scroll-proportion="0.28308207" vertical-offset="1841" max-vertical-offset="11940">
+          <folding />
         </state>
       </provider>
     </entry>
