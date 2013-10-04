@@ -575,6 +575,8 @@ def updateLast7daysOrderStatus():
     for orderToBeUpdated in orders:
         print u'trying update order %s' % orderToBeUpdated.increment_id
         new_order_info = salesReport.getSingleOrderInfo(orderToBeUpdated.increment_id)
+        if not new_order_info['status']:
+            new_order_info['status'] = 'Nao Informado'
         if new_order_info['status'] != orderToBeUpdated.status:
             print 'Order Updated %s !' % orderToBeUpdated.increment_id
 
