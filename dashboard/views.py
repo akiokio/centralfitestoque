@@ -613,13 +613,13 @@ class abc(TemplateView):
             percentage = (float(count) / float(total_itens_na_base)) * 100
             if percentage <= 65.00:
                 item.abc_letter = "A"
-                item.percentage = percentage
+                item.percentage = round(percentage, 2)
             elif percentage > 65.00 and percentage <= 90.00:
                 item.abc_letter = "B"
-                item.percentage = percentage
+                item.percentage = round(percentage, 2)
             elif percentage > 90.00:
                 item.abc_letter = "C"
-                item.percentage = percentage
+                item.percentage = round(percentage, 2)
 
         #ordenacao
         if self.request.GET.get('order_by'):
