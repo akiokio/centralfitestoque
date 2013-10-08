@@ -13,6 +13,7 @@
                     <th><a href="?{% url_replace request 'order_by' 'brand' %}">Marca</a></th>
                     <th><a href="?{% url_replace request 'order_by' 'valor_faturado_do_dia' %}">Valor de faturamento médio por dia</a></th>
                     <th><a href="?{% url_replace request 'order_by' 'abc_letter' %}">Valor ABC</a></th>
+                    <th><a href="?{% url_replace request 'order_by' 'percentage' %}">%</a></th>
                  </tr>
             </thead>
             <tbody>
@@ -25,6 +26,7 @@
                         <td>{{ item.brand.name }}</td>
                         <td>{{ item.valor_faturado_do_dia }}</td>
                         <td>{{ item.abc_letter }}</td>
+                        <td>{{ item.percentage }}</td>
                      </form>
                  </tr>
             {% empty %}
