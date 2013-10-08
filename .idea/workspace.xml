@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ebd84075-4f20-4613-bc6e-2f01cb9657e6" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/abc.html" afterPath="$PROJECT_DIR$/templates/abc.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dashboard/views.py" afterPath="$PROJECT_DIR$/dashboard/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="centralFitEstoque.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -63,10 +63,10 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="views.py" pinned="false" current="true" current-in-tab="true">
+          <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/dashboard/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="619" column="4" selection-start="26530" selection-end="26530" vertical-scroll-proportion="0.41042346" vertical-offset="8718" max-vertical-offset="10350">
+                <state line="623" column="1" selection-start="26289" selection-end="26289" vertical-scroll-proportion="0.5081433" vertical-offset="8718" max-vertical-offset="10365">
                   <folding />
                 </state>
               </provider>
@@ -97,16 +97,16 @@
           <file leaf-file-name="pedidos.html" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/templates/pedidos.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="16" column="41" selection-start="529" selection-end="529" vertical-scroll-proportion="-9.375" vertical-offset="15" max-vertical-offset="1470">
+                <state line="30" column="23" selection-start="331" selection-end="1272" vertical-scroll-proportion="-18.125" vertical-offset="15" max-vertical-offset="1470">
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="abc.html" pinned="false" current="false" current-in-tab="true">
+          <file leaf-file-name="abc.html" pinned="false" current="true" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/templates/abc.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="31" column="23" selection-start="1553" selection-end="1553" vertical-scroll-proportion="0.5677966" vertical-offset="130" max-vertical-offset="900">
+                <state line="20" column="71" selection-start="866" selection-end="866" vertical-scroll-proportion="0.3559322" vertical-offset="90" max-vertical-offset="1125">
                   <folding />
                 </state>
               </provider>
@@ -146,8 +146,8 @@
         <option value="$PROJECT_DIR$/salesReport/tests.py" />
         <option value="$PROJECT_DIR$/templates/pedidos.html" />
         <option value="$PROJECT_DIR$/salesReport/views.py" />
-        <option value="$PROJECT_DIR$/templates/abc.html" />
         <option value="$PROJECT_DIR$/dashboard/views.py" />
+        <option value="$PROJECT_DIR$/templates/abc.html" />
       </list>
     </option>
   </component>
@@ -726,13 +726,6 @@
         <state line="114" column="0" selection-start="4779" selection-end="4779" vertical-scroll-proportion="0.33275262" vertical-offset="1309" max-vertical-offset="4020" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/pedidos.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="41" selection-start="529" selection-end="529" vertical-scroll-proportion="-9.375" vertical-offset="15" max-vertical-offset="1470">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/salesReport/cron.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="28" column="43" selection-start="1258" selection-end="1284" vertical-scroll-proportion="0.0" vertical-offset="168" max-vertical-offset="1020">
@@ -754,16 +747,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/abc.html">
+    <entry file="file://$PROJECT_DIR$/templates/pedidos.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="23" selection-start="1553" selection-end="1553" vertical-scroll-proportion="0.5677966" vertical-offset="130" max-vertical-offset="900">
+        <state line="30" column="23" selection-start="331" selection-end="1272" vertical-scroll-proportion="-18.125" vertical-offset="15" max-vertical-offset="1470">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dashboard/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="619" column="4" selection-start="26530" selection-end="26530" vertical-scroll-proportion="0.41042346" vertical-offset="8718" max-vertical-offset="10350">
+        <state line="623" column="1" selection-start="26289" selection-end="26289" vertical-scroll-proportion="0.5081433" vertical-offset="8718" max-vertical-offset="10365">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/abc.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="71" selection-start="866" selection-end="866" vertical-scroll-proportion="0.3559322" vertical-offset="90" max-vertical-offset="1125">
           <folding />
         </state>
       </provider>

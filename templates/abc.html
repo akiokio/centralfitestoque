@@ -5,6 +5,21 @@
 
 {% block main_content %}
     <div class=''>
+        <form action="{% url 'abc' %}" method="GET">
+                    <strong>Marca:</strong>
+
+                    <select type="text" name="marca" class="">
+                        <option value="">Escolha uma marca</option>
+                        {% for brand in brands %}
+                            <option value="{{ brand }}">{{ brand }}</option>
+                        {% endfor %}
+                    </select>
+
+                    <strong>Sku:</strong> <input type="text" name="sku" class="input-small" />
+                    <strong>Nome:</strong> <input type="text" name="nome" class="input-small" />
+
+                    <input class="btn" type="submit" value="Filtrar" />
+        </form>
         <table class="table table-striped table-bordered table-hover">
             <thead>
                  <tr>
@@ -12,8 +27,8 @@
                     <th><a href="?{% url_replace request 'order_by' 'name' %}">Nome</a></th>
                     <th><a href="?{% url_replace request 'order_by' 'brand' %}">Marca</a></th>
                     <th><a href="?{% url_replace request 'order_by' 'valor_faturado_do_dia' %}">Valor de faturamento médio por dia</a></th>
-                    <th><a href="?{% url_replace request 'order_by' 'abc_letter' %}">Valor ABC</a></th>
-                    <th><a href="?{% url_replace request 'order_by' 'percentage' %}">%</a></th>
+                    <th>Valor ABC</th>
+                    <th>%</th>
                  </tr>
             </thead>
             <tbody>
