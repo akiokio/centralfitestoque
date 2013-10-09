@@ -162,6 +162,7 @@ def saveOrderItemInDatabase(order, orderItemToSave):
     preco_item = itemToSave.specialPrice if itemToSave.specialPrice else itemToSave.price
     itemToSave.valor_faturado_do_dia = itemToSave.vmd * float(preco_item)
 
+
     itemToSave.save()
     return newOrderItem
 
@@ -805,4 +806,38 @@ def updateVlrFaturadoDiaCron():
     for item in itemObject.objects.all():
         valor_produto = item.specialPrice if item.specialPrice else item.price
         item.valor_faturado_do_dia = item.vmd * valor_produto
+        item.save()
+
+
+def updateABCValues():
+    total_faturado_no_periodo = 0
+    for i in itemObject.objects.all():
+        if float(i.vmd) > 0.0:
+            if not i.valor_faturado_do_dia or float(i.valor_faturado_do_dia) == 0.0:
+                if i.specialPrice:
+                    preco_item = i.specialPrice
+                else:
+                    preco_item = i.price
+                if float(preco_item) > 0:
+                    i.valor_faturado_do_dia = i.vmd * float(preco_item)
+                    i.save()
+        total_faturado_no_periodo += i.valor_faturado_do_dia
+
+    percentage_count = 0
+    for count, item in enumerate(itemObject.objects.filter(valor_faturado_do_dia__gt=0).order_by('-valor_faturado_do_dia')):
+        percentage = (float(item.valor_faturado_do_dia) / float(total_faturado_no_periodo)) * 100
+
+        percentage_count += percentage
+        item.percentage = round(percentage, 4)
+
+        if percentage_count <= 65.00:
+            item.abc_letter = "A"
+        elif percentage_count > 65.00 and percentage_count <= 90.00:
+            item.abc_letter = "B"
+        elif percentage_count > 90.00:
+            item.abc_letter = "C"
+
+        #print percentage_count
+        #print item.name, item.percentage, item.abc_letter
+
         item.save()

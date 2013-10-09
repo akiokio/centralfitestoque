@@ -42,6 +42,9 @@ class item(models.Model):
     quantidade_excedente = models.IntegerField(null=True, blank=False)
     quantidade_faltante = models.IntegerField(null=True, blank=False)
     valor_faturado_do_dia = models.FloatField(null=True, blank=False)
+    valor_faturado_no_periodo = models.FloatField(null=True, blank=False)
+    percentage = models.FloatField(null=True, blank=False)
+    abc_letter = models.CharField(max_length=250,null=True, blank=False)
 
     def __unicode__(self):
         return '%s - %s' % (self.product_id, self.name)

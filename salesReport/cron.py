@@ -6,7 +6,8 @@ import datetime
 from django.core.mail import send_mail
 from centralFitEstoque.settings import LISTA_REMETENTES_EMAIL
 from salesReport.views import timeInGMT, timeInUTC, updateLast7daysOrderStatus, importOrders, generateCsvFileCron,\
-    removeOldHoldedOrdersFrom, updateItemDetail, getVMD30ForDatabaseItem, updateVMDCron, updateVlrFaturadoDiaCron
+    removeOldHoldedOrdersFrom, updateItemDetail, getVMD30ForDatabaseItem, updateVMDCron, updateVlrFaturadoDiaCron,\
+    updateABCValues
 from salesReport.models import item as product
 
 @cronjobs.register
@@ -36,6 +37,9 @@ def periodic_task():
     updateVMDCron()
     #Atualiza o VMD de todos os itens
     updateVlrFaturadoDiaCron()
+    #Update ABC values
+    print 'Updating ABC'
+    updateABCValues()
 
     #Save fisic archive
     url_relatorio = generateCsvFileCron(dateInitInUtc, dateEndInUtc)
@@ -68,3 +72,10 @@ def periodic_task():
     print 'Enviando Email'
     send_mail('WebAPP Estoque - Status Importacao de produtos', msgString, 'akio.xd@gmail.com',
             LISTA_REMETENTES_EMAIL, fail_silently=False)
+
+
+@cronjobs.register
+def updateABC_task():
+    print 'Starting update process'
+    updateABCValues()
+    print 'Finished update process'

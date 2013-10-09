@@ -8,7 +8,8 @@ Replace this with more appropriate tests for your application.
 
 from django.test import TestCase
 from salesReport.models import item as modelItem, orderItem as modelOrderItem, order as modelOrder, brands as modelBrands
-from salesReport.views import saveItemInDatabse, saveOrderInDatabase, saveOrderItemInDatabase, getVMD, getVMD30, extractOrderInfoFromMagento, getVMD30ForDatabaseItem, updateItemDetail
+from salesReport.views import saveItemInDatabse, saveOrderInDatabase, saveOrderItemInDatabase, getVMD, getVMD30,\
+    extractOrderInfoFromMagento, getVMD30ForDatabaseItem, updateItemDetail, updateABCValues
 from salesReport.helpers import simple_order, simple_product, simple_item_in_order, test_order_01, item_test_order_01, simple_order_canceled ,\
     pedido_faturamento_pedido_pedido_com_brinde_01, pedido_faturamento_pedido_pedido_com_brinde_02, periodo_faturamento_pedido_pedido_com_cupom_de_desconto,\
     pedido_faturamento_pedido_pedido_com_frete_a_pagar
@@ -225,5 +226,21 @@ class UpdateItemTestCase(TestCase):
 
 
 
+class curvaABC(TestCase):
+    """
+        Test for screen curvaABC
+    """
 
+    def setUp(self):
+        pass
+
+    def test_item_with_10_percento_of_sales(self):
+        """
+            Should give:
+            valor_faturado_do_dia == 10.00
+            valor_faturado_no_periodo == 100
+            percentage = 10%
+            abc_letter = A
+        """
+        pass
 

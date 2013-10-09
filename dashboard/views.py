@@ -599,9 +599,13 @@ class abc(TemplateView):
         return context
 
     def get(self, *args, **kwargs):
+        ##TODO DELETE ME
+        #from salesReport.views import updateABCValues
+        #updateABCValues()
+        ##TODO DELETE ME
+
         context = self.get_context_data()
-        # itens = sorted(itemObject.objects.all(), key=lambda a: a.valor_faturado_do_dia, reverse=True)
-        itens = itemObject.objects.all().order_by('-valor_faturado_do_dia')
+        itens = itemObject.objects.filter(valor_faturado_do_dia__gt=0).order_by('-valor_faturado_do_dia')
 
         #ordenacao
         if self.request.GET.get('order_by'):
@@ -620,41 +624,15 @@ class abc(TemplateView):
         if self.request.GET.get('status'):
             itens = itens.filter(status=self.request.GET.get('status'))
 
+        if self.request.GET.get('abc_letter'):
+            itens = itens.filter(abc_letter__icontains=self.request.GET.get('abc_letter'))
 
-        total_itens_na_base = len(itens)
-
-        total_faturado_no_dia = 0
-        pedido_no_periodo = order.objects.filter(created_at__range=[datetime.datetime.today().replace(hour=0, minute=0, second=0) - datetime.timedelta(days=30) - datetime.timedelta(hours=3), datetime.datetime.today().replace(hour=23, minute=59, second=59) - datetime.timedelta(hours=3)])
-        for pedido in pedido_no_periodo:
-            total_faturado_no_dia += pedido.grand_total
-
-        for count, item in enumerate(itens):
-            percentage = (float(count) / float(total_itens_na_base)) * 100
-            if percentage <= 65.00:
-                item.abc_letter = "A"
-                item.percentage = round(percentage, 2)
-            elif percentage > 65.00 and percentage <= 90.00:
-                item.abc_letter = "B"
-                item.percentage = round(percentage, 2)
-            elif percentage > 90.00:
-                item.abc_letter = "C"
-                item.percentage = round(percentage, 2)
-
-        #paginacao
-        paginator = Paginator(itens, 50)
-        page = self.request.GET.get('page')
-        try:
-            itens = paginator.page(page)
-        except PageNotAnInteger:
-            # If page is not an integer, deliver first page.
-            itens = paginator.page(1)
-        except EmptyPage:
-            # If page is out of range (e.g. 9999), deliver last page of results.
-            itens = paginator.page(paginator.num_pages)
-
+        total_faturado_no_periodo = 0
+        for i in itemObject.objects.all():
+            total_faturado_no_periodo += i.valor_faturado_do_dia
 
         context['itens'] = itens
-        context['total_faturado_no_dia'] = total_faturado_no_dia
+        context['total_faturado_no_periodo'] = total_faturado_no_periodo
         context['brands'] = brands.objects.all()
 
         return self.render_to_response(context)
