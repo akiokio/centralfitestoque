@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib import admin
 from django.conf.urls.static import static
+from django.views.generic import RedirectView
 admin.autodiscover()
 
 
@@ -49,6 +50,7 @@ urlpatterns = patterns('',
 
     url(r'^login/$', loginView, name="login"),
     url(r'^logout/$', logoutView, name="logout"),
+    url(r'^favicon\.ico$', RedirectView.as_view(url=settings.STATIC_URL + 'favicon.ico'))
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += staticfiles_urlpatterns()
