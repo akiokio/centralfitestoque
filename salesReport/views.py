@@ -837,7 +837,4 @@ def updateABCValues():
         elif percentage_count > 90.00:
             item.abc_letter = "C"
 
-        #print percentage_count
-        #print item.name, item.percentage, item.abc_letter
-
         item.save()

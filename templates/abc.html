@@ -48,17 +48,16 @@
             </thead>
             <tbody>
             {% for item in itens %}
-                 <tr class="">
-                     <form action="{% url 'cmm' %}" method="POST">
-                         {% csrf_token %}
-                        <td>{{ forloop.counter }}</td>
-                        <td>{{ item.sku }}</td>
-                        <td>{{ item.name }}</td>
-                        <td>{{ item.brand.name }}</td>
-                        <td>{{ item.valor_faturado_do_dia }}</td>
-                        <td>{{ item.abc_letter }}</td>
-                        <td>{{ item.percentage }}</td>
-                     </form>
+                 <tr class="{% if item.abc_letter == 'A' %}success
+                            {% elif item.abc_letter == 'B'%} warning
+                            {% else %}error{% endif %}">
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ item.sku }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.brand.name }}</td>
+                    <td>{{ item.valor_faturado_do_dia }}</td>
+                    <td>{{ item.abc_letter }}</td>
+                    <td>{{ item.percentage }}</td>
                  </tr>
             {% empty %}
                 <tr>Sem itens</tr>
