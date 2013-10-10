@@ -600,8 +600,8 @@ class abc(TemplateView):
 
     def get(self, *args, **kwargs):
         ##TODO DELETE ME
-        from salesReport.views import updateABCValues
-        updateABCValues()
+        #from salesReport.views import updateABCValues
+        #updateABCValues()
         ##TODO DELETE ME
 
         context = self.get_context_data()
