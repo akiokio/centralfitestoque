@@ -145,7 +145,7 @@ def saveOrderItemInDatabase(order, orderItemToSave):
     itemToSave.estoque_disponivel = itemToSave.estoque_atual - itemToSave.estoque_empenhado
 
     if itemToSave.brand:
-        fator_quantidade = (itemToSave.vmd * itemToSave.brand.meta_dias_estoque) - itemToSave.estoque_disponivel
+        fator_quantidade = itemToSave.estoque_disponivel - (itemToSave.vmd * itemToSave.brand.meta_dias_estoque)
         if (fator_quantidade) >= 0:
             itemToSave.quantidade_excedente = math.ceil(fator_quantidade)
             itemToSave.quantidade_faltante = 0

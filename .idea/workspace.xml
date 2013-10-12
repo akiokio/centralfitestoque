@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ebd84075-4f20-4613-bc6e-2f01cb9657e6" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dashboard/views.py" afterPath="$PROJECT_DIR$/dashboard/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/salesReport/views.py" afterPath="$PROJECT_DIR$/salesReport/views.py" />
     </list>
     <ignored path="centralFitEstoque.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -39,47 +39,25 @@
           <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/salesReport/models.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="46" column="14" selection-start="1896" selection-end="1896" vertical-scroll-proportion="0.0" vertical-offset="225" max-vertical-offset="3030">
+                <state line="46" column="14" selection-start="1896" selection-end="1896" vertical-scroll-proportion="0.0" vertical-offset="600" max-vertical-offset="3030">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="views.py" pinned="false" current="true" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/salesReport/views.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="149" column="43" selection-start="5363" selection-end="5383" vertical-scroll-proportion="0.36316696" vertical-offset="1799" max-vertical-offset="12630">
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
           <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/salesReport/views.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="786" column="52" selection-start="33128" selection-end="33128" vertical-scroll-proportion="0.0" vertical-offset="11847" max-vertical-offset="12630">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="urls.py" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/centralFitEstoque/urls.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="49" column="34" selection-start="2881" selection-end="2904" vertical-scroll-proportion="0.0" vertical-offset="141" max-vertical-offset="945">
-                  <folding>
-                    <element signature="e#0#51#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="tests.py" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/salesReport/tests.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="223" column="0" selection-start="8147" selection-end="8147" vertical-scroll-proportion="-7.1153846" vertical-offset="3160" max-vertical-offset="3780">
-                  <folding>
-                    <element signature="e#208#240#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/dashboard/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="607" column="39" selection-start="25653" selection-end="25653" vertical-scroll-proportion="0.16129032" vertical-offset="8700" max-vertical-offset="10035">
+                <state line="607" column="39" selection-start="25653" selection-end="25653" vertical-scroll-proportion="0.0" vertical-offset="7920" max-vertical-offset="10035">
                   <folding />
                 </state>
               </provider>
@@ -88,7 +66,7 @@
           <file leaf-file-name="cron.py" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/salesReport/cron.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="34" column="58" selection-start="1549" selection-end="1565" vertical-scroll-proportion="-10.846154" vertical-offset="228" max-vertical-offset="1290">
+                <state line="41" column="19" selection-start="1747" selection-end="1762" vertical-scroll-proportion="-14.884615" vertical-offset="228" max-vertical-offset="1290">
                   <folding>
                     <element signature="e#47#62#0" expanded="true" />
                   </folding>
@@ -109,10 +87,10 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="pedidos.html" pinned="false" current="true" current-in-tab="true">
+          <file leaf-file-name="pedidos.html" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/templates/pedidos.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="58" column="47" selection-start="2843" selection-end="2843" vertical-scroll-proportion="0.4578097" vertical-offset="615" max-vertical-offset="1470">
+                <state line="47" column="39" selection-start="2156" selection-end="2156" vertical-scroll-proportion="0.16157989" vertical-offset="615" max-vertical-offset="1470">
                   <folding />
                 </state>
               </provider>
@@ -161,8 +139,8 @@
         <option value="$PROJECT_DIR$/templates/pedidos.html" />
         <option value="$PROJECT_DIR$/templates/abc.html" />
         <option value="$PROJECT_DIR$/centralFitEstoque/urls.py" />
-        <option value="$PROJECT_DIR$/salesReport/views.py" />
         <option value="$PROJECT_DIR$/dashboard/views.py" />
+        <option value="$PROJECT_DIR$/salesReport/views.py" />
       </list>
     </option>
   </component>
@@ -673,7 +651,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="431" />
+      <option name="time" value="432" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -736,10 +714,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/salesReport/cron.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="58" selection-start="1549" selection-end="1565" vertical-scroll-proportion="-10.846154" vertical-offset="228" max-vertical-offset="1290">
+        <state line="41" column="19" selection-start="1747" selection-end="1762" vertical-scroll-proportion="-14.884615" vertical-offset="228" max-vertical-offset="1290">
           <folding>
             <element signature="e#47#62#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/centralFitEstoque/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="49" column="34" selection-start="2881" selection-end="2904" vertical-scroll-proportion="1.0645162" vertical-offset="141" max-vertical-offset="945">
+          <folding>
+            <element signature="e#0#51#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/salesReport/tests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="223" column="0" selection-start="8147" selection-end="8147" vertical-scroll-proportion="0.33333334" vertical-offset="3160" max-vertical-offset="3780">
+          <folding>
+            <element signature="e#208#240#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dashboard/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="607" column="39" selection-start="25653" selection-end="25653" vertical-scroll-proportion="0.0" vertical-offset="7920" max-vertical-offset="10035">
+          <folding />
         </state>
       </provider>
     </entry>
@@ -750,41 +753,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/salesReport/tests.py">
+    <entry file="file://$PROJECT_DIR$/templates/pedidos.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="223" column="0" selection-start="8147" selection-end="8147" vertical-scroll-proportion="-7.1153846" vertical-offset="3160" max-vertical-offset="3780">
-          <folding>
-            <element signature="e#208#240#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/centralFitEstoque/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="34" selection-start="2881" selection-end="2904" vertical-scroll-proportion="0.0" vertical-offset="141" max-vertical-offset="945">
-          <folding>
-            <element signature="e#0#51#0" expanded="true" />
-          </folding>
+        <state line="47" column="39" selection-start="2156" selection-end="2156" vertical-scroll-proportion="0.16157989" vertical-offset="615" max-vertical-offset="1470">
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/salesReport/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="786" column="52" selection-start="33128" selection-end="33128" vertical-scroll-proportion="0.0" vertical-offset="11847" max-vertical-offset="12630">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dashboard/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="607" column="39" selection-start="25653" selection-end="25653" vertical-scroll-proportion="0.16129032" vertical-offset="8700" max-vertical-offset="10035">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/pedidos.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="58" column="47" selection-start="2843" selection-end="2843" vertical-scroll-proportion="0.4578097" vertical-offset="615" max-vertical-offset="1470">
+        <state line="149" column="43" selection-start="5363" selection-end="5383" vertical-scroll-proportion="0.36316696" vertical-offset="1799" max-vertical-offset="12630">
           <folding />
         </state>
       </provider>
