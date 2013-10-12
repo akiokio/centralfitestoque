@@ -767,7 +767,6 @@ def removeOldHoldedOrdersFrom(rangeInicio, rangeFim):
 
     return pedidos_alterados
 
-
 def updateItemDetail():
     #Atualizar diariamente os precos e o status dos produtos
     salesReport = Magento()
@@ -779,6 +778,15 @@ def updateItemDetail():
             item = itemObject.objects.filter(product_id=product['product_id'])
             if len(item) > 0:
                 item = item[0]
+
+                if product['status'] == '1':
+                    product['status'] = True
+                else:
+                    product['status'] = False
+
+                if item.status != product['status']:
+                    item.status == product['status']
+                    atualizado = True
                 if item.price != float(product['price']):
                     item.price = float(product['price'])
                     atualizado = True
@@ -792,6 +800,9 @@ def updateItemDetail():
                 saveItemInDatabse(product)
 
     return quantidade_atualizada
+
+def teste_update_item_detail(request):
+    updateItemDetail()
 
 def updateVMDCron():
     dateInit = datetime.today().replace(hour=0, minute=0, second=0) - timedelta(hours=3)

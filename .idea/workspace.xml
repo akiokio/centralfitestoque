@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ebd84075-4f20-4613-bc6e-2f01cb9657e6" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/centralFitEstoque/urls.py" afterPath="$PROJECT_DIR$/centralFitEstoque/urls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/salesReport/views.py" afterPath="$PROJECT_DIR$/salesReport/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="centralFitEstoque.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -15,7 +18,7 @@
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/centralFitEstoque$Test__salesReport_UpdateItemTestCase_test_update_item_detail.coverage" NAME="Test: salesReport.UpdateItemTestCase.test_update_item_detail Coverage Results" MODIFIED="1380497083291" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/centralFitEstoque$cfit_test_salesReport.coverage" NAME="cfit_test_salesReport Coverage Results" MODIFIED="1381358921406" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/centralFitEstoque$cfit_test_salesReport.coverage" NAME="cfit_test_salesReport Coverage Results" MODIFIED="1381536993824" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -39,48 +42,38 @@
           <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/salesReport/models.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="46" column="14" selection-start="1896" selection-end="1896" vertical-scroll-proportion="0.0" vertical-offset="425" max-vertical-offset="3030">
+                <state line="46" column="14" selection-start="1896" selection-end="1896" vertical-scroll-proportion="0.0" vertical-offset="225" max-vertical-offset="3030">
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
+          <file leaf-file-name="views.py" pinned="false" current="true" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/salesReport/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="837" column="33" selection-start="35257" selection-end="35257" vertical-scroll-proportion="0.0" vertical-offset="2240" max-vertical-offset="2820">
+                <state line="786" column="52" selection-start="33128" selection-end="33128" vertical-scroll-proportion="0.38709676" vertical-offset="11349" max-vertical-offset="12630">
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="urls.py" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/centralFitEstoque/urls.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="49" column="34" selection-start="2881" selection-end="2904" vertical-scroll-proportion="0.0" vertical-offset="141" max-vertical-offset="945">
                   <folding>
-                    <element signature="e#24#118#0" expanded="true" />
-                    <element signature="e#835#1006#0" expanded="false" />
-                    <element signature="e#1043#1185#0" expanded="false" />
-                    <element signature="e#1217#3277#0" expanded="false" />
-                    <element signature="e#3330#3696#0" expanded="false" />
-                    <element signature="e#6209#9576#0" expanded="false" />
-                    <element signature="e#9615#9909#0" expanded="false" />
-                    <element signature="e#9962#10296#0" expanded="false" />
-                    <element signature="e#10364#10699#0" expanded="false" />
-                    <element signature="e#10741#11011#0" expanded="false" />
-                    <element signature="e#11064#11944#0" expanded="false" />
-                    <element signature="e#12023#13482#0" expanded="false" />
-                    <element signature="e#13508#14072#0" expanded="false" />
-                    <element signature="e#14133#15585#0" expanded="false" />
-                    <element signature="e#15615#18569#0" expanded="false" />
-                    <element signature="e#18596#18679#0" expanded="false" />
-                    <element signature="e#18717#19800#0" expanded="false" />
-                    <element signature="e#19874#21359#0" expanded="false" />
-                    <element signature="e#21396#22564#0" expanded="false" />
-                    <element signature="e#22604#23897#0" expanded="false" />
-                    <element signature="e#23938#26581#0" expanded="false" />
-                    <element signature="e#26631#26732#0" expanded="false" />
-                    <element signature="e#26779#26881#0" expanded="false" />
-                    <element signature="e#26924#27267#0" expanded="false" />
-                    <element signature="e#27322#30705#0" expanded="false" />
-                    <element signature="e#30750#31282#0" expanded="false" />
-                    <element signature="e#31315#31708#0" expanded="false" />
-                    <element signature="e#31768#32486#0" expanded="false" />
-                    <element signature="e#32517#33517#0" expanded="false" />
-                    <element signature="e#33544#33871#0" expanded="false" />
-                    <element signature="e#33910#34108#0" expanded="false" />
+                    <element signature="e#0#51#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="tests.py" pinned="false" current="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/salesReport/tests.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="223" column="0" selection-start="8147" selection-end="8147" vertical-scroll-proportion="-7.1153846" vertical-offset="3160" max-vertical-offset="3780">
+                  <folding>
+                    <element signature="e#208#240#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -89,48 +82,16 @@
           <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/dashboard/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="551" column="35" selection-start="23811" selection-end="23811" vertical-scroll-proportion="0.0" vertical-offset="920" max-vertical-offset="1695">
-                  <folding>
-                    <element signature="e#47#141#0" expanded="true" />
-                    <element signature="e#1142#2327#0" expanded="false" />
-                    <element signature="e#2358#2423#0" expanded="false" />
-                    <element signature="e#2455#4403#0" expanded="false" />
-                    <element signature="e#2529#4403#0" expanded="false" />
-                    <element signature="e#4452#7182#0" expanded="false" />
-                    <element signature="e#7221#8569#0" expanded="false" />
-                    <element signature="e#7307#8569#0" expanded="false" />
-                    <element signature="e#8598#8752#0" expanded="false" />
-                    <element signature="e#8795#8999#0" expanded="false" />
-                    <element signature="e#9051#10329#0" expanded="false" />
-                    <element signature="e#10360#12745#0" expanded="false" />
-                    <element signature="e#10433#11771#0" expanded="false" />
-                    <element signature="e#11823#11899#0" expanded="false" />
-                    <element signature="e#11946#12745#0" expanded="false" />
-                    <element signature="e#12791#14460#0" expanded="false" />
-                    <element signature="e#14501#17142#0" expanded="false" />
-                    <element signature="e#14584#15942#0" expanded="false" />
-                    <element signature="e#15994#16080#0" expanded="false" />
-                    <element signature="e#16127#17142#0" expanded="false" />
-                    <element signature="e#17185#17257#0" expanded="false" />
-                    <element signature="e#17311#17403#0" expanded="false" />
-                    <element signature="e#17443#19084#0" expanded="false" />
-                    <element signature="e#19122#23577#0" expanded="false" />
-                    <element signature="e#19207#19289#0" expanded="false" />
-                    <element signature="e#19336#23577#0" expanded="false" />
-                    <element signature="e#23694#23774#0" expanded="false" />
-                    <element signature="e#25247#26835#0" expanded="false" />
-                    <element signature="e#26869#28584#0" expanded="false" />
-                    <element signature="e#26950#27029#0" expanded="false" />
-                    <element signature="e#27075#28584#0" expanded="false" />
-                  </folding>
+                <state line="551" column="35" selection-start="23811" selection-end="23811" vertical-scroll-proportion="0.0" vertical-offset="8265" max-vertical-offset="10035">
+                  <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="cron.py" pinned="false" current="true" current-in-tab="true">
+          <file leaf-file-name="cron.py" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/salesReport/cron.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="38" column="28" selection-start="1668" selection-end="1692" vertical-scroll-proportion="0.45689654" vertical-offset="305" max-vertical-offset="1290">
+                <state line="34" column="58" selection-start="1549" selection-end="1565" vertical-scroll-proportion="-10.846154" vertical-offset="228" max-vertical-offset="1290">
                   <folding>
                     <element signature="e#47#62#0" expanded="true" />
                   </folding>
@@ -145,7 +106,7 @@
           <file leaf-file-name="resumo.html" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/templates/resumo.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="31" column="18" selection-start="1219" selection-end="1219" vertical-scroll-proportion="-13.791667" vertical-offset="134" max-vertical-offset="690">
+                <state line="31" column="18" selection-start="1219" selection-end="1219" vertical-scroll-proportion="0.0" vertical-offset="134" max-vertical-offset="690">
                   <folding />
                 </state>
               </provider>
@@ -154,7 +115,7 @@
           <file leaf-file-name="pedidos.html" pinned="false" current="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/templates/pedidos.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="29" column="49" selection-start="1226" selection-end="1226" vertical-scroll-proportion="-0.32374102" vertical-offset="615" max-vertical-offset="1470">
+                <state line="53" column="19" selection-start="2616" selection-end="2616" vertical-scroll-proportion="0.32315978" vertical-offset="615" max-vertical-offset="1470">
                   <folding />
                 </state>
               </provider>
@@ -163,7 +124,7 @@
           <file leaf-file-name="abc.html" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/templates/abc.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="20" column="0" selection-start="842" selection-end="842" vertical-scroll-proportion="-12.5" vertical-offset="0" max-vertical-offset="1095">
+                <state line="20" column="0" selection-start="842" selection-end="842" vertical-scroll-proportion="0.0" vertical-offset="300" max-vertical-offset="1095">
                   <folding />
                 </state>
               </provider>
@@ -202,9 +163,9 @@
         <option value="$PROJECT_DIR$/salesReport/cron.py" />
         <option value="$PROJECT_DIR$/templates/pedidos.html" />
         <option value="$PROJECT_DIR$/templates/abc.html" />
-        <option value="$PROJECT_DIR$/salesReport/views.py" />
         <option value="$PROJECT_DIR$/dashboard/views.py" />
         <option value="$PROJECT_DIR$/centralFitEstoque/urls.py" />
+        <option value="$PROJECT_DIR$/salesReport/views.py" />
       </list>
     </option>
   </component>
@@ -322,14 +283,14 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="255" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="256" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="256" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
     <property name="recentsLimit" value="5" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="256" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="266" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="1054" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="1056" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="1054" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="261" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="258" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -344,8 +305,8 @@
     <property name="options.lastSelected" value="com.jetbrains.python.configuration.PythonSdkConfigurable" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
     <property name="restartRequiresConfirmation" value="true" />
-    <property name="dynamic.classpath" value="false" />
     <property name="options.searchVisible" value="true" />
+    <property name="dynamic.classpath" value="false" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -468,27 +429,7 @@
       <option name="PARAMETERS" value="" />
       <method />
     </configuration>
-    <configuration default="true" type="tests" factoryName="Unittests">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="centralFitEstoque" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
       <method />
     </configuration>
     <configuration default="true" type="Python.DjangoServer" factoryName="Django server">
@@ -514,7 +455,27 @@
       <option name="customRunCommand" value="" />
       <method />
     </configuration>
-    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
+    <configuration default="true" type="tests" factoryName="Unittests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="centralFitEstoque" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Doctests">
@@ -690,8 +651,8 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2082658" sideWeight="0.43482795" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22042139" sideWeight="0.7609842" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.10298826" sideWeight="0.71543777" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2845622" sideWeight="0.9605123" order="3" side_tool="false" content_ui="tabs" x="1920" y="280" width="1280" height="800" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.104055494" sideWeight="0.71658987" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28341013" sideWeight="0.9605123" order="3" side_tool="false" content_ui="tabs" x="1920" y="280" width="1280" height="800" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23662885" sideWeight="0.28741497" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35676625" sideWeight="0.50041497" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27419356" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -715,7 +676,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="425" />
+      <option name="time" value="431" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -762,32 +723,39 @@
         <state line="114" column="0" selection-start="4779" selection-end="4779" vertical-scroll-proportion="0.33275262" vertical-offset="1309" max-vertical-offset="4020" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/salesReport/tests.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="91" selection-start="553" selection-end="568" vertical-scroll-proportion="0.0" vertical-offset="3200" max-vertical-offset="3780">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/resumo.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="18" selection-start="1219" selection-end="1219" vertical-scroll-proportion="-13.791667" vertical-offset="134" max-vertical-offset="690">
+        <state line="31" column="18" selection-start="1219" selection-end="1219" vertical-scroll-proportion="0.0" vertical-offset="134" max-vertical-offset="690">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/centralFitEstoque/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="101" selection-start="2446" selection-end="2446" vertical-scroll-proportion="0.4827586" vertical-offset="350" max-vertical-offset="930">
-          <folding>
-            <element signature="e#0#51#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/abc.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="0" selection-start="842" selection-end="842" vertical-scroll-proportion="-12.5" vertical-offset="0" max-vertical-offset="1095">
+        <state line="20" column="0" selection-start="842" selection-end="842" vertical-scroll-proportion="0.0" vertical-offset="300" max-vertical-offset="1095">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/salesReport/cron.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="34" column="58" selection-start="1549" selection-end="1565" vertical-scroll-proportion="-10.846154" vertical-offset="228" max-vertical-offset="1290">
+          <folding>
+            <element signature="e#47#62#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dashboard/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="551" column="35" selection-start="23811" selection-end="23811" vertical-scroll-proportion="0.0" vertical-offset="920" max-vertical-offset="1695">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/pedidos.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="53" column="19" selection-start="2616" selection-end="2616" vertical-scroll-proportion="0.32315978" vertical-offset="615" max-vertical-offset="1470">
           <folding />
         </state>
       </provider>
@@ -799,97 +767,28 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/salesReport/tests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="223" column="0" selection-start="8147" selection-end="8147" vertical-scroll-proportion="-7.1153846" vertical-offset="3160" max-vertical-offset="3780">
+          <folding>
+            <element signature="e#208#240#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/centralFitEstoque/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="49" column="34" selection-start="2881" selection-end="2904" vertical-scroll-proportion="0.0" vertical-offset="141" max-vertical-offset="945">
+          <folding>
+            <element signature="e#0#51#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/salesReport/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="837" column="33" selection-start="35257" selection-end="35257" vertical-scroll-proportion="0.0" vertical-offset="2240" max-vertical-offset="2820">
-          <folding>
-            <element signature="e#24#118#0" expanded="true" />
-            <element signature="e#835#1006#0" expanded="false" />
-            <element signature="e#1043#1185#0" expanded="false" />
-            <element signature="e#1217#3277#0" expanded="false" />
-            <element signature="e#3330#3696#0" expanded="false" />
-            <element signature="e#6209#9576#0" expanded="false" />
-            <element signature="e#9615#9909#0" expanded="false" />
-            <element signature="e#9962#10296#0" expanded="false" />
-            <element signature="e#10364#10699#0" expanded="false" />
-            <element signature="e#10741#11011#0" expanded="false" />
-            <element signature="e#11064#11944#0" expanded="false" />
-            <element signature="e#12023#13482#0" expanded="false" />
-            <element signature="e#13508#14072#0" expanded="false" />
-            <element signature="e#14133#15585#0" expanded="false" />
-            <element signature="e#15615#18569#0" expanded="false" />
-            <element signature="e#18596#18679#0" expanded="false" />
-            <element signature="e#18717#19800#0" expanded="false" />
-            <element signature="e#19874#21359#0" expanded="false" />
-            <element signature="e#21396#22564#0" expanded="false" />
-            <element signature="e#22604#23897#0" expanded="false" />
-            <element signature="e#23938#26581#0" expanded="false" />
-            <element signature="e#26631#26732#0" expanded="false" />
-            <element signature="e#26779#26881#0" expanded="false" />
-            <element signature="e#26924#27267#0" expanded="false" />
-            <element signature="e#27322#30705#0" expanded="false" />
-            <element signature="e#30750#31282#0" expanded="false" />
-            <element signature="e#31315#31708#0" expanded="false" />
-            <element signature="e#31768#32486#0" expanded="false" />
-            <element signature="e#32517#33517#0" expanded="false" />
-            <element signature="e#33544#33871#0" expanded="false" />
-            <element signature="e#33910#34108#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dashboard/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="551" column="35" selection-start="23811" selection-end="23811" vertical-scroll-proportion="0.0" vertical-offset="920" max-vertical-offset="1695">
-          <folding>
-            <element signature="e#47#141#0" expanded="true" />
-            <element signature="e#1142#2327#0" expanded="false" />
-            <element signature="e#2358#2423#0" expanded="false" />
-            <element signature="e#2455#4403#0" expanded="false" />
-            <element signature="e#2529#4403#0" expanded="false" />
-            <element signature="e#4452#7182#0" expanded="false" />
-            <element signature="e#7221#8569#0" expanded="false" />
-            <element signature="e#7307#8569#0" expanded="false" />
-            <element signature="e#8598#8752#0" expanded="false" />
-            <element signature="e#8795#8999#0" expanded="false" />
-            <element signature="e#9051#10329#0" expanded="false" />
-            <element signature="e#10360#12745#0" expanded="false" />
-            <element signature="e#10433#11771#0" expanded="false" />
-            <element signature="e#11823#11899#0" expanded="false" />
-            <element signature="e#11946#12745#0" expanded="false" />
-            <element signature="e#12791#14460#0" expanded="false" />
-            <element signature="e#14501#17142#0" expanded="false" />
-            <element signature="e#14584#15942#0" expanded="false" />
-            <element signature="e#15994#16080#0" expanded="false" />
-            <element signature="e#16127#17142#0" expanded="false" />
-            <element signature="e#17185#17257#0" expanded="false" />
-            <element signature="e#17311#17403#0" expanded="false" />
-            <element signature="e#17443#19084#0" expanded="false" />
-            <element signature="e#19122#23577#0" expanded="false" />
-            <element signature="e#19207#19289#0" expanded="false" />
-            <element signature="e#19336#23577#0" expanded="false" />
-            <element signature="e#23694#23774#0" expanded="false" />
-            <element signature="e#25247#26835#0" expanded="false" />
-            <element signature="e#26869#28584#0" expanded="false" />
-            <element signature="e#26950#27029#0" expanded="false" />
-            <element signature="e#27075#28584#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/pedidos.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="49" selection-start="1226" selection-end="1226" vertical-scroll-proportion="-0.32374102" vertical-offset="615" max-vertical-offset="1470">
+        <state line="786" column="52" selection-start="33128" selection-end="33128" vertical-scroll-proportion="0.38709676" vertical-offset="11349" max-vertical-offset="12630">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/salesReport/cron.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="28" selection-start="1668" selection-end="1692" vertical-scroll-proportion="0.45689654" vertical-offset="305" max-vertical-offset="1290">
-          <folding>
-            <element signature="e#47#62#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>

@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, include, url
 from salesReport.views import importAllProducts, importAllOrders,  exportar, importProductCost, atualizarStatusPedido,\
-    SingleOrderInfo, generateCsvFileCronTeste, update_brand
+    SingleOrderInfo, generateCsvFileCronTeste, update_brand, teste_update_item_detail
 from django.conf import settings
 from dashboard.views import home, importar, loginView, logoutView, Faturamento, filtrarFaturamento, cmm,\
     importarQuantidadeEstoque, lista_estoque, exportar_lista_produto, expedicao, pedidos, exportar_lista_produto_fornecedor, \
@@ -47,6 +47,7 @@ urlpatterns = patterns('',
     url(r'^salvar/salesReport/$', generateCsvFileCronTeste, name='generateCsvCron'),
     url(r'^filtrar/faturamento/$', filtrarFaturamento, name='filtrarFaturamento'),
     url(r'^importar/quantidadeestoque/$', importarQuantidadeEstoque, name='importarQuantidadeEstoque'),
+    url(r'^teste/updateItemDetail/$', teste_update_item_detail, name='teste_update_item_detail'),
 
     url(r'^login/$', loginView, name="login"),
     url(r'^logout/$', logoutView, name="logout"),
