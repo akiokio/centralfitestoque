@@ -605,7 +605,7 @@ class abc(TemplateView):
         ##TODO DELETE ME
 
         context = self.get_context_data()
-        itens = itemObject.objects.filter(valor_faturado_do_dia__gt=0).order_by('-valor_faturado_do_dia')
+        itens = itemObject.objects.all().order_by('-valor_faturado_do_dia')
 
         #ordenacao
         if self.request.GET.get('order_by'):
