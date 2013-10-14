@@ -44,7 +44,6 @@ class Magento(object):
             sku = product['sku']
             stock = random.randint(0, 1000)
             parms = [sku, {'qty': stock, 'is_in_stock': 1}]
-            print parms
             status = self.svr.call(self.token, 'product_stock.update', parms)
             print '%s - %s - %s \n' % (sku, stock, status)
 
@@ -70,7 +69,6 @@ class Magento(object):
         print '%s orders recovered' % len(orders)
         for order in orders:
             print('Getting order info: %s - created at: %s' % (order['increment_id'], order['created_at']))
-            info = []
             try:
                 order = OrdersInDatabase.objects.get(increment_id=order['increment_id'])
             except Exception as e:

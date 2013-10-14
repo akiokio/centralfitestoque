@@ -3,7 +3,7 @@ from django.http import HttpRequest, HttpResponse, HttpResponseForbidden, HttpRe
 from salesReport.pymagento import Magento
 import csv, math
 from datetime import date, timedelta, datetime
-from .models import order as orderNaBase, orderItem, brands,  item as itemObject, status_history, csvReport as reportFile
+import models
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from xlrd import open_workbook
@@ -48,9 +48,9 @@ def saveItemInDatabse(i):
 
     if 'marca' in i and i['marca'] != None:
         try:
-            marca = brands.objects.get(name=i['marca'])
+            marca = models.brands.objects.get(name=i['marca'])
         except Exception as e:
-            marca = brands.objects.create(name=i['marca'], meta_dias_estoque=1)
+            marca = models.brands.objects.create(name=i['marca'], meta_dias_estoque=1)
     else:
         marca = None
 
@@ -66,9 +66,9 @@ def saveItemInDatabse(i):
     valor_faturado_do_dia = vmd * float(valor_produto)
 
     try:
-        newItem = itemObject.objects.filter(product_id=i['product_id'])
+        newItem = models.item.objects.filter(product_id=i['product_id'])
         if len(newItem) == 0:
-            newItem = itemObject.objects.create(
+            newItem = models.item.objects.create(
                     product_id=i['product_id'],
                     sku=i['sku'],
                     name=i['name'],
@@ -97,7 +97,7 @@ def saveItemInDatabse(i):
 def saveOrderStatusHistory(iteration, order):
     if not iteration['status']:
         iteration['status'] = 'None'
-    return status_history.objects.create(
+    return models.status_history.objects.create(
         comment=iteration['comment'],
         status=iteration['status'],
         entity_name=iteration['entity_name'],
@@ -109,7 +109,7 @@ def saveOrderStatusHistory(iteration, order):
 
 def saveOrderItemInDatabase(order, orderItemToSave):
     try:
-        itemToSave = itemObject.objects.get(sku=int(orderItemToSave['sku']))
+        itemToSave = models.item.objects.get(sku=int(orderItemToSave['sku']))
     except Exception as e:
         itemToSave = saveItemInDatabse(orderItemToSave)
 
@@ -118,7 +118,7 @@ def saveOrderItemInDatabase(order, orderItemToSave):
     else:
         is_child = False
 
-    newOrderItem = orderItem.objects.create(
+    newOrderItem = models.orderItem.objects.create(
         item=itemToSave,
         order=order,
         quantidade=float(orderItemToSave['qty_ordered']),
@@ -169,7 +169,7 @@ def saveOrderItemInDatabase(order, orderItemToSave):
 @transaction.commit_on_success
 def saveOrderInDatabase(o):
     print 'Saving Order: %s' % o['increment_id']
-    databaseOrder = orderNaBase.objects.filter(increment_id=o['increment_id'])
+    databaseOrder = models.order.objects.filter(increment_id=o['increment_id'])
     if len(databaseOrder) > 0:
         print('Order in database: %s' % databaseOrder[0].increment_id)
         return databaseOrder[0]
@@ -195,7 +195,7 @@ def saveOrderInDatabase(o):
             o['grand_total'] = o['subtotal']
             o['base_grand_total'] = o['subtotal']
 
-        databaseOrder = orderNaBase(
+        databaseOrder = models.order(
                                             increment_id=o['increment_id'],
                                             created_at= datetime.strptime(o['created_at'], '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone.utc),
                                             updated_at=datetime.strptime(o['updated_at'], '%Y-%m-%d %H:%M:%S').replace(tzinfo=timezone.utc),
@@ -229,7 +229,7 @@ def saveOrderInDatabase(o):
 def getQtyHolded(item, dateEnd):
     dateStart = dateEnd - timedelta(days=7)
     try:
-        totalInPeriod = orderItem.objects.filter(item__sku=item[0]).filter(created_at__range=[dateStart, dateEnd]).filter(order__status='holded')
+        totalInPeriod = models.orderItem.objects.filter(item__sku=item[0]).filter(created_at__range=[dateStart, dateEnd]).filter(order__status='holded')
     except Exception as e:
         print e
         totalInPeriod = []
@@ -237,7 +237,7 @@ def getQtyHolded(item, dateEnd):
 
 def getVMD30(item, dateMinus30, dateRangeEnd):
     try:
-        totalInPeriod = orderItem.objects.filter(item__sku=item[0]).filter(created_at__range=[dateMinus30, dateRangeEnd]).exclude(order__status='canceled').exclude(order__status='holded')
+        totalInPeriod = models.orderItem.objects.filter(item__sku=item[0]).filter(created_at__range=[dateMinus30, dateRangeEnd]).exclude(order__status='canceled').exclude(order__status='holded')
     except Exception as e:
         print e
         totalInPeriod = []
@@ -246,7 +246,7 @@ def getVMD30(item, dateMinus30, dateRangeEnd):
 
 def getVMD30ForDatabaseItem(item, dateMinus30, dateRangeEnd):
     try:
-        totalInPeriod = orderItem.objects.filter(item__sku=item.sku).filter(created_at__range=[dateMinus30, dateRangeEnd]).exclude(order__status='canceled').exclude(order__status='holded')
+        totalInPeriod = models.orderItem.objects.filter(item__sku=item.sku).filter(created_at__range=[dateMinus30, dateRangeEnd]).exclude(order__status='canceled').exclude(order__status='holded')
     except Exception as e:
         print e
         totalInPeriod = []
@@ -326,7 +326,7 @@ def generateCSV(orderArray, dateStart, dateEnd, itemsHash, productList):
 
 def getBrand(item):
     BRANDS_ARRAY = []
-    for brand in brands.objects.all():
+    for brand in models.brands.objects.all():
         BRANDS_ARRAY.append(brand.name.encode('UTF-8'))
     itemDetail = item['name'].split('-')
     if itemDetail[-1].strip().encode('UTF-8') not in BRANDS_ARRAY and len(itemDetail) >= 2:
@@ -353,7 +353,7 @@ def importOrdersSinceDay(request, dateStart, dateEnd):
     productList = []
 
     BRANDS_ARRAY = []
-    for brand in brands.objects.all():
+    for brand in models.brands.objects.all():
         BRANDS_ARRAY.append(brand.name.encode('UTF-8'))
 
     for product in salesReport.getProductArray():
@@ -380,10 +380,10 @@ def exportar(request):
         productList = []
         BRANDS_ARRAY = []
 
-        for brand in brands.objects.all():
+        for brand in models.brands.objects.all():
             BRANDS_ARRAY.append(brand.name.encode('UTF-8'))
 
-        for product in itemObject.objects.all():
+        for product in models.item.objects.all():
             itemsHash.append(product.sku)
             itemDict = {
                 'name': product.name
@@ -400,7 +400,7 @@ def exportar(request):
         dataInicial = datetime.strptime(request.POST.get('dataInicio'), '%d-%m-%Y')
         dataFinal = datetime.strptime(request.POST.get('dataFim') + ' 23:59:59', '%d-%m-%Y %H:%M:%S')
 
-        orders = orderNaBase.objects.filter(created_at__range=[dataInicial, dataFinal])
+        orders = models.order.objects.filter(created_at__range=[dataInicial, dataFinal])
 
         for order in orders:
             if order.status == 'processing':
@@ -460,11 +460,11 @@ def importAllProducts(request):
         salesReport.connect()
         quantidadeImportada = 0
         BRANDS_ARRAY = []
-        for brand in brands.objects.all():
+        for brand in models.brands.objects.all():
             BRANDS_ARRAY.append(brand.name.encode('UTF-8'))
         for product in salesReport.getProductArray():
             if RepresentsInt(product['sku']):
-                exist = itemObject.objects.filter(sku=product['sku'])
+                exist = models.item.objects.filter(sku=product['sku'])
                 if len(exist) == 0:
                     saveItemInDatabse(product)
                     quantidadeImportada += 1
@@ -550,7 +550,7 @@ def importProductCost(request):
                     values.append(s.cell(row, col).value)
                 try:
                     if values[2] != 0:
-                        produto = itemObject.objects.get(sku=values[2])
+                        produto = models.item.objects.get(sku=values[2])
                         produto.cost = values[4]
                         produto.save()
                         quantidadeAtualizada += 1
@@ -568,7 +568,7 @@ def importProductCost(request):
 
 def updateLast7daysOrderStatus():
     data_inicio = datetime.today() - timedelta(days=7)
-    orders = orderNaBase.objects.filter(created_at__gt=data_inicio, status__in=['holded', 'processing'])
+    orders = models.order.objects.filter(created_at__gt=data_inicio, status__in=['holded', 'processing'])
     quantidadeAtualizada = 0
     salesReport = Magento()
     salesReport.connect()
@@ -639,7 +639,7 @@ def generateCsvFileCron(dataInicial, dataFinal):
     itemsHash = []
     productList = []
 
-    for product in itemObject.objects.all():
+    for product in models.item.objects.all():
         itemsHash.append(product.sku)
 
         if not product.brand:
@@ -661,7 +661,7 @@ def generateCsvFileCron(dataInicial, dataFinal):
 
         productList.append([product.sku, product.name, marca, price, 0, 0, 0, 0, 0, 0, status])
 
-    orders = orderNaBase.objects.filter(created_at__range=[dataInicial, dataFinal])
+    orders = models.order.objects.filter(created_at__range=[dataInicial, dataFinal])
 
     for order in orders:
         if order.status == 'processing':
@@ -721,7 +721,7 @@ def generateCsvFileCron(dataInicial, dataFinal):
 
         from django.core.files import File
         djangoFile = File(csvfile)
-        csvReport = reportFile(csvFile=djangoFile, created_at=datetime.now())
+        csvReport = models.csvReport(csvFile=djangoFile, created_at=datetime.now())
         csvReport.save()
 
     return csvReport.csvFile.url
@@ -743,7 +743,7 @@ def update_brand(request):
     quantidadeImportada = 0
     for product in salesReport.getProductArray():
         if RepresentsInt(product['sku']):
-            exist = itemObject.objects.filter(sku=product['sku'])
+            exist = models.item.objects.filter(sku=product['sku'])
             if len(exist) == 0:
                 saveItemInDatabse(product)
                 quantidadeImportada += 1
@@ -755,7 +755,7 @@ def removeOldHoldedOrdersFrom(rangeInicio, rangeFim):
     data_fim = datetime.today() - timedelta(days=rangeFim)
     data_inicio = datetime.today() - timedelta(days=rangeInicio)
     pedidos_alterados =  0
-    orders = orderNaBase.objects.filter(created_at__range=[data_inicio, data_fim], status='holded')
+    orders = models.order.objects.filter(created_at__range=[data_inicio, data_fim], status='holded')
     for order in orders:
         for item in order.orderitem_set.all():
             if not item.removido_estoque:
@@ -775,7 +775,7 @@ def updateItemDetail():
     for product in salesReport.getProductArray():
         atualizado = False
         if RepresentsInt(product['sku']):
-            item = itemObject.objects.filter(product_id=product['product_id'])
+            item = models.item.objects.filter(product_id=product['product_id'])
             if len(item) > 0:
                 item = item[0]
 
@@ -808,13 +808,13 @@ def updateVMDCron():
     dateInit = datetime.today().replace(hour=0, minute=0, second=0) - timedelta(hours=3)
     dateEnd = datetime.today().replace(hour=23, minute=59, second=59) - timedelta(days=30) - timedelta(hours=3)
 
-    for item in itemObject.objects.all():
+    for item in models.item.objects.all():
         item.vmd = getVMD30ForDatabaseItem(item, dateEnd, dateInit)
         item.save()
 
 def updateVlrFaturadoDiaCron():
 
-    for item in itemObject.objects.all():
+    for item in models.item.objects.all():
         valor_produto = item.specialPrice if item.specialPrice else item.price
         item.valor_faturado_do_dia = item.vmd * valor_produto
         item.save()
@@ -822,7 +822,7 @@ def updateVlrFaturadoDiaCron():
 
 def updateABCValues():
     total_faturado_no_periodo = 0
-    for i in itemObject.objects.all():
+    for i in models.item.objects.all():
         if float(i.vmd) > 0.0:
             if not i.valor_faturado_do_dia or float(i.valor_faturado_do_dia) == 0.0:
                 if i.specialPrice:
@@ -835,7 +835,7 @@ def updateABCValues():
         total_faturado_no_periodo += i.valor_faturado_do_dia
 
     percentage_count = 0
-    for count, item in enumerate(itemObject.objects.filter(valor_faturado_do_dia__gt=0).order_by('-valor_faturado_do_dia')):
+    for count, item in enumerate(models.item.objects.filter(valor_faturado_do_dia__gt=0).order_by('-valor_faturado_do_dia')):
         percentage = (float(item.valor_faturado_do_dia) / float(total_faturado_no_periodo)) * 100
 
         percentage_count += percentage

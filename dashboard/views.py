@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 __author__ = 'akiokio'
+
+from salesReport import models as salesReportModels
+
 from django.http import HttpRequest, HttpResponse, HttpResponseForbidden, HttpResponseRedirect
-from salesReport.models import order as orderNaBase, orderItem, brands, item as itemNaBase
-import datetime
-from salesReport.models import order, orderItem, item as itemObject
 from django.views.generic import TemplateView, FormView, CreateView, UpdateView, ListView, DetailView, DeleteView
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -13,15 +13,15 @@ from django.core.urlresolvers import reverse
 from django.utils import simplejson
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 from xlrd import open_workbook
 from django.shortcuts import redirect
 from django.contrib import messages
 from zipfile import ZipFile
-import xml.etree.ElementTree as ET
 from xml_helper import XmlDictConfig, XmlListConfig
 from tempfile import TemporaryFile
 from xlwt import Workbook
-import math
+import math, datetime, xml.etree.ElementTree as ET
 
 def loginView(request):
     if request.method == 'POST':
@@ -78,7 +78,7 @@ class home(TemplateView):
         pedidoArray.append(['TOTAL', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
 
         #Preenche a tabela com os pedidos
-        for orderInPeriod in order.objects.filter(created_at__range=[dateInicio.date(), dateFim.date()]):
+        for orderInPeriod in salesReportModels.order.objects.filter(created_at__range=[dateInicio.date(), dateFim.date()]):
             #Ajuste de UTC para GMT-3
             orderInPeriod.created_at -= datetime.timedelta(hours=3)
             diferencaDias = dateFim.date() - orderInPeriod.created_at.date()
@@ -99,7 +99,7 @@ def getFaturamentoForDay(date, totalArr):
     inicioDoDia = date.replace(hour=0, minute=0, second=0) - datetime.timedelta(hours=3)
     fimDoDia = date.replace(hour=23, minute=59, second=59) - datetime.timedelta(hours=3)
 
-    orders = orderNaBase.objects.filter(updated_at__range=[inicioDoDia, fimDoDia]).filter(status__in=['complete', 'complete2'])
+    orders = salesReportModels.order.objects.filter(updated_at__range=[inicioDoDia, fimDoDia]).filter(status__in=['complete', 'complete2'])
     today = str(date.day) + '-' + str(date.month),
 
 
@@ -257,7 +257,7 @@ class cmm(TemplateView):
 
     def get(self, *args, **kwargs):
         context = self.get_context_data()
-        itens = itemObject.objects.all().order_by('sku')
+        itens = salesReportModels.item.objects.all().order_by('sku')
 
         #Filtros
         if self.request.GET.get('sku'):
@@ -299,7 +299,7 @@ class cmm(TemplateView):
         return context
 
     def post(self, *args, **kwargs):
-        produto = itemObject.objects.get(sku=self.request.POST.get('sku'))
+        produto = salesReportModels.item.objects.get(sku=self.request.POST.get('sku'))
 
         if self.request.POST.get('cmm_novo'):
             produto.cmm = ((produto.cmm * produto.estoque_atual) + (float(self.request.POST.get('cmm_novo').replace(',','.')) * float(self.request.POST.get('qtd_a_posicionar')))) \
@@ -324,7 +324,7 @@ def importarQuantidadeEstoque(request):
                     values.append(s.cell(row, col).value)
                 try:
                     if values[0] != 0:
-                        produto = itemNaBase.objects.get(sku=values[0])
+                        produto = salesReportModels.item.objects.get(sku=values[0])
 
                         # produto.price = values[2]
                         produto.specialPrice = values[2]
@@ -338,7 +338,7 @@ def importarQuantidadeEstoque(request):
                         produto.margem = 1 - (float(produto.cost) / float(produto.specialPrice))
 
                         dateMinus8 = datetime.datetime.today() - datetime.timedelta(days=8)
-                        qtd_produtos_comprometidos = len(orderItem.objects.filter(item__sku=values[0]).filter(order__status='holded').filter(created_at__gt=dateMinus8))
+                        qtd_produtos_comprometidos = len(salesReportModels.orderItem.objects.filter(item__sku=values[0]).filter(order__status='holded').filter(created_at__gt=dateMinus8))
                         produto.estoque_empenhado = qtd_produtos_comprometidos
                         produto.estoque_disponivel = int(values[4]) - qtd_produtos_comprometidos
                         produto.save()
@@ -355,7 +355,7 @@ class lista_estoque(TemplateView):
 
     def get(self, *args, **kwargs):
         context = self.get_context_data()
-        itens = itemObject.objects.all().order_by('sku')
+        itens = salesReportModels.item.objects.all().order_by('sku')
 
         #Filtros
         if self.request.GET.get('sku'):
@@ -396,12 +396,12 @@ class lista_estoque(TemplateView):
         return context
 
     def post(self, *args, **kwargs):
-        produto = itemObject.objects.get(sku=self.request.POST.get('sku'))
+        produto = salesReportModels.item.objects.get(sku=self.request.POST.get('sku'))
 
 
         if self.request.POST.get('qtd_a_posicionar'):
             produto.estoque_atual = int(self.request.POST.get('qtd_a_posicionar'))
-            produto.estoque_disponivel = int(self.request.POST.get('qtd_a_posicionar')) - len(orderItem.objects.filter(item__sku=produto.sku).filter(order__status='holded'))
+            produto.estoque_disponivel = int(self.request.POST.get('qtd_a_posicionar')) - len(salesReportModels.orderItem.objects.filter(item__sku=produto.sku).filter(order__status='holded'))
         if self.request.POST.get('price'):
             produto.price = self.request.POST.get('price').replace(',', '.')
         if self.request.POST.get('specialPrice'):
@@ -551,7 +551,7 @@ class pedidos(TemplateView):
 
     def get(self, *args, **kwargs):
         context = self.get_context_data()
-        itens = itemObject.objects.all().order_by('sku')
+        itens = salesReportModels.item.objects.all().order_by('sku')
 
         #ordenacao
         if self.request.GET.get('order_by'):
@@ -587,7 +587,7 @@ class pedidos(TemplateView):
 
         context['itens'] = itens
 
-        context['brands'] = brands.objects.all()
+        context['brands'] = salesReportModels.brands.objects.all()
 
         return self.render_to_response(context)
 
@@ -605,7 +605,7 @@ class abc(TemplateView):
         ##TODO DELETE ME
 
         context = self.get_context_data()
-        itens = itemObject.objects.all().order_by('-valor_faturado_do_dia')
+        itens = salesReportModels.item.objects.all().order_by('-valor_faturado_do_dia')
 
         #ordenacao
         if self.request.GET.get('order_by'):
@@ -628,12 +628,12 @@ class abc(TemplateView):
             itens = itens.filter(abc_letter__icontains=self.request.GET.get('abc_letter'))
 
         total_faturado_no_periodo = 0
-        for i in itemObject.objects.all():
+        for i in salesReportModels.item.objects.all():
             total_faturado_no_periodo += i.valor_faturado_do_dia
 
         context['itens'] = itens
         context['total_faturado_no_periodo'] = total_faturado_no_periodo
-        context['brands'] = brands.objects.all()
+        context['brands'] = salesReportModels.brands.objects.all()
 
         return self.render_to_response(context)
 
@@ -646,7 +646,7 @@ class resumo(TemplateView):
 
     def get(self, *args, **kwargs):
         context = self.get_context_data()
-        itens = itemObject.objects.all()
+        itens = salesReportModels.item.objects.all()
 
         #Filtros
         if self.request.GET.get('marca'):
@@ -679,7 +679,7 @@ class resumo(TemplateView):
         context['valor_faltante'] = valor_faltante
         context['estoque_em_dias'] = estoque_em_dias
 
-        context['brands'] = brands.objects.all().order_by('name')
+        context['brands'] = salesReportModels.brands.objects.all().order_by('name')
 
 
         return self.render_to_response(context)
