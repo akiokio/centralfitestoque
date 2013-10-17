@@ -9,12 +9,13 @@ Replace this with more appropriate tests for your application.
 from django.test import TestCase
 import salesReport.models as salesReportModels
 import salesReport.views as salesReportViews
+import dashboard.views as dashboradViews
 from salesReport.helpers import simple_order, simple_product, simple_item_in_order, test_order_01, item_test_order_01, simple_order_canceled ,\
     pedido_faturamento_pedido_pedido_com_brinde_01, pedido_faturamento_pedido_pedido_com_brinde_02, periodo_faturamento_pedido_pedido_com_cupom_de_desconto,\
     pedido_faturamento_pedido_pedido_com_frete_a_pagar
-from .factorys import brandFactory, itemFactory
+from .factorys import brandFactory, itemFactory, orderItemFactory, orderFactory
 import datetime
-from dashboard.views import getFaturamentoForDay
+
 
 class SimpleTest(TestCase):
     def test_basic_addition(self):
@@ -160,7 +161,7 @@ class faturamentoTestCase(TestCase):
         array_esperado = ['1-7', 1, 151.41, 46.51, 10, 0, 94.9, 64.3, 46.51, 2.00, 32.24, 20.22, 94.9, 1.0]
         date = datetime.datetime.strptime('01/07/2013', '%d/%m/%Y')
 
-        faturamento_array = getFaturamentoForDay(date, [0,0,0,0,0,0,0,0,0,0,0,0,0,0])
+        faturamento_array = dashboradViews.getFaturamentoForDay(date, [0,0,0,0,0,0,0,0,0,0,0,0,0,0])
 
         self.assertEqual(array_esperado, faturamento_array)
 
@@ -170,7 +171,7 @@ class faturamentoTestCase(TestCase):
         array_esperado = ['3-7', 1, 30.86, 6.96, 0, 0, 23.9, 12.5, 6.96, 0.89, 47.7, 34.04, 23.9, 1.0]
         date = datetime.datetime.strptime('03/07/2013', '%d/%m/%Y')
 
-        faturamento_array = getFaturamentoForDay(date, [0,0,0,0,0,0,0,0,0,0,0,0,0,0])
+        faturamento_array = dashboradViews.getFaturamentoForDay(date, [0,0,0,0,0,0,0,0,0,0,0,0,0,0])
 
         self.assertEqual(array_esperado, faturamento_array)
 
@@ -180,7 +181,7 @@ class faturamentoTestCase(TestCase):
         array_esperado = ['4-7', 1, 159.7, 0, 0, 2.1, 157.6, 100.5, 19.4, 4.63, 36.23, 20.99, 157.6, 3.0]
         date = datetime.datetime.strptime('04/07/2013', '%d/%m/%Y')
 
-        faturamento_array = getFaturamentoForDay(date, [0,0,0,0,0,0,0,0,0,0,0,0,0,0])
+        faturamento_array = dashboradViews.getFaturamentoForDay(date, [0,0,0,0,0,0,0,0,0,0,0,0,0,0])
 
         self.assertEqual(array_esperado, faturamento_array)
 
@@ -190,7 +191,7 @@ class faturamentoTestCase(TestCase):
         array_esperado = ['2-7', 1, 294.9, 0, 0, 0, 294.9, 183.22, 21, 8.55, 37.87, 27.85, 294.9, 1.0]
         date = datetime.datetime.strptime('02/07/2013', '%d/%m/%Y')
 
-        faturamento_array = getFaturamentoForDay(date, [0,0,0,0,0,0,0,0,0,0,0,0,0,0])
+        faturamento_array = dashboradViews.getFaturamentoForDay(date, [0,0,0,0,0,0,0,0,0,0,0,0,0,0])
 
         self.assertEqual(array_esperado, faturamento_array)
 
@@ -200,7 +201,7 @@ class faturamentoTestCase(TestCase):
         array_esperado = ['3-7', 1, 169.9, 0, 16.99, 0, 152.91, 109.3, 28.1, 4.43, 28.52, 7.24, 152.91, 1.0]
         date = datetime.datetime.strptime('03/07/2013', '%d/%m/%Y')
 
-        faturamento_array = getFaturamentoForDay(date, [0,0,0,0,0,0,0,0,0,0,0,0,0,0])
+        faturamento_array = dashboradViews.getFaturamentoForDay(date, [0,0,0,0,0,0,0,0,0,0,0,0,0,0])
 
         self.assertEqual(array_esperado, faturamento_array)
 
@@ -226,10 +227,12 @@ class UpdateItemTestCase(TestCase):
     def setUp(self):
         item = itemFactory(product_id=76,
                                   name=u'LA Top Definition 120 cápsulas (com Cromo) - Integralmédica',
-                                  status=False)
+                                  status=False,
+                                  price=0,
+                                  specialPrice=0)
         item.save()
 
-    def test_update_item_status(self):
+    def test_update_item_details(self):
         product_array = {
             'product_id': 76,
             'sku': 76,
@@ -241,8 +244,8 @@ class UpdateItemTestCase(TestCase):
         item = salesReportModels.item.objects.get(product_id=76)
         self.assertEqual(True, item.status)
         self.assertEqual(1, quantidade_atualizada)
-
-
+        self.assertEqual(99.99, item.price)
+        self.assertEqual(89.99, item.specialPrice)
 
 
 class curvaABC(TestCase):
@@ -251,15 +254,71 @@ class curvaABC(TestCase):
     """
 
     def setUp(self):
-        pass
+        item1 = itemFactory(product_id=76,
+                                  name=u'LA Top Definition 120 cápsulas (com Cromo) - Integralmédica',
+                                  status=False,
+                                  price=10,
+                                  specialPrice=9,
+                                  vmd=1)
+        item1.save()
 
-    def test_item_with_10_percento_of_sales(self):
-        """
-            Should give:
-            valor_faturado_do_dia == 10.00
-            valor_faturado_no_periodo == 100
-            percentage = 10%
-            abc_letter = A
-        """
-        pass
 
+        item2 = itemFactory(product_id=1,
+                                  name=u'LA Integralmédica',
+                                  status=False,
+                                  price=10,
+                                  specialPrice=9,
+                                  vmd=0.666)
+        item2.save()
+
+
+        item3 = itemFactory(product_id=2,
+                                  name=u'Top Definition - Integralmédica',
+                                  status=False,
+                                  price=10,
+                                  specialPrice=9,
+                                  vmd=0.333)
+        item3.save()
+
+        item4 = itemFactory(product_id=3,
+                                  name=u'Top Definition - Integralmédica',
+                                  status=False,
+                                  price=10,
+                                  specialPrice=9,
+                                  vmd=0.0)
+        item4.save()
+
+        salesReportViews.updateABCValues()
+
+    def test_item_default_sales(self):
+        """
+            TOTAL FATURADO NO PERIODO=17.991
+        """
+
+        item = salesReportModels.item.objects.get(product_id=76)
+
+        self.assertEqual(9, item.valor_faturado_do_dia)
+        self.assertEqual(50.02, round(item.percentage, 2))
+        self.assertEqual('A', item.abc_letter)
+
+        item = salesReportModels.item.objects.get(product_id=1)
+
+        self.assertEqual(5.994, item.valor_faturado_do_dia)
+        self.assertEqual(33.32, round(item.percentage, 2))
+        self.assertEqual('B', item.abc_letter)
+
+        item = salesReportModels.item.objects.get(product_id=2)
+
+        self.assertEqual(2.997, item.valor_faturado_do_dia)
+        self.assertEqual(16.66, round(item.percentage, 2))
+        self.assertEqual('C', item.abc_letter)
+
+    def test_item_dont_get_valor_faturado_do_dia_eq_0(self):
+        """
+            Dont give a letter to itens who dont sell anything
+        """
+
+        item = salesReportModels.item.objects.get(product_id=3)
+        self.assertEqual(0, item.valor_faturado_do_dia)
+        self.assertEqual(None, item.percentage)
+        self.assertEqual(None, item.abc_letter)

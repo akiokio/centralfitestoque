@@ -25,9 +25,11 @@ class itemFactory(factory.Factory):
     brand = factory.SubFactory(brandFactory)
     status = True
     cmm = 0.333
+    vmd = 0
     estoque_atual = 10
     estoque_empenhado = 3
     estoque_disponivel = 7
+    valor_faturado_do_dia = 0
 
 
 class orderFactory(factory.Factory):
@@ -56,3 +58,18 @@ class orderFactory(factory.Factory):
     shipping_address_region = 'Sao Paulo'
     shipping_address_street = 'Rua Jd. Ivone, 17'
     weight = round(randint(1,30), 2)
+
+
+class orderItemFactory(factory.Factory):
+    FACTORY_FOR = orderItem
+
+    created_at = datetime.datetime.today()
+    updated_at = datetime.datetime.today() + datetime.timedelta(minutes=30)
+    quantidade = randint(1, 20)
+    price = 100
+    is_child = False
+    productType = 'simple'
+    removido_estoque = False
+
+    item = factory.SubFactory(itemFactory)
+    order = factory.SubFactory(orderFactory)

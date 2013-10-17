@@ -65,6 +65,10 @@ class item(models.Model):
         self.vmd = round(float(len(totalInPeriod) / 30.0), 3)
         self.save()
 
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        super(item, self).save()
+
 
 class order(models.Model):
     increment_id = models.BigIntegerField(primary_key=True)
