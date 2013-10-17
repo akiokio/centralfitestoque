@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 __author__ = 'akiokio'
 
-from salesReport import models as salesReportModels
+from salesReport import models as salesReportModels, views as salesReportViews
 
 from django.http import HttpRequest, HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from django.views.generic import TemplateView, FormView, CreateView, UpdateView, ListView, DetailView, DeleteView
@@ -590,6 +590,13 @@ class pedidos(TemplateView):
         context['brands'] = salesReportModels.brands.objects.all()
 
         return self.render_to_response(context)
+
+    def post(self, *args, **kwargs):
+        for product in salesReportModels.item.objects.all():
+            salesReportViews.calculate_stock_variables(product)
+            product.save()
+            
+        return HttpResponseRedirect(reverse('pedidos'))
 
 class abc(TemplateView):
     template_name = 'abc.html'

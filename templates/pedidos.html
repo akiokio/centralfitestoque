@@ -5,7 +5,12 @@
 
 {% block main_content %}
     <div class='well'>
-        <h4>Tabela Planejamento de Pedidos</h4>
+        <h4>Tabela Planejamento de Pedidos
+            <form action="{% url 'pedidos' %}" method="post">
+                {% csrf_token %}
+                <button class="btn btn-warning" type="submit">Atualizar todos os itens</button>
+            </form>
+        </h4>
 
         <div style="width: 100%;">
             <p class="" style="float:left;">

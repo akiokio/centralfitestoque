@@ -14,7 +14,7 @@ from salesReport.helpers import simple_order, simple_product, simple_item_in_ord
     pedido_faturamento_pedido_pedido_com_brinde_01, pedido_faturamento_pedido_pedido_com_brinde_02, periodo_faturamento_pedido_pedido_com_cupom_de_desconto,\
     pedido_faturamento_pedido_pedido_com_frete_a_pagar
 from .factorys import brandFactory, itemFactory, orderItemFactory, orderFactory
-import datetime
+import datetime, math
 
 
 class SimpleTest(TestCase):
@@ -322,3 +322,66 @@ class curvaABC(TestCase):
         self.assertEqual(0, item.valor_faturado_do_dia)
         self.assertEqual(None, item.percentage)
         self.assertEqual(None, item.abc_letter)
+
+
+class estoqueTestCase(TestCase):
+    """
+        Calcula coisas como quantidade_excedente, quantidade_faltante
+        FORMULA: itemToSave.estoque_disponivel - (itemToSave.vmd * itemToSave.brand.meta_dias_estoque)
+    """
+
+    def setUp(self):
+        brand = brandFactory(name='brand01', meta_dias_estoque=10)
+
+        brand.save()
+
+        item1 = itemFactory(product_id=76,
+                                  name=u'LA Top Definition 120 cápsulas (com Cromo) - Integralmédica',
+                                  status=False,
+                                  price=10,
+                                  specialPrice=9,
+                                  vmd=1,
+                                  estoque_atual=11,
+                                  estoque_empenhado=0,
+                                  estoque_disponivel=11,
+                                  brand=brand)
+        item1.save()
+
+    def test_calculate_qtd_excedente_1(self):
+        item = salesReportModels.item.objects.get(product_id=76)
+
+        salesReportViews.calculate_stock_variables(item)
+
+        self.assertEqual(1, item.quantidade_excedente)
+        self.assertEqual(0, item.quantidade_faltante)
+
+    def test_calculate_qtd_faltante_1(self):
+        item = salesReportModels.item.objects.get(product_id=76)
+        item.estoque_disponivel = 9
+
+        salesReportViews.calculate_stock_variables(item)
+
+        self.assertEqual(0, item.quantidade_excedente)
+        self.assertEqual(1, item.quantidade_faltante)
+
+    def test_calculate_qtd_excedente_16(self):
+        item = salesReportModels.item.objects.get(product_id=76)
+        item.vmd = 0.133
+        item.estoque_disponivel = 18
+        item.brand.meta_dias_estoque = 20
+
+        salesReportViews.calculate_stock_variables(item)
+
+        self.assertEqual(16, item.quantidade_excedente)
+        self.assertEqual(0, item.quantidade_faltante)
+
+    def test_calculate_qtd_faltante_21(self):
+        item = salesReportModels.item.objects.get(product_id=76)
+        item.vmd = 0.133
+        item.estoque_disponivel = 18
+        item.brand.meta_dias_estoque = 20
+
+        salesReportViews.calculate_stock_variables(item)
+
+        self.assertEqual(16, item.quantidade_excedente)
+        self.assertEqual(0, item.quantidade_faltante)

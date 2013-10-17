@@ -106,6 +106,16 @@ def saveOrderStatusHistory(iteration, order):
     )
 
 
+def calculate_stock_variables(itemToSave):
+    if itemToSave.brand:
+        fator_quantidade = itemToSave.estoque_disponivel - (itemToSave.vmd * itemToSave.brand.meta_dias_estoque)
+        if (fator_quantidade) >= 0:
+            itemToSave.quantidade_excedente = math.ceil(fator_quantidade)
+            itemToSave.quantidade_faltante = 0
+        else:
+            itemToSave.quantidade_faltante = math.ceil(fator_quantidade) * -1
+            itemToSave.quantidade_excedente = 0
+
 
 def saveOrderItemInDatabase(order, orderItemToSave):
     try:
@@ -144,19 +154,12 @@ def saveOrderItemInDatabase(order, orderItemToSave):
 
     itemToSave.estoque_disponivel = itemToSave.estoque_atual - itemToSave.estoque_empenhado
 
-    if itemToSave.brand:
-        fator_quantidade = itemToSave.estoque_disponivel - (itemToSave.vmd * itemToSave.brand.meta_dias_estoque)
-        if (fator_quantidade) >= 0:
-            itemToSave.quantidade_excedente = math.ceil(fator_quantidade)
-            itemToSave.quantidade_faltante = 0
-        else:
-            itemToSave.quantidade_faltante = math.ceil(fator_quantidade)
-            itemToSave.quantidade_excedente = 0
-
     #Update the vmd
     dateInit = datetime.today().replace(hour=0, minute=0, second=0) - timedelta(hours=3)
     dateEnd = datetime.today().replace(hour=23, minute=59, second=59) - timedelta(days=30) - timedelta(hours=3)
     itemToSave.vmd = getVMD30ForDatabaseItem(itemToSave, dateEnd, dateInit)
+
+    calculate_stock_variables(itemToSave)
 
     #Update the valor_faturado_do_dia
     preco_item = itemToSave.specialPrice if itemToSave.specialPrice else itemToSave.price
