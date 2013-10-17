@@ -8,21 +8,29 @@ from random import randint, random
 class brandFactory(factory.Factory):
     FACTORY_FOR = brands
 
-    name = 'Marca1'
+    name = factory.Sequence(lambda n: 'marca_{0}'.format(n))
+    meta_dias_estoque = randint(1, 20)
 
 class itemFactory(factory.Factory):
     FACTORY_FOR = item
 
+
+    product_id = randint(1, 2000)
     name = factory.LazyAttribute(lambda obj: 'Item%s' % obj.sku)
-    weight = 0
+    weight = 1
     sku = factory.Sequence(lambda n: '%s' % n)
     cost = 10
     price = 20
     specialPrice = 15
     brand = factory.SubFactory(brandFactory)
     status = True
+    cmm = 0.333
+    estoque_atual = 10
+    estoque_empenhado = 3
+    estoque_disponivel = 7
 
-class orderFactoryCompleteCreditCard(factory.Factory):
+
+class orderFactory(factory.Factory):
     FACTORY_FOR = order
 
     increment_id = factory.Sequence(lambda n: '%s' % n)
@@ -35,7 +43,7 @@ class orderFactoryCompleteCreditCard(factory.Factory):
     status = 'complete'
     shipping_method = 'pedroteixeira_correios_41111'
     shipping_amount = randint(1, 50)
-    customer_email = factory.Sequence(lambda n: 'person{0}@example.com'.format(n))
+    customer_email = factory.LazyAttribute(lambda a: '{0}.{1}@example.com'.format(a.customer_firstname, a.customer_lastname).lower())
     customer_firstname = 'John'
     customer_lastname = 'Doe'
     order_id = factory.Sequence(lambda n: '{0}'.format(n))
@@ -47,4 +55,4 @@ class orderFactoryCompleteCreditCard(factory.Factory):
     shipping_address_postcode = '04105-020'
     shipping_address_region = 'Sao Paulo'
     shipping_address_street = 'Rua Jd. Ivone, 17'
-    weight = round(random(1,30), 2)
+    weight = round(randint(1,30), 2)

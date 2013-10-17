@@ -7,13 +7,12 @@ Replace this with more appropriate tests for your application.
 """
 
 from django.test import TestCase
-from salesReport.models import item as modelItem, orderItem as modelOrderItem, order as modelOrder, brands as modelBrands
-from salesReport.views import saveItemInDatabse, saveOrderInDatabase, saveOrderItemInDatabase, getVMD, getVMD30,\
-    extractOrderInfoFromMagento, getVMD30ForDatabaseItem, updateItemDetail, updateABCValues
+import salesReport.models as salesReportModels
+import salesReport.views as salesReportViews
 from salesReport.helpers import simple_order, simple_product, simple_item_in_order, test_order_01, item_test_order_01, simple_order_canceled ,\
     pedido_faturamento_pedido_pedido_com_brinde_01, pedido_faturamento_pedido_pedido_com_brinde_02, periodo_faturamento_pedido_pedido_com_cupom_de_desconto,\
     pedido_faturamento_pedido_pedido_com_frete_a_pagar
-# from salesReport.factory import brandFactory, itemFactory
+from .factorys import brandFactory, itemFactory
 import datetime
 from dashboard.views import getFaturamentoForDay
 
@@ -32,16 +31,16 @@ class salesReportTestCase(TestCase):
         """
             Testa a criação de um item simples na base
         """
-        created_item = saveItemInDatabse(simple_product)
+        created_item = salesReportViews.saveItemInDatabse(simple_product)
 
-        self.assertEqual(True, isinstance(created_item, modelItem))
+        self.assertEqual(True, isinstance(created_item, salesReportModels.item))
 
     def test_create_order(self):
         """
             Testa a criação de um pedido com um item simples
         """
-        created_order = saveOrderInDatabase(simple_order)
-        self.assertEqual(True, isinstance(created_order, modelOrder))
+        created_order = salesReportViews.saveOrderInDatabase(simple_order)
+        self.assertEqual(True, isinstance(created_order, salesReportModels.order))
 
     def test_vmd_1_day(self):
         """
@@ -49,7 +48,7 @@ class salesReportTestCase(TestCase):
         """
         dateRange = datetime.timedelta(days=1)
         item = ['Campo0', 'Campo1', 'Campo2', 'Campo3', 3, 5, 0, 0, 0, 0]
-        vmd = getVMD(item, dateRange)
+        vmd = salesReportViews.getVMD(item, dateRange)
 
         self.assertEqual(8, vmd)
 
@@ -59,7 +58,7 @@ class salesReportTestCase(TestCase):
         """
         dateRange = datetime.timedelta(days=2)
         item = ['Campo0', 'Campo1', 'Campo2', 'Campo3', 10, 5, 0, 1, 0, 0]
-        vmd = getVMD(item, dateRange)
+        vmd = salesReportViews.getVMD(item, dateRange)
 
         self.assertEqual(16, vmd)
 
@@ -69,8 +68,8 @@ class salesReportTestCase(TestCase):
             1 item sold in last 30 days, vmd will be 0.033
         """
         #create existing data
-        brand01 = modelBrands(name='Marca01')
-        item = modelItem.objects.create(
+        brand01 = salesReportModels.brands(name='Marca01')
+        item = salesReportModels.item.objects.create(
             product_id = 1,
             weight = 1.0,
             sku = '123',
@@ -81,8 +80,8 @@ class salesReportTestCase(TestCase):
             brand = brand01,
             status = 'enable'
         )
-        created_order = saveOrderInDatabase(simple_order)
-        orderItem1 = modelOrderItem.objects.create(
+        created_order = salesReportViews.saveOrderInDatabase(simple_order)
+        orderItem1 = salesReportModels.orderItem.objects.create(
             created_at = datetime.datetime.today(),
             updated_at = datetime.datetime.today(),
             quantidade = 3,
@@ -95,7 +94,7 @@ class salesReportTestCase(TestCase):
         item = ['123', 'Campo1', 'Campo2', 'Campo3', 10, 5, 0, 1, 0, 0]
         dateMinus30 = datetime.datetime.today() - datetime.timedelta(days=30)
         dateRangeEnd = datetime.datetime.today()
-        vmd30 = getVMD30(item, dateMinus30, dateRangeEnd)
+        vmd30 = salesReportViews.getVMD30(item, dateMinus30, dateRangeEnd)
 
         self.assertEqual(0.033, vmd30)
 
@@ -105,12 +104,12 @@ class salesReportTestCase(TestCase):
             2 item sold in last 30 days, vmd will be 0.0666666 round to 0.067
         """
         #create existing data
-        created_order = saveOrderInDatabase(simple_order)
+        created_order = salesReportViews.saveOrderInDatabase(simple_order)
     
         item = ['2290', 'Campo1', 'Campo2', 'Campo3', 10, 5, 0, 1, 0, 0]
         dateMinus30 = datetime.datetime(2013, 6, 30) - datetime.timedelta(days=30)
         dateRangeEnd = datetime.datetime(2013, 6, 30)
-        vmd30 = getVMD30(item, dateMinus30, dateRangeEnd)
+        vmd30 = salesReportViews.getVMD30(item, dateMinus30, dateRangeEnd)
 
         self.assertEqual(0.067, vmd30)
 
@@ -120,12 +119,12 @@ class salesReportTestCase(TestCase):
             2 item sold in last 30 days, vmd will be 0.0666666 round to 0.067
         """
         #create existing data
-        created_order = saveOrderInDatabase(simple_order_canceled)
+        created_order = salesReportViews.saveOrderInDatabase(simple_order_canceled)
 
         item = ['2290', 'Campo1', 'Campo2', 'Campo3', 10, 5, 0, 1, 0, 0]
         dateMinus30 = datetime.datetime.today() - datetime.timedelta(days=30)
         dateRangeEnd = datetime.datetime.today()
-        vmd30 = getVMD30(item, dateMinus30, dateRangeEnd)
+        vmd30 = salesReportViews.getVMD30(item, dateMinus30, dateRangeEnd)
 
         self.assertEqual(0.0, vmd30)
 
@@ -156,8 +155,8 @@ class faturamentoTestCase(TestCase):
             Test fraco
         """
         #cria o pedido
-        item = saveItemInDatabse(item_test_order_01)
-        order = saveOrderInDatabase(test_order_01)
+        item = salesReportViews.saveItemInDatabse(item_test_order_01)
+        order = salesReportViews.saveOrderInDatabase(test_order_01)
         array_esperado = ['1-7', 1, 151.41, 46.51, 10, 0, 94.9, 64.3, 46.51, 2.00, 32.24, 20.22, 94.9, 1.0]
         date = datetime.datetime.strptime('01/07/2013', '%d/%m/%Y')
 
@@ -167,7 +166,7 @@ class faturamentoTestCase(TestCase):
 
     def test_faturamento_pedido_pedido_com_frete_a_pagar(self):
         #cria o pedido
-        order = saveOrderInDatabase(pedido_faturamento_pedido_pedido_com_frete_a_pagar)
+        order = salesReportViews.saveOrderInDatabase(pedido_faturamento_pedido_pedido_com_frete_a_pagar)
         array_esperado = ['3-7', 1, 30.86, 6.96, 0, 0, 23.9, 12.5, 6.96, 0.89, 47.7, 34.04, 23.9, 1.0]
         date = datetime.datetime.strptime('03/07/2013', '%d/%m/%Y')
 
@@ -177,7 +176,7 @@ class faturamentoTestCase(TestCase):
 
     def test_faturamento_pedido_pedido_com_brinde_01(self):
         #cria o pedido
-        order = saveOrderInDatabase(pedido_faturamento_pedido_pedido_com_brinde_01)
+        order = salesReportViews.saveOrderInDatabase(pedido_faturamento_pedido_pedido_com_brinde_01)
         array_esperado = ['4-7', 1, 159.7, 0, 0, 2.1, 157.6, 100.5, 19.4, 4.63, 36.23, 20.99, 157.6, 3.0]
         date = datetime.datetime.strptime('04/07/2013', '%d/%m/%Y')
 
@@ -187,7 +186,7 @@ class faturamentoTestCase(TestCase):
 
     def test_faturamento_pedido_pedido_com_brinde_02(self):
         #cria o pedido
-        order = saveOrderInDatabase(pedido_faturamento_pedido_pedido_com_brinde_02)
+        order = salesReportViews.saveOrderInDatabase(pedido_faturamento_pedido_pedido_com_brinde_02)
         array_esperado = ['2-7', 1, 294.9, 0, 0, 0, 294.9, 183.22, 21, 8.55, 37.87, 27.85, 294.9, 1.0]
         date = datetime.datetime.strptime('02/07/2013', '%d/%m/%Y')
 
@@ -197,7 +196,7 @@ class faturamentoTestCase(TestCase):
 
     def test_faturamento_pedido_pedido_com_cupom_de_desconto(self):
         #cria o pedido
-        order = saveOrderInDatabase(periodo_faturamento_pedido_pedido_com_cupom_de_desconto)
+        order = salesReportViews.saveOrderInDatabase(periodo_faturamento_pedido_pedido_com_cupom_de_desconto)
         array_esperado = ['3-7', 1, 169.9, 0, 16.99, 0, 152.91, 109.3, 28.1, 4.43, 28.52, 7.24, 152.91, 1.0]
         date = datetime.datetime.strptime('03/07/2013', '%d/%m/%Y')
 
@@ -219,9 +218,29 @@ class ExportTestCase(TestCase):
 
 
 class UpdateItemTestCase(TestCase):
+    '''
+        This test should guarantee the new status for products
 
-    def test_update_item_detail(self):
-        quantidade_atualizada = updateItemDetail()
+    '''
+
+    def setUp(self):
+        item = itemFactory(product_id=76,
+                                  name=u'LA Top Definition 120 cápsulas (com Cromo) - Integralmédica',
+                                  status=False)
+        item.save()
+
+    def test_update_item_status(self):
+        product_array = {
+            'product_id': 76,
+            'sku': 76,
+            'status': 1,
+            'price': 99.99,
+            'special_price': 89.99,
+        }
+        quantidade_atualizada = salesReportViews.updateProductInformation(product_array, 0)
+        item = salesReportModels.item.objects.get(product_id=76)
+        self.assertEqual(True, item.status)
+        self.assertEqual(1, quantidade_atualizada)
 
 
 

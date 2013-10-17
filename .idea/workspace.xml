@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ebd84075-4f20-4613-bc6e-2f01cb9657e6" name="Default" comment="">
+      <change type="MOVED" beforePath="$PROJECT_DIR$/salesReport/factory.py" afterPath="$PROJECT_DIR$/salesReport/factorys.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/salesReport/pymagento.py" afterPath="$PROJECT_DIR$/salesReport/pymagento.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dashboard/views.py" afterPath="$PROJECT_DIR$/dashboard/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/salesReport/tests.py" afterPath="$PROJECT_DIR$/salesReport/tests.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/salesReport/views.py" afterPath="$PROJECT_DIR$/salesReport/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -18,8 +18,10 @@
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/centralFitEstoque$Test__salesReport.coverage" NAME="Test: salesReport Coverage Results" MODIFIED="1382032730349" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/centralFitEstoque$Test__salesReport_UpdateItemTestCase_test_update_item_detail.coverage" NAME="Test: salesReport.UpdateItemTestCase.test_update_item_detail Coverage Results" MODIFIED="1380497083291" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/centralFitEstoque$cfit_test_salesReport.coverage" NAME="cfit_test_salesReport Coverage Results" MODIFIED="1381710615091" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/centralFitEstoque$Test__salesReport_UpdateItemTestCase.coverage" NAME="Test: salesReport.UpdateItemTestCase Coverage Results" MODIFIED="1382033611382" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/centralFitEstoque$cfit_test_salesReport.coverage" NAME="cfit_test_salesReport Coverage Results" MODIFIED="1382032651062" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -43,10 +45,8 @@
           <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/salesReport/models.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="1" column="0" selection-start="24" selection-end="24" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3045">
-                  <folding>
-                    <element signature="e#24#52#0" expanded="true" />
-                  </folding>
+                <state line="39" column="10" selection-start="1435" selection-end="1441" vertical-scroll-proportion="0.0" vertical-offset="585" max-vertical-offset="3030">
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -54,7 +54,7 @@
           <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/salesReport/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="845" column="57" selection-start="35499" selection-end="35499" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="12855">
+                <state line="783" column="28" selection-start="32954" selection-end="32954" vertical-scroll-proportion="0.0" vertical-offset="11582" max-vertical-offset="12960">
                   <folding>
                     <element signature="e#24#118#0" expanded="true" />
                   </folding>
@@ -62,13 +62,23 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="views.py" pinned="false" current="true" current-in-tab="true">
+          <file leaf-file-name="tests.py" pinned="false" current="true" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/salesReport/tests.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state line="241" column="17" selection-start="8903" selection-end="8903" vertical-scroll-proportion="0.40963855" vertical-offset="3377" max-vertical-offset="4065">
+                  <folding>
+                    <element signature="e#208#240#0" expanded="true" />
+                    <marker date="1382033362000" expanded="true" signature="8297:8511" placeholder="..." />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/dashboard/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="409" column="55" selection-start="16874" selection-end="16874" vertical-scroll-proportion="0.6706282" vertical-offset="5740" max-vertical-offset="10350">
-                  <folding>
-                    <element signature="e#48#99#0" expanded="true" />
-                  </folding>
+                <state line="409" column="55" selection-start="16874" selection-end="16874" vertical-scroll-proportion="0.0" vertical-offset="6135" max-vertical-offset="10350">
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -77,29 +87,13 @@
       </split-first>
       <split-second>
         <leaf>
-          <file leaf-file-name="resumo.html" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/templates/resumo.html">
+          <file leaf-file-name="factorys.py" pinned="false" current="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/salesReport/factorys.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state line="31" column="18" selection-start="1219" selection-end="1219" vertical-scroll-proportion="0.0" vertical-offset="134" max-vertical-offset="690">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="pedidos.html" pinned="false" current="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/templates/pedidos.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="59" column="26" selection-start="2870" selection-end="2870" vertical-scroll-proportion="0.4778761" vertical-offset="615" max-vertical-offset="1470">
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="abc.html" pinned="false" current="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/templates/abc.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state line="20" column="0" selection-start="842" selection-end="842" vertical-scroll-proportion="0.0" vertical-offset="300" max-vertical-offset="1095">
-                  <folding />
+                <state line="22" column="14" selection-start="579" selection-end="579" vertical-scroll-proportion="0.5163511" vertical-offset="30" max-vertical-offset="960">
+                  <folding>
+                    <element signature="e#47#61#0" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -124,22 +118,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/salesReport/admin.py" />
-        <option value="$PROJECT_DIR$/templates/importar.html" />
         <option value="$PROJECT_DIR$/templates/cmm.html" />
         <option value="$PROJECT_DIR$/dashboard/templatetags/extras.py" />
         <option value="$PROJECT_DIR$/templates/base.html" />
         <option value="$PROJECT_DIR$/templates/resumo.html" />
         <option value="$PROJECT_DIR$/centralFitEstoque/settings.py" />
-        <option value="$PROJECT_DIR$/salesReport/tests.py" />
         <option value="$PROJECT_DIR$/salesReport/models.py" />
         <option value="$PROJECT_DIR$/salesReport/cron.py" />
         <option value="$PROJECT_DIR$/templates/pedidos.html" />
         <option value="$PROJECT_DIR$/templates/abc.html" />
         <option value="$PROJECT_DIR$/centralFitEstoque/urls.py" />
-        <option value="$PROJECT_DIR$/salesReport/views.py" />
         <option value="$PROJECT_DIR$/dashboard/views.py" />
         <option value="$PROJECT_DIR$/salesReport/pymagento.py" />
+        <option value="$PROJECT_DIR$/salesReport/factory.py" />
+        <option value="$PROJECT_DIR$/salesReport/factorys.py" />
+        <option value="$PROJECT_DIR$/salesReport/tests.py" />
+        <option value="$PROJECT_DIR$/salesReport/views.py" />
       </list>
     </option>
   </component>
@@ -174,6 +168,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -250,7 +245,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -294,31 +288,7 @@
       <recent name="$PROJECT_DIR$/centralFitEstoque/static" />
     </key>
   </component>
-  <component name="RunManager" selected="Django tests.cfit_test_salesReport">
-    <configuration default="false" name="Test: salesReport.UpdateItemTestCase.test_update_item_detail" type="DjangoTestsConfigurationType" factoryName="Django tests" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="$PROJECT_DIR$/env/bin/python" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="centralFitEstoque" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="TARGET" value="salesReport.UpdateItemTestCase.test_update_item_detail" />
-      <option name="SETTINGS_FILE" value="" />
-      <option name="CUSTOM_SETTINGS" value="false" />
-      <option name="USE_OPTIONS" value="true" />
-      <option name="OPTIONS" value="salesReport" />
-      <RunnerSettings RunnerId="PyDebugRunner" />
-      <RunnerSettings RunnerId="PythonRunner" />
-      <ConfigurationWrapper RunnerId="PyDebugRunner" />
-      <ConfigurationWrapper RunnerId="PythonRunner" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Django tests.Test: salesReport.UpdateItemTestCase">
     <configuration default="true" type="DjangoTestsConfigurationType" factoryName="Django tests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -578,17 +548,36 @@
       <ConfigurationWrapper RunnerId="PythonRunner" />
       <method />
     </configuration>
+    <configuration default="false" name="Test: salesReport.UpdateItemTestCase" type="DjangoTestsConfigurationType" factoryName="Django tests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="centralFitEstoque" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="TARGET" value="salesReport.UpdateItemTestCase" />
+      <option name="SETTINGS_FILE" value="" />
+      <option name="CUSTOM_SETTINGS" value="false" />
+      <option name="USE_OPTIONS" value="false" />
+      <option name="OPTIONS" value="" />
+      <RunnerSettings RunnerId="PyDebugRunner" />
+      <RunnerSettings RunnerId="PythonRunner" />
+      <ConfigurationWrapper RunnerId="PyDebugRunner" />
+      <ConfigurationWrapper RunnerId="PythonRunner" />
+      <method />
+    </configuration>
     <list size="4">
       <item index="0" class="java.lang.String" itemvalue="Django server.centralFitEstoque" />
       <item index="1" class="java.lang.String" itemvalue="Django tests.cfit_test_salesReport" />
       <item index="2" class="java.lang.String" itemvalue="Django tests.cfit_test_dashboard" />
-      <item index="3" class="java.lang.String" itemvalue="Django tests.Test: salesReport.UpdateItemTestCase.test_update_item_detail" />
+      <item index="3" class="java.lang.String" itemvalue="Django tests.Test: salesReport.UpdateItemTestCase" />
     </list>
-    <recent_temporary>
-      <list size="1">
-        <item index="0" class="java.lang.String" itemvalue="Django tests.Test: salesReport.UpdateItemTestCase.test_update_item_detail" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false" SSL_PROTOCOLS="sslv3">
@@ -617,7 +606,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1920" height="988" extended-state="0" />
+    <frame x="0" y="22" width="1920" height="988" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -625,11 +614,11 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2082658" sideWeight="0.43482795" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22042139" sideWeight="0.7609842" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.10512273" sideWeight="0.7258065" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28341013" sideWeight="0.9605123" order="3" side_tool="false" content_ui="tabs" x="1920" y="280" width="1280" height="800" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.10992529" sideWeight="0.71658987" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28341013" sideWeight="0.9605123" order="3" side_tool="false" content_ui="tabs" x="1920" y="280" width="1280" height="800" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23662885" sideWeight="0.28741497" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35676625" sideWeight="0.50041497" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27419356" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27419356" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32949308" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -650,36 +639,10 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="432" />
+      <option name="time" value="439" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/templates/lista_estoque.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.5206612" vertical-offset="0" max-vertical-offset="0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/cmm.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="23" selection-start="326" selection-end="1078" vertical-scroll-proportion="0.49586776" vertical-offset="0" max-vertical-offset="0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/centralFitEstoque/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="19" column="27" selection-start="457" selection-end="457" vertical-scroll-proportion="-0.76506954" vertical-offset="0" max-vertical-offset="0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dashboard/tests.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="0" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/env/lib/python2.7/site-packages/django/db/transaction.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="222" column="0" selection-start="6959" selection-end="6959" vertical-scroll-proportion="0.0" vertical-offset="3097" max-vertical-offset="4620" />
@@ -690,78 +653,93 @@
         <state line="114" column="0" selection-start="4779" selection-end="4779" vertical-scroll-proportion="0.33275262" vertical-offset="1309" max-vertical-offset="4020" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/resumo.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="18" selection-start="1219" selection-end="1219" vertical-scroll-proportion="0.0" vertical-offset="134" max-vertical-offset="690">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/abc.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="0" selection-start="842" selection-end="842" vertical-scroll-proportion="0.0" vertical-offset="300" max-vertical-offset="1095">
-          <folding />
-        </state>
+        <state line="20" column="0" selection-start="842" selection-end="842" vertical-scroll-proportion="0.0" vertical-offset="300" max-vertical-offset="1095" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/centralFitEstoque/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="34" selection-start="2881" selection-end="2904" vertical-scroll-proportion="1.0645162" vertical-offset="141" max-vertical-offset="945">
-          <folding>
-            <element signature="e#0#51#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/salesReport/tests.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="223" column="0" selection-start="8147" selection-end="8147" vertical-scroll-proportion="0.33333334" vertical-offset="3160" max-vertical-offset="3780" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/salesReport/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="845" column="57" selection-start="35499" selection-end="35499" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="12855">
-          <folding>
-            <element signature="e#24#118#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/salesReport/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="0" selection-start="24" selection-end="24" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3045">
-          <folding>
-            <element signature="e#24#52#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/pedidos.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="59" column="26" selection-start="2870" selection-end="2870" vertical-scroll-proportion="0.4778761" vertical-offset="615" max-vertical-offset="1470">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/salesReport/pymagento.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="71" column="16" selection-start="2682" selection-end="2682" vertical-scroll-proportion="-1.2156197" vertical-offset="1706" max-vertical-offset="2295">
-          <folding />
-        </state>
+        <state line="49" column="34" selection-start="2881" selection-end="2904" vertical-scroll-proportion="1.0645162" vertical-offset="141" max-vertical-offset="945" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/salesReport/cron.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="19" selection-start="1747" selection-end="1762" vertical-scroll-proportion="0.65704584" vertical-offset="108" max-vertical-offset="1170">
+        <state line="41" column="19" selection-start="1747" selection-end="1762" vertical-scroll-proportion="0.65704584" vertical-offset="108" max-vertical-offset="1170" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/pedidos.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="54" column="35" selection-start="2652" selection-end="2652" vertical-scroll-proportion="0.24283935" vertical-offset="615" max-vertical-offset="1470" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/resumo.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="18" selection-start="1219" selection-end="1219" vertical-scroll-proportion="0.57907844" vertical-offset="0" max-vertical-offset="803" />
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Library/Caches/PyCharm30/python_stubs/1704901130/_random.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="8" selection-start="887" selection-end="887" vertical-scroll-proportion="0.3327674" vertical-offset="164" max-vertical-offset="825" />
+      </provider>
+    </entry>
+    <entry file="file:///System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/random.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="236" column="8" selection-start="8873" selection-end="8873" vertical-scroll-proportion="0.3327674" vertical-offset="3239" max-vertical-offset="13605" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/salesReport/pymagento.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="122" column="8" selection-start="4937" selection-end="4937" vertical-scroll-proportion="0.33333334" vertical-offset="1557" max-vertical-offset="2295">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dashboard/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="409" column="55" selection-start="16874" selection-end="16874" vertical-scroll-proportion="0.6706282" vertical-offset="5740" max-vertical-offset="10350">
+        <state line="409" column="55" selection-start="16874" selection-end="16874" vertical-scroll-proportion="0.0" vertical-offset="5170" max-vertical-offset="10350">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/unittest/case.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="503" column="8" selection-start="18038" selection-end="18038" vertical-scroll-proportion="0.33275864" vertical-offset="7172" max-vertical-offset="15960">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/salesReport/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="39" column="10" selection-start="1435" selection-end="1441" vertical-scroll-proportion="0.0" vertical-offset="195" max-vertical-offset="3030">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/salesReport/factorys.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="14" selection-start="579" selection-end="579" vertical-scroll-proportion="0.5163511" vertical-offset="30" max-vertical-offset="960">
           <folding>
-            <element signature="e#48#99#0" expanded="true" />
+            <element signature="e#47#61#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/salesReport/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="783" column="28" selection-start="32954" selection-end="32954" vertical-scroll-proportion="0.0" vertical-offset="11582" max-vertical-offset="12960">
+          <folding>
+            <element signature="e#24#118#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/salesReport/tests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="241" column="17" selection-start="8903" selection-end="8903" vertical-scroll-proportion="0.40963855" vertical-offset="3377" max-vertical-offset="4065">
+          <folding>
+            <element signature="e#208#240#0" expanded="true" />
+            <marker date="1382033362000" expanded="true" signature="8297:8511" placeholder="..." />
           </folding>
         </state>
       </provider>

@@ -767,37 +767,44 @@ def removeOldHoldedOrdersFrom(rangeInicio, rangeFim):
 
     return pedidos_alterados
 
+
+def updateProductInformation(product, quantidade_atualizada):
+    atualizado = False
+    if RepresentsInt(product['sku']):
+        item = models.item.objects.filter(product_id=product['product_id'])
+        if len(item) > 0:
+            item = item[0]
+
+            if int(product['status']) == 1:
+                product['status'] = True
+            else:
+                product['status'] = False
+
+            if item.status != product['status']:
+                item.status = product['status']
+                atualizado = True
+            if item.price != float(product['price']):
+                item.price = float(product['price'])
+                atualizado = True
+            if 'special_price' in product and product['special_price'] and item.specialPrice != float(
+                    product['special_price']):
+                item.specialPrice = float(product['special_price'])
+                atualizado = True
+            if atualizado:
+                item.save()
+                quantidade_atualizada += 1
+        else:
+            saveItemInDatabse(product)
+    return quantidade_atualizada
+
+
 def updateItemDetail():
     #Atualizar diariamente os precos e o status dos produtos
     salesReport = Magento()
     salesReport.connect()
     quantidade_atualizada = 0
     for product in salesReport.getProductArray():
-        atualizado = False
-        if RepresentsInt(product['sku']):
-            item = models.item.objects.filter(product_id=product['product_id'])
-            if len(item) > 0:
-                item = item[0]
-
-                if product['status'] == '1':
-                    product['status'] = True
-                else:
-                    product['status'] = False
-
-                if item.status != product['status']:
-                    item.status == product['status']
-                    atualizado = True
-                if item.price != float(product['price']):
-                    item.price = float(product['price'])
-                    atualizado = True
-                if 'special_price' in product and product['special_price'] and item.specialPrice != float(product['special_price']):
-                    item.specialPrice = float(product['special_price'])
-                    atualizado = True
-                if atualizado:
-                    item.save()
-                    quantidade_atualizada += 1
-            else:
-                saveItemInDatabse(product)
+        quantidade_atualizada = updateProductInformation(product, quantidade_atualizada)
 
     return quantidade_atualizada
 
