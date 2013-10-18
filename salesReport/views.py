@@ -113,7 +113,7 @@ def calculate_stock_variables(itemToSave):
             itemToSave.quantidade_excedente = math.ceil(fator_quantidade)
             itemToSave.quantidade_faltante = 0
         else:
-            itemToSave.quantidade_faltante = math.ceil(fator_quantidade) * -1
+            itemToSave.quantidade_faltante = math.ceil(fator_quantidade * -1)
             itemToSave.quantidade_excedente = 0
 
 

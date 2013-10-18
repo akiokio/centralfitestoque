@@ -378,10 +378,10 @@ class estoqueTestCase(TestCase):
     def test_calculate_qtd_faltante_21(self):
         item = salesReportModels.item.objects.get(product_id=76)
         item.vmd = 0.133
-        item.estoque_disponivel = 18
+        item.estoque_disponivel = -2
         item.brand.meta_dias_estoque = 20
 
         salesReportViews.calculate_stock_variables(item)
 
-        self.assertEqual(16, item.quantidade_excedente)
-        self.assertEqual(0, item.quantidade_faltante)
+        self.assertEqual(0, item.quantidade_excedente)
+        self.assertEqual(5, item.quantidade_faltante)
