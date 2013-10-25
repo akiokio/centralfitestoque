@@ -420,6 +420,9 @@ def exportar_lista_produto(request):
 def exportar_lista_produto_fornecedor(request):
     return generateXLS(request.session.get('product_list'), 'exportar_lista_produto_fornecedor')
 
+def exportar_lista_produto_abc(request):
+    return generateXLS(request.session.get('product_list_abc'), 'abc')
+
 def generateXLS(modelData, type):
     from django.http import HttpResponse
     import xlwt
@@ -440,6 +443,9 @@ def generateXLS(modelData, type):
     elif type == 'exportar_lista_produto_fornecedor':
         headers = ['sku', 'name', 'brand__name', 'estoque_disponivel', 'cmm', 'vmd', 'margem', 'quantidade_excedente', 'quantidade_faltante']
         values_list = modelData.values_list('sku', 'name', 'brand__name', 'estoque_disponivel', 'cmm', 'vmd', 'margem', 'quantidade_excedente', 'quantidade_faltante')
+    elif type == 'abc':
+        headers = ['sku', 'name', 'brand__name', 'valor_faturado_do_dia', 'abc_letter']
+        values_list = modelData.values_list('sku', 'name', 'brand__name', 'valor_faturado_do_dia', 'abc_letter')
     else:
         headers = []
         values_list = modelData.values_list()
@@ -634,6 +640,9 @@ class abc(TemplateView):
         if self.request.GET.get('abc_letter'):
             itens = itens.filter(abc_letter__icontains=self.request.GET.get('abc_letter'))
 
+        #Lista para possivel exportacao
+        self.request.session['product_list_abc'] = itens
+
         total_faturado_no_periodo = 0
         for i in salesReportModels.item.objects.all():
             total_faturado_no_periodo += i.valor_faturado_do_dia
@@ -643,6 +652,9 @@ class abc(TemplateView):
         context['brands'] = salesReportModels.brands.objects.all()
 
         return self.render_to_response(context)
+
+    def post(self, *args, **kwargs):
+        return exportar_lista_produto_abc(self.request)
 
 class resumo(TemplateView):
     template_name = 'resumo.html'
@@ -661,6 +673,7 @@ class resumo(TemplateView):
             context['marca_selecionada'] = self.request.GET.get('marca')
 
         custo_total_estoque = 0
+        custo_total_estoque_sem_negativo = 0
         valor_excedente_estoque = 0
         valor_faltante = 0
         estoque_em_dias = 0
@@ -673,6 +686,10 @@ class resumo(TemplateView):
             aux_vmd = item.vmd if item.vmd else 0
 
             custo_total_estoque += item.estoque_atual * aux_cmm
+
+            if item.estoque_atual > 0:
+                custo_total_estoque_sem_negativo += item.estoque_atual * aux_cmm
+
             valor_excedente_estoque += aux_quantidade_excedente * aux_cmm
             valor_faltante += aux_quantidade_faltante * aux_cmm
             estoque_em_dias += aux_cmm * aux_vmd
@@ -682,6 +699,7 @@ class resumo(TemplateView):
 
 
         context['custo_total_estoque'] = custo_total_estoque
+        context['custo_total_estoque_sem_negativo'] = custo_total_estoque_sem_negativo
         context['valor_excedente_estoque'] = valor_excedente_estoque
         context['valor_faltante'] = valor_faltante
         context['estoque_em_dias'] = estoque_em_dias

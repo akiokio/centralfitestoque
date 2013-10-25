@@ -24,8 +24,11 @@
             <div class="span12">
                 <strong>Resumo do estoque atual {% if marca_selecionada %}da marca <span class="text-success"><em>{{ marca_selecionada }}</em></span>{% endif %}</strong>
             </div>
+            <div class="span12">
+                Custo total do estoque: R$ {{ custo_total_estoque|floatformat:2 }} | Custo total do estoque (sem itens negativos): R$ {{ custo_total_estoque_sem_negativo|floatformat:2 }}
+            </div>
             <div class="span6">
-                Custo total do estoque: R$ {{ custo_total_estoque|floatformat:2 }}
+                <p class="text-warning">Valores abaixo considerado custo total de estoque incluindo itens com estoque negativo</p>
             </div>
             <div class="span6">
                 Valor Excedente de estoque: R$  {{ valor_excedente_estoque|floatformat:2 }}
