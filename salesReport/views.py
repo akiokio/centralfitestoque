@@ -586,14 +586,28 @@ def updateLast7daysOrderStatus():
 
             #Atualiza o estoque
             #Caso 2: De pedido holded -> canceled subtrai um no estoque compremetido
-            if orderToBeUpdated.status ==  'holded' and new_order_info['status'] == 'canceled':
+            if orderToBeUpdated.status == 'holded' and new_order_info['status'] == 'canceled':
                 for item in orderToBeUpdated.orderitem_set.all():
                     item.item.estoque_empenhado -= item.quantidade
                     item.item.estoque_disponivel = item.item.estoque_atual - item.item.estoque_empenhado
                     item.item.save()
 
             #Caso 1: De pedido processing -> canceled soma um no estoque disponivel
-            if orderToBeUpdated.status ==  'processing' and new_order_info['status'] == 'canceled':
+            if orderToBeUpdated.status == 'processing' and new_order_info['status'] == 'canceled':
+                for item in orderToBeUpdated.orderitem_set.all():
+                    item.item.estoque_atual += item.quantidade
+                    item.item.estoque_disponivel = item.item.estoque_atual - item.item.estoque_empenhado
+                    item.item.save()
+
+            #Caso 3: De pedido completo -> cancelado, volta o item ao estoque
+            if orderToBeUpdated.status == 'complete' and new_order_info['status'] == 'canceled':
+                for item in orderToBeUpdated.orderitem_set.all():
+                    item.item.estoque_atual += item.quantidade
+                    item.item.estoque_disponivel = item.item.estoque_atual - item.item.estoque_empenhado
+                    item.item.save()
+
+            #Caso 4: De pedido completo -> cancelado, volta o item ao estoque
+            if orderToBeUpdated.status == 'complete2' and new_order_info['status'] == 'canceled':
                 for item in orderToBeUpdated.orderitem_set.all():
                     item.item.estoque_atual += item.quantidade
                     item.item.estoque_disponivel = item.item.estoque_atual - item.item.estoque_empenhado
@@ -757,7 +771,7 @@ def removeOldHoldedOrdersFrom(rangeInicio, rangeFim):
     #tem que fazer uma rotina para tirar do estoque empenhado tb de 8 dias
     data_fim = datetime.today() - timedelta(days=rangeFim)
     data_inicio = datetime.today() - timedelta(days=rangeInicio)
-    pedidos_alterados =  0
+    pedidos_alterados = 0
     orders = models.order.objects.filter(created_at__range=[data_inicio, data_fim], status='holded')
     for order in orders:
         for item in order.orderitem_set.all():

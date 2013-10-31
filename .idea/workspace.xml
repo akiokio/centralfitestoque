@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ebd84075-4f20-4613-bc6e-2f01cb9657e6" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/abc.html" afterPath="$PROJECT_DIR$/templates/abc.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/resumo.html" afterPath="$PROJECT_DIR$/templates/resumo.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/salesReport/views.py" afterPath="$PROJECT_DIR$/salesReport/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="centralFitEstoque.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -16,9 +17,9 @@
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/centralFitEstoque$Test__salesReport.coverage" NAME="Test: salesReport.estoqueTestCase Coverage Results" MODIFIED="1382048813122" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/centralFitEstoque$Test__salesReport_estoqueTestCase.coverage" NAME="Test: salesReport.estoqueTestCase Coverage Results" MODIFIED="1382735612285" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/centralFitEstoque$Test__salesReport_UpdateItemTestCase_test_update_item_detail.coverage" NAME="Test: salesReport.UpdateItemTestCase.test_update_item_detail Coverage Results" MODIFIED="1380497083291" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/centralFitEstoque$cfit_test_salesReport.coverage" NAME="cfit_test_salesReport Coverage Results" MODIFIED="1382046525483" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/centralFitEstoque$Test__salesReport_estoqueTestCase.coverage" NAME="Test: salesReport.estoqueTestCase Coverage Results" MODIFIED="1382735612285" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/centralFitEstoque$cfit_test_salesReport.coverage" NAME="cfit_test_salesReport Coverage Results" MODIFIED="1383255235046" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/centralFitEstoque$Test__salesReport_UpdateItemTestCase.coverage" NAME="Test: salesReport.UpdateItemTestCase Coverage Results" MODIFIED="1382037444322" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/centralFitEstoque$Test__salesReport_curvaABC_test_item_with_10_percento_of_sales.coverage" NAME="Test: salesReport.curvaABC Coverage Results" MODIFIED="1382042574195" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
@@ -42,16 +43,16 @@
       <file leaf-file-name="models.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/salesReport/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="46" column="14" selection-start="1886" selection-end="1896" vertical-scroll-proportion="0.0" vertical-offset="375" max-vertical-offset="3090">
+            <state line="46" column="14" selection-start="1886" selection-end="1896" vertical-scroll-proportion="0.0" vertical-offset="690" max-vertical-offset="3105">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="views.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/salesReport/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="115" column="76" selection-start="4042" selection-end="4042" vertical-scroll-proportion="0.0" vertical-offset="1020" max-vertical-offset="12780">
+            <state line="571" column="30" selection-start="23973" selection-end="23999" vertical-scroll-proportion="0.04152824" vertical-offset="8315" max-vertical-offset="12990">
               <folding />
             </state>
           </provider>
@@ -60,42 +61,9 @@
       <file leaf-file-name="views.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dashboard/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="687" column="63" selection-start="28868" selection-end="28868" vertical-scroll-proportion="0.0" vertical-offset="891" max-vertical-offset="1515">
+            <state line="616" column="9" selection-start="26192" selection-end="26192" vertical-scroll-proportion="0.0" vertical-offset="8944" max-vertical-offset="10725">
               <folding>
-                <element signature="e#1053#2238#0" expanded="false" />
-                <element signature="e#2269#2334#0" expanded="false" />
-                <element signature="e#2366#4332#0" expanded="false" />
-                <element signature="e#2440#4332#0" expanded="false" />
-                <element signature="e#4381#7123#0" expanded="false" />
-                <element signature="e#7162#8510#0" expanded="false" />
-                <element signature="e#7248#8510#0" expanded="false" />
-                <element signature="e#8539#8693#0" expanded="false" />
-                <element signature="e#8736#8940#0" expanded="false" />
-                <element signature="e#8992#10270#0" expanded="false" />
-                <element signature="e#10301#12710#0" expanded="false" />
-                <element signature="e#10374#11724#0" expanded="false" />
-                <element signature="e#11776#11852#0" expanded="false" />
-                <element signature="e#11899#12710#0" expanded="false" />
-                <element signature="e#12756#14455#0" expanded="false" />
-                <element signature="e#14496#17179#0" expanded="false" />
-                <element signature="e#14579#15949#0" expanded="false" />
-                <element signature="e#16001#16087#0" expanded="false" />
-                <element signature="e#16134#17179#0" expanded="false" />
-                <element signature="e#17222#17294#0" expanded="false" />
-                <element signature="e#17348#17440#0" expanded="false" />
-                <element signature="e#17487#17553#0" expanded="false" />
-                <element signature="e#17593#19459#0" expanded="false" />
-                <element signature="e#19497#23952#0" expanded="false" />
-                <element signature="e#19582#19664#0" expanded="false" />
-                <element signature="e#19711#23952#0" expanded="false" />
-                <element signature="e#23987#25880#0" expanded="false" />
-                <element signature="e#24069#24149#0" expanded="false" />
-                <element signature="e#24195#25621#0" expanded="false" />
-                <element signature="e#25668#25880#0" expanded="false" />
-                <element signature="e#25911#27703#0" expanded="false" />
-                <element signature="e#25989#26065#0" expanded="false" />
-                <element signature="e#26111#27609#0" expanded="false" />
-                <element signature="e#27656#27703#0" expanded="false" />
+                <element signature="e#48#126#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -104,7 +72,7 @@
       <file leaf-file-name="base.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="41" column="52" selection-start="1969" selection-end="1979" vertical-scroll-proportion="-10.0" vertical-offset="375" max-vertical-offset="1320">
+            <state line="41" column="52" selection-start="1969" selection-end="1979" vertical-scroll-proportion="0.0" vertical-offset="375" max-vertical-offset="1320">
               <folding />
             </state>
           </provider>
@@ -113,16 +81,16 @@
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="1065">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1065">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="abc.html" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="abc.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/abc.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="12" selection-start="38" selection-end="38" vertical-scroll-proportion="0.028248588" vertical-offset="0" max-vertical-offset="1170">
+            <state line="10" column="62" selection-start="338" selection-end="338" vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="1170">
               <folding />
             </state>
           </provider>
@@ -157,11 +125,11 @@
         <option value="$PROJECT_DIR$/salesReport/factorys.py" />
         <option value="$PROJECT_DIR$/salesReport/models.py" />
         <option value="$PROJECT_DIR$/templates/pedidos.html" />
-        <option value="$PROJECT_DIR$/salesReport/views.py" />
         <option value="$PROJECT_DIR$/salesReport/tests.py" />
         <option value="$PROJECT_DIR$/dashboard/views.py" />
         <option value="$PROJECT_DIR$/templates/resumo.html" />
         <option value="$PROJECT_DIR$/templates/abc.html" />
+        <option value="$PROJECT_DIR$/salesReport/views.py" />
       </list>
     </option>
   </component>
@@ -196,6 +164,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -214,79 +183,22 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="centralFitEstoque" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="centralFitEstoque" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="centralFitEstoque" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="centralFitEstoque" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="salesReport" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="centralFitEstoque" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="centralFitEstoque" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dashboard" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="centralFitEstoque" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="centralFitEstoque" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="centralFitEstoque" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="255" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="256" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="256" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
     <property name="recentsLimit" value="5" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="256" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="266" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="1054" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="1056" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="1054" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="261" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="258" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -301,8 +213,8 @@
     <property name="options.lastSelected" value="com.jetbrains.python.configuration.PythonSdkConfigurable" />
     <property name="DefaultHtmlFileTemplate" value="Html5" />
     <property name="restartRequiresConfirmation" value="true" />
-    <property name="dynamic.classpath" value="false" />
     <property name="options.searchVisible" value="true" />
+    <property name="dynamic.classpath" value="false" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -316,7 +228,7 @@
       <recent name="$PROJECT_DIR$/centralFitEstoque/static" />
     </key>
   </component>
-  <component name="RunManager" selected="Django server.centralFitEstoque">
+  <component name="RunManager" selected="Django tests.cfit_test_salesReport">
     <configuration default="true" type="DjangoTestsConfigurationType" factoryName="Django tests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -401,27 +313,7 @@
       <option name="PARAMETERS" value="" />
       <method />
     </configuration>
-    <configuration default="true" type="tests" factoryName="Unittests">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="centralFitEstoque" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="" />
-      <option name="TEST_TYPE" value="TEST_SCRIPT" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
       <method />
     </configuration>
     <configuration default="true" type="Python.DjangoServer" factoryName="Django server">
@@ -447,7 +339,27 @@
       <option name="customRunCommand" value="" />
       <method />
     </configuration>
-    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
+    <configuration default="true" type="tests" factoryName="Unittests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="centralFitEstoque" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Doctests">
@@ -690,18 +602,18 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.328341" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2082658" sideWeight="0.43482795" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22042139" sideWeight="0.7609842" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.112059765" sideWeight="0.671659" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.11526147" sideWeight="0.7258065" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28341013" sideWeight="0.9605123" order="3" side_tool="false" content_ui="tabs" x="1920" y="280" width="1280" height="800" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23662885" sideWeight="0.28741497" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.35676625" sideWeight="0.50041497" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27419356" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27419356" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32949308" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.328341" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -745,11 +657,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/salesReport/factorys.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="29" selection-start="798" selection-end="798" vertical-scroll-proportion="0.2801358" vertical-offset="300" max-vertical-offset="1215">
-          <folding>
-            <element signature="e#47#61#0" expanded="true" />
-          </folding>
-        </state>
+        <state line="31" column="29" selection-start="798" selection-end="798" vertical-scroll-proportion="0.2801358" vertical-offset="300" max-vertical-offset="1215" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/salesReport/models.py">
@@ -768,28 +676,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/pedidos.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="16" selection-start="1522" selection-end="1695" vertical-scroll-proportion="-8.75" vertical-offset="345" max-vertical-offset="1545">
-          <folding />
-        </state>
+        <state line="37" column="16" selection-start="1522" selection-end="1695" vertical-scroll-proportion="-8.75" vertical-offset="345" max-vertical-offset="1545" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/salesReport/tests.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="354" column="54" selection-start="13023" selection-end="13023" vertical-scroll-proportion="0.0" vertical-offset="4908" max-vertical-offset="5760">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/salesReport/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="115" column="76" selection-start="4042" selection-end="4042" vertical-scroll-proportion="0.0" vertical-offset="1307" max-vertical-offset="12780">
-          <folding />
-        </state>
+        <state line="354" column="54" selection-start="13023" selection-end="13023" vertical-scroll-proportion="0.0" vertical-offset="4908" max-vertical-offset="5760" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/base.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="52" selection-start="1969" selection-end="1979" vertical-scroll-proportion="-10.0" vertical-offset="375" max-vertical-offset="1320">
+        <state line="41" column="52" selection-start="1969" selection-end="1979" vertical-scroll-proportion="0.0" vertical-offset="375" max-vertical-offset="1320">
           <folding />
         </state>
       </provider>
@@ -803,63 +700,33 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/resumo.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="33" selection-start="223" selection-end="223" vertical-scroll-proportion="0.19774011" vertical-offset="0" max-vertical-offset="735">
-          <folding />
-        </state>
+        <state line="7" column="33" selection-start="223" selection-end="223" vertical-scroll-proportion="0.19774011" vertical-offset="0" max-vertical-offset="735" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/cmm.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="9" selection-start="35" selection-end="35" vertical-scroll-proportion="0.028248588" vertical-offset="0" max-vertical-offset="1770">
+        <state line="1" column="9" selection-start="35" selection-end="35" vertical-scroll-proportion="0.028248588" vertical-offset="0" max-vertical-offset="1770" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/abc.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="62" selection-start="338" selection-end="338" vertical-scroll-proportion="0.0" vertical-offset="15" max-vertical-offset="1170">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dashboard/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="687" column="63" selection-start="28868" selection-end="28868" vertical-scroll-proportion="0.0" vertical-offset="891" max-vertical-offset="1515">
+        <state line="616" column="9" selection-start="26192" selection-end="26192" vertical-scroll-proportion="0.0" vertical-offset="8944" max-vertical-offset="10725">
           <folding>
-            <element signature="e#1053#2238#0" expanded="false" />
-            <element signature="e#2269#2334#0" expanded="false" />
-            <element signature="e#2366#4332#0" expanded="false" />
-            <element signature="e#2440#4332#0" expanded="false" />
-            <element signature="e#4381#7123#0" expanded="false" />
-            <element signature="e#7162#8510#0" expanded="false" />
-            <element signature="e#7248#8510#0" expanded="false" />
-            <element signature="e#8539#8693#0" expanded="false" />
-            <element signature="e#8736#8940#0" expanded="false" />
-            <element signature="e#8992#10270#0" expanded="false" />
-            <element signature="e#10301#12710#0" expanded="false" />
-            <element signature="e#10374#11724#0" expanded="false" />
-            <element signature="e#11776#11852#0" expanded="false" />
-            <element signature="e#11899#12710#0" expanded="false" />
-            <element signature="e#12756#14455#0" expanded="false" />
-            <element signature="e#14496#17179#0" expanded="false" />
-            <element signature="e#14579#15949#0" expanded="false" />
-            <element signature="e#16001#16087#0" expanded="false" />
-            <element signature="e#16134#17179#0" expanded="false" />
-            <element signature="e#17222#17294#0" expanded="false" />
-            <element signature="e#17348#17440#0" expanded="false" />
-            <element signature="e#17487#17553#0" expanded="false" />
-            <element signature="e#17593#19459#0" expanded="false" />
-            <element signature="e#19497#23952#0" expanded="false" />
-            <element signature="e#19582#19664#0" expanded="false" />
-            <element signature="e#19711#23952#0" expanded="false" />
-            <element signature="e#23987#25880#0" expanded="false" />
-            <element signature="e#24069#24149#0" expanded="false" />
-            <element signature="e#24195#25621#0" expanded="false" />
-            <element signature="e#25668#25880#0" expanded="false" />
-            <element signature="e#25911#27703#0" expanded="false" />
-            <element signature="e#25989#26065#0" expanded="false" />
-            <element signature="e#26111#27609#0" expanded="false" />
-            <element signature="e#27656#27703#0" expanded="false" />
+            <element signature="e#48#126#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/abc.html">
+    <entry file="file://$PROJECT_DIR$/salesReport/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="12" selection-start="38" selection-end="38" vertical-scroll-proportion="0.028248588" vertical-offset="0" max-vertical-offset="1170">
+        <state line="571" column="30" selection-start="23973" selection-end="23999" vertical-scroll-proportion="0.04152824" vertical-offset="8315" max-vertical-offset="12990">
           <folding />
         </state>
       </provider>
