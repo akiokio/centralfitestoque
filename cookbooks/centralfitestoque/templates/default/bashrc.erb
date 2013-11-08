@@ -1,0 +1,34 @@
+export EDITOR=vim
+
+function psg {
+    ps auxww | grep --color=always $* | grep -v grep | sed -e 's/  */ /g' | cut -d' ' -f 2,11-
+}
+
+alias ls='ls -h'
+alias l='ls'
+alias du='du -sh'
+alias rmpyc='find . -name "*.pyc" -exec rm {} \;'
+
+VENV=/opt/centralfitestoque/venvs/centralfitestoque
+VBIN=$VENV/bin
+APPS=/opt/centralfitestoque/apps
+MANAGEPY=$APPS/centralfitestoque/src/manage.py
+
+export USER="<%= node[:user] %>"
+
+function pm {
+    python manage.py $* --settings=centralfitestoque.settings_server
+}
+
+function run {
+    python $MANAGEPY runserver --settings=centralfitestoque.settings_server
+}
+
+function dbreset {
+    dropdb -U postgres centralfitestoque
+    createdb -U postgres centralfitestoque
+    python $MANAGEPY syncdb --noinput --settings=centralfitestoque.settings_server
+    python $MANAGEPY migrate --settings=centralfitestoque.settings_server
+}
+
+cd $APPS/centralfitestoque/src && source $VBIN/activate

@@ -1,0 +1,12 @@
+Django==1.6
+South==0.8.2
+argparse==1.2.1
+## FIXME: could not find svn URL in dependency_links for this package:
+cElementTree==1.0.5-20051216
+distribute==0.7.3
+django-cronjobs==0.2.3
+django-grappelli==2.4.7
+psycopg2==2.5.1
+wsgiref==0.1.2
+xlrd==0.9.2
+xlwt==0.7.5

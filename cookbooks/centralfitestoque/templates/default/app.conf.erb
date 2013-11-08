@@ -1,0 +1,7 @@
+[program:app]
+command=/opt/centralfitestoque/venvs/centralfitestoque/bin/gunicorn --config gunicorn-config.py centralfitestoque.wsgi:application
+user=www-data
+directory=/opt/centralfitestoque/apps/centralfitestoque/src
+autostart=false
+autorestart=true
+killasgroup=true
