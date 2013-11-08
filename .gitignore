@@ -2,7 +2,7 @@ database.db
 local_settings.py
 *.pyc
 env/
-.idea/
+.idea
 media/
 *.sql
 centralFitEstoque/media/csv_report/
