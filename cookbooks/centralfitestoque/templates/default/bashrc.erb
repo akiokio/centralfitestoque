@@ -11,17 +11,17 @@ alias rmpyc='find . -name "*.pyc" -exec rm {} \;'
 
 VENV=/opt/centralfitestoque/venvs/centralfitestoque
 VBIN=$VENV/bin
-APPS=/opt/centralfitestoque/apps
-MANAGEPY=$APPS/centralfitestoque/src/manage.py
+APPS=/vagrant/src/
+MANAGEPY=$APPS/manage.py
 
 export USER="<%= node[:user] %>"
 
 function pm {
-    python manage.py $* --settings=centralfitestoque.settings_server
+    python manage.py $*
 }
 
 function run {
-    python $MANAGEPY runserver --settings=centralfitestoque.settings_server
+    python $MANAGEPY runserver
 }
 
 function dbreset {
@@ -31,4 +31,4 @@ function dbreset {
     python $MANAGEPY migrate --settings=centralfitestoque.settings_server
 }
 
-cd $APPS/centralfitestoque/src && source $VBIN/activate
+cd $APPS/ && source $VBIN/activate

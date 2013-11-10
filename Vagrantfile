@@ -18,16 +18,16 @@ Vagrant.configure("2") do |config|
         chef.json  = {
             :user => "vagrant",
             :servername => "dev.centralfitestoque.com",
-            :dbname => "example",
-            :staticfiles => "/opt/centralfitestoque/apps/centralfitestoque/static/",
+            :dbname => "centralfitestoque",
+            :staticfiles => "/vagrant/src/centralFitEstoque/static/",
             :postgresql => {
                 :password => {
-                    :postgres  => "123456"
+                    :postgres  => "postgres"
                 }
             },
             :users => [
                 {
-                    :name => "honza",
+                    :name => "akiokio",
                     :key => "ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEArIzjs/UHIogXxUG1jHGuZF98O9fPuGwovaHzGGVm061XeeszNguCXAVXMYK58zrYeaJSPG5/LbdiU9/cRXn+wYiniMTUxQoVnAJ9dMScO46rvsL+oR/90FAuv7rIaYrKTGKhCL2G2WEYduIqRc3CjcF0FsGoY7pYOTzLniKHNJ0z6N4OBrvhx/SDdqb86EuJqgJtMkl9vsjtBjsi27FPc8cOEMZEQWAvMK4NVQgeQvuNW86zl4vwEsjEUcI3Q7T790cofZGyKFbbhgxR5ew5c5hWgidDRruwEVdqhdfnzxHiAWJpd7G2QiHo2hrysh9K4mW56w2OFzs/i8GwBeV2fw== me@honza.ca"
                 }
             ]

@@ -68,31 +68,31 @@ cookbook_file "/etc/sudoers" do
     mode 0440
 end
 
-directory "/opt/centralfitestoque" do
+directory "/vagrant/src/" do
     owner "www-data"
     group "deploy"
     mode 0770
 end
 
-directory "/opt/centralfitestoque/apps" do
+directory "/vagrant/src/centralFitEstoque" do
     owner "www-data"
     group "deploy"
     mode 0770
 end
 
-directory "/opt/centralfitestoque/apps/centralfitestoque" do
+directory "/vagrant/src/centralFitEstoque/media" do
     owner "www-data"
     group "deploy"
     mode 0770
 end
 
-directory "/opt/centralfitestoque/apps/centralfitestoque/media" do
+directory "/vagrant/src/centralFitEstoque/static" do
     owner "www-data"
     group "deploy"
     mode 0770
 end
 
-directory "/opt/centralfitestoque/apps/centralfitestoque/static" do
+directory "/opt/centralfitestoque/" do
     owner "www-data"
     group "deploy"
     mode 0770
@@ -172,4 +172,8 @@ python_virtualenv "/opt/centralfitestoque/venvs/centralfitestoque" do
     else
         owner "www-data"
     end
+end
+
+execute "install requirements" do
+    command "pip install -r requirements"
 end

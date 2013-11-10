@@ -17,10 +17,10 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'centralfit',                      # Or path to database file if using sqlite3.
+        'NAME': 'centralfitestoque',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
-        'USER': 'centralfit',
-        'PASSWORD': 'centralfit',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
         'HOST': '127.0.0.1',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '5432',                      # Set to empty string for default.
     }
@@ -66,7 +66,7 @@ MEDIA_URL = '/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/centralfitestoque.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = os.path.join(os.path.dirname(__file__), '..', 'static').replace('\\', '/'),
 
 # URL prefix for static files.
 # Example: "http://centralfitestoque.com/static/", "http://static.centralfitestoque.com/"
@@ -77,7 +77,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(SITE_ROOT, 'static'),
+    #os.path.join(SITE_ROOT, 'static'),
 )
 
 # List of finder classes that know how to find static files in
